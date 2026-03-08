@@ -1,0 +1,81 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: hukuk_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-hukuk_sitesi}
+      POSTGRES_USER: ${POSTGRES_USER:-hukuk_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - hukuk_network
+    # Port dışa açılmıyor — sadece iç network üzerinden erişilebilir
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-hukuk_user} -d ${POSTGRES_DB:-hukuk_sitesi}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: hukuk_app
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-hukuk_user}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-hukuk_sitesi}
+      AUTH_SECRET: ${AUTH_SECRET}
+      AUTH_URL: ${AUTH_URL}
+      NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL}
+      NEXT_PUBLIC_WHATSAPP_NUMBER: ${NEXT_PUBLIC_WHATSAPP_NUMBER}
+      NEXT_PUBLIC_MAPS_EMBED_URL: ${NEXT_PUBLIC_MAPS_EMBED_URL}
+      RESEND_API_KEY: ${RESEND_API_KEY}
+      DEEPL_API_KEY: ${DEEPL_API_KEY}
+      NODE_ENV: production
+    volumes:
+      - uploads_data:/app/public/uploads
+    networks:
+      - hukuk_network
+    expose:
+      - "3000"
+
+  nginx:
+    image: nginx:alpine
+    container_name: hukuk_nginx
+    restart: unless-stopped
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro
+      - certbot_www:/var/www/certbot:ro
+      - certbot_conf:/etc/letsencrypt:ro
+    networks:
+      - hukuk_network
+
+  certbot:
+    image: certbot/certbot
+    container_name: hukuk_certbot
+    volumes:
+      - certbot_www:/var/www/certbot
+      - certbot_conf:/etc/letsencrypt
+    # Manuel çalıştırılır: docker compose run certbot certonly ...
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
+volumes:
+  postgres_data:
+  uploads_data:
+  certbot_www:
+  certbot_conf:
+
+networks:
+  hukuk_network:
+    driver: bridge

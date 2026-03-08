@@ -1,0 +1,252 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  SUPER_ADMIN
+  EDITOR
+}
+
+enum ContactStatus {
+  UNREAD
+  READ
+  REPLIED
+  ARCHIVED
+}
+
+model AdminUser {
+  id           String     @id @default(cuid())
+  email        String     @unique
+  passwordHash String     @map("password_hash")
+  name         String
+  role         Role       @default(EDITOR)
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @updatedAt @map("updated_at")
+  posts        BlogPost[]
+
+  @@map("admin_users")
+}
+
+model BlogPost {
+  id            String    @id @default(cuid())
+  slug          String    @unique
+  titleTr       String    @map("title_tr")
+  titleEn       String?   @map("title_en")
+  contentTr     String    @map("content_tr") @db.Text
+  contentEn     String?   @map("content_en") @db.Text
+  excerptTr     String?   @map("excerpt_tr")
+  excerptEn     String?   @map("excerpt_en")
+  featuredImage String?   @map("featured_image")
+  isPublished   Boolean   @default(false) @map("is_published")
+  isFeatured    Boolean   @default(false) @map("is_featured")
+  publishedAt   DateTime? @map("published_at")
+  viewCount     Int       @default(0) @map("view_count")
+  metaTitleTr   String?   @map("meta_title_tr")
+  metaTitleEn   String?   @map("meta_title_en")
+  metaDescTr    String?   @map("meta_desc_tr")
+  metaDescEn    String?   @map("meta_desc_en")
+  authorId      String    @map("author_id")
+  author        AdminUser @relation(fields: [authorId], references: [id])
+  categoryId    String?   @map("category_id")
+  category      Category? @relation(fields: [categoryId], references: [id])
+  tags          TagsOnPosts[]
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+
+  @@map("blog_posts")
+}
+
+model Category {
+  id      String     @id @default(cuid())
+  slug    String     @unique
+  nameTr  String     @map("name_tr")
+  nameEn  String?    @map("name_en")
+  order   Int        @default(0)
+  posts   BlogPost[]
+
+  @@map("categories")
+}
+
+model Tag {
+  id     String        @id @default(cuid())
+  slug   String        @unique
+  nameTr String        @map("name_tr")
+  nameEn String?       @map("name_en")
+  posts  TagsOnPosts[]
+
+  @@map("tags")
+}
+
+model TagsOnPosts {
+  postId String   @map("post_id")
+  post   BlogPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+  tagId  String   @map("tag_id")
+  tag    Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([postId, tagId])
+  @@map("tags_on_posts")
+}
+
+model ContactSubmission {
+  id          String        @id @default(cuid())
+  name        String
+  email       String
+  phone       String?
+  subject     String
+  message     String        @db.Text
+  status      ContactStatus @default(UNREAD)
+  kvkkConsent Boolean       @default(false) @map("kvkk_consent")
+  createdAt   DateTime      @default(now()) @map("created_at")
+  updatedAt   DateTime      @updatedAt @map("updated_at")
+
+  @@map("contact_submissions")
+}
+
+model SiteSetting {
+  id      String  @id @default(cuid())
+  key     String  @unique
+  valueTr String? @map("value_tr") @db.Text
+  valueEn String? @map("value_en") @db.Text
+  group   String  @default("general")
+
+  @@map("site_settings")
+}
+
+model TeamMember {
+  id          String   @id @default(cuid())
+  nameTr      String   @map("name_tr")
+  nameEn      String?  @map("name_en")
+  roleTr      String   @map("role_tr")
+  roleEn      String?  @map("role_en")
+  specialtyTr String   @map("specialty_tr")
+  specialtyEn String?  @map("specialty_en")
+  image       String?
+  order       Int      @default(0)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("team_members")
+}
+
+model FaqItem {
+  id         String   @id @default(cuid())
+  questionTr String   @map("question_tr")
+  questionEn String?  @map("question_en")
+  answerTr   String   @map("answer_tr") @db.Text
+  answerEn   String?  @map("answer_en") @db.Text
+  order      Int      @default(0)
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@map("faq_items")
+}
+
+model PracticeArea {
+  id            String   @id @default(cuid())
+  slug          String   @unique
+  titleTr       String   @map("title_tr")
+  titleEn       String?  @map("title_en")
+  descriptionTr String   @map("description_tr") @db.Text
+  descriptionEn String?  @map("description_en") @db.Text
+  longDescTr    String   @map("long_desc_tr") @db.Text
+  longDescEn    String?  @map("long_desc_en") @db.Text
+  icon          String   @default("Shield")
+  image         String?
+  itemsTr       String   @map("items_tr") @db.Text
+  itemsEn       String?  @map("items_en") @db.Text
+  order         Int      @default(0)
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@map("practice_areas")
+}
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  nameTr    String   @map("name_tr")
+  nameEn    String?  @map("name_en")
+  roleTr    String   @map("role_tr")
+  roleEn    String?  @map("role_en")
+  textTr    String   @map("text_tr") @db.Text
+  textEn    String?  @map("text_en") @db.Text
+  order     Int      @default(0)
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("testimonials")
+}
+
+model HeroSlide {
+  id                     String   @id @default(cuid())
+  taglineTr              String   @map("tagline_tr")
+  taglineEn              String?  @map("tagline_en")
+  titleTr                String   @map("title_tr")
+  titleEn                String?  @map("title_en")
+  subtitleTr             String   @map("subtitle_tr") @db.Text
+  subtitleEn             String?  @map("subtitle_en") @db.Text
+  ctaTextTr              String   @map("cta_text_tr")
+  ctaTextEn              String?  @map("cta_text_en")
+  ctaLink                String   @map("cta_link")
+  secondaryCtaTextTr     String?  @map("secondary_cta_text_tr")
+  secondaryCtaTextEn     String?  @map("secondary_cta_text_en")
+  secondaryCtaLink       String?  @map("secondary_cta_link")
+  secondaryCtaIsExternal Boolean  @default(false) @map("secondary_cta_is_external")
+  order                  Int      @default(0)
+  isActive               Boolean  @default(true) @map("is_active")
+  createdAt              DateTime @default(now()) @map("created_at")
+  updatedAt              DateTime @updatedAt @map("updated_at")
+
+  @@map("hero_slides")
+}
+
+model Value {
+  id            String   @id @default(cuid())
+  titleTr       String   @map("title_tr")
+  titleEn       String?  @map("title_en")
+  descriptionTr String   @map("description_tr") @db.Text
+  descriptionEn String?  @map("description_en") @db.Text
+  icon          String   @default("Award")
+  order         Int      @default(0)
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@map("values")
+}
+
+model PageContent {
+  id        String   @id @default(cuid())
+  slug      String   @unique
+  titleTr   String   @map("title_tr")
+  titleEn   String?  @map("title_en")
+  contentTr String   @map("content_tr") @db.Text
+  contentEn String?  @map("content_en") @db.Text
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("page_contents")
+}
+
+model Popup {
+  id         String   @id @default(cuid())
+  titleTr    String   @map("title_tr")
+  titleEn    String?  @map("title_en")
+  messageTr  String   @map("message_tr") @db.Text
+  messageEn  String?  @map("message_en") @db.Text
+  type       String   @default("modal")
+  linkUrl    String?  @map("link_url")
+  linkTextTr String?  @map("link_text_tr")
+  linkTextEn String?  @map("link_text_en")
+  startDate  DateTime @map("start_date")
+  endDate    DateTime @map("end_date")
+  isActive   Boolean  @default(true) @map("is_active")
+  order      Int      @default(0)
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@map("popups")
+}

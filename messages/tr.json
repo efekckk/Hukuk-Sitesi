@@ -1,0 +1,358 @@
+{
+  "metadata": {
+    "title": "Hukuk Bürosu | Profesyonel Hukuki Danışmanlık",
+    "description": "Uzman avukat kadromuzla ceza hukuku, aile hukuku, iş hukuku ve daha birçok alanda profesyonel hukuki danışmanlık hizmeti sunuyoruz."
+  },
+  "topBar": {
+    "phone": "+90 212 123 45 67",
+    "email": "info@hukukburosu.com",
+    "address": "Levent, Besiktas/Istanbul"
+  },
+  "nav": {
+    "home": "Ana Sayfa",
+    "corporate": "Kurumsal",
+    "about": "Hakkımızda",
+    "team": "Ekibimiz",
+    "values": "Değerlerimiz",
+    "practiceAreas": "Uzmanlık Alanları",
+    "blog": "Blog",
+    "faq": "SSS",
+    "contact": "İletişim",
+    "kvkk": "KVKK",
+    "cookiePolicy": "Çerez Politikası"
+  },
+  "hero": {
+    "tagline": "HUKUK BÜROSU",
+    "title": "Güvenilir Hukuki Çözüm Ortağınız",
+    "subtitle": "Deneyimli avukat kadromuzla, hukuki süreçlerinizde yanınızdayız. Haklarınızı en etkin şekilde korumak için çalışıyoruz.",
+    "cta": "Ücretsiz Danışmanlık",
+    "secondaryCta": "Uzmanlık Alanlarımız"
+  },
+  "services": {
+    "title": "Uzmanlık Alanlarımız",
+    "subtitle": "Geniş yelpazedeki hukuki konularda profesyonel destek sunuyoruz",
+    "criminal": {
+      "title": "Ceza Hukuku",
+      "description": "Ceza davalarında savunma, soruşturma süreçleri ve tutukluluk halleri konusunda uzman destek.",
+      "slug": "ceza-hukuku",
+      "longDescription": "Ceza hukuku alanında uzman avukatlarımız, müvekkillerimizin haklarını en etkin şekilde korumak için çalışmaktadır. Soruşturma aşamasından yargılama sürecine kadar her adımda yanınızdayız. Deneyimli ekibimiz, ceza davalarında güçlü bir savunma stratejisi oluşturarak en iyi sonucu elde etmeyi hedefler.",
+      "items": ["Ağır Ceza Davaları", "Soruşturma Süreçleri", "Tutukluluk İtirazları", "Ceza Temyiz", "Uzlaştırma"]
+    },
+    "family": {
+      "title": "Aile Hukuku",
+      "description": "Boşanma, velayet, nafaka ve mal paylaşımı davalarında hukuki danışmanlık.",
+      "slug": "aile-hukuku",
+      "longDescription": "Aile hukuku alanında hassas ve profesyonel yaklaşımımızla müvekkillerimizin yanındayız. Boşanma, velayet, nafaka ve mal paylaşımı gibi konularda haklarınızı koruyarak en adil çözüme ulaşmanızı sağlıyoruz. Arabuluculuk ve dava süreçlerinde deneyimli ekibimiz sizinle birlikte çalışır.",
+      "items": ["Anlaşmalı Boşanma", "Çekişmeli Boşanma", "Velayet Davaları", "Nafaka Davaları", "Mal Paylaşımı"]
+    },
+    "labor": {
+      "title": "İş Hukuku",
+      "description": "İşçi-işveren uyuşmazlıkları, iş kazaları ve tazminat davaları.",
+      "slug": "is-hukuku",
+      "longDescription": "İş hukuku alanında işçi ve işveren haklarını korumak için kapsamlı hukuki hizmet sunuyoruz. İş sözleşmelerinden tazminat davalarına, iş kazalarından sendikal haklara kadar geniş bir yelpazede deneyimli kadromuzla yanınızdayız.",
+      "items": ["İşe İade Davaları", "Kıdem Tazminatı", "İhbar Tazminatı", "İş Kazası Davaları", "Mobbing Davaları"]
+    },
+    "commercial": {
+      "title": "Ticaret Hukuku",
+      "description": "Şirket kuruluşu, ticari sözleşmeler ve ticari uyuşmazlıkların çözümü.",
+      "slug": "ticaret-hukuku",
+      "longDescription": "Ticaret hukuku alanında şirketlerin ihtiyaç duyduğu tüm hukuki hizmetleri sunuyoruz. Şirket kuruluşu, birleşme ve devralmalar, ticari sözleşmelerin hazırlanması ve ticari uyuşmazlıkların çözümünde uzman kadromuzla yanınızdayız.",
+      "items": ["Şirket Kuruluşu", "Birleşme ve Devralma", "Ticari Sözleşmeler", "İflas ve Konkordato", "Haksız Rekabet"]
+    },
+    "administrative": {
+      "title": "İdare Hukuku",
+      "description": "İdari işlem ve eylemlere karşı iptal davaları ve tam yargı davaları.",
+      "slug": "idare-hukuku",
+      "longDescription": "İdare hukuku alanında bireylerin ve kurumların kamu idaresi karşısındaki haklarını korumak için çalışıyoruz. İdari işlemlerin iptali, tam yargı davaları ve idari sözleşmelerden kaynaklanan uyuşmazlıklarda uzman kadromuzla hizmet veriyoruz.",
+      "items": ["İptal Davaları", "Tam Yargı Davaları", "İdari Sözleşmeler", "Kamulaştırma Davaları", "Vergi Davaları"]
+    },
+    "realEstate": {
+      "title": "Gayrimenkul Hukuku",
+      "description": "Tapu işlemleri, kira uyuşmazlıkları ve imar hukuku konularında destek.",
+      "slug": "gayrimenkul-hukuku",
+      "longDescription": "Gayrimenkul hukuku alanında taşınmaz alım-satımından kira uyuşmazlıklarına, imar hukukundan kat mülkiyetine kadar geniş bir alanda hukuki danışmanlık sunuyoruz. Mülkiyet haklarınızı korumak ve gayrimenkul işlemlerinizi güvence altına almak için yanınızdayız.",
+      "items": ["Tapu İşlemleri", "Kira Uyuşmazlıkları", "İmar Hukuku", "Kat Mülkiyeti", "Tahliye Davaları"]
+    }
+  },
+  "featuredArticles": {
+    "title": "Güncel Yazılar",
+    "subtitle": "Hukuki gelişmeler ve bilgilendirici makaleler",
+    "viewAll": "Tüm Yazıları Gör"
+  },
+  "testimonials": {
+    "title": "Müvekkil Görüşleri",
+    "subtitle": "Müvekkillerimizin deneyimlerini paylaşıyoruz",
+    "items": [
+      {
+        "name": "Ahmet Y.",
+        "text": "Ceza davamda gösterdikleri profesyonel yaklaşım ve titiz çalışma sayesinde en iyi sonucu aldık. Teşekkür ederim.",
+        "role": "İş İnsanı"
+      },
+      {
+        "name": "Fatma K.",
+        "text": "Boşanma sürecimde beni her adımda bilgilendirdiler ve haklarımı en iyi şekilde korudular.",
+        "role": "Öğretmen"
+      },
+      {
+        "name": "Mehmet D.",
+        "text": "İş hukuku konusundaki uzmanlıkları sayesinde haklarımı eksiksiz aldım. Herkese tavsiye ederim.",
+        "role": "Mühendis"
+      }
+    ]
+  },
+  "cta": {
+    "title": "Hukuki Sorununuzu Çözelim",
+    "subtitle": "İlk görüşme ücretsizdir. Hemen bizimle iletişime geçin.",
+    "button": "Randevu Alın",
+    "phone": "Bizi Arayın"
+  },
+  "about": {
+    "title": "Hakkımızda",
+    "subtitle": "Deneyim ve güvenle hukuki çözümler",
+    "description": "20 yılı aşkın tecrübemizle, müvekkillerimize en yüksek kalitede hukuki danışmanlık ve avukatlık hizmeti sunuyoruz. Etik değerlere bağlılığımız ve müvekkil memnuniyeti odaklı yaklaşımımızla, hukuki süreçlerinizde güvenilir çözüm ortağınızız.",
+    "experience": "20+ Yıl Tecrübe",
+    "cases": "5000+ Başarılı Dava",
+    "clients": "3000+ Mutlu Müvekkil",
+    "team": "Ekibimiz",
+    "values": {
+      "title": "Değerlerimiz",
+      "integrity": {
+        "title": "Dürüstlük",
+        "description": "Her zaman şeffaf ve dürüst bir yaklaşım sergiliyoruz."
+      },
+      "expertise": {
+        "title": "Uzmanlık",
+        "description": "Sürekli kendimizi geliştirerek en güncel hukuki bilgiyle hizmet veriyoruz."
+      },
+      "dedication": {
+        "title": "Özveri",
+        "description": "Her davayı kendi davamız gibi sahipleniyoruz."
+      }
+    }
+  },
+  "practiceAreas": {
+    "title": "Uzmanlık Alanlarımız",
+    "subtitle": "Geniş kapsamlı hukuki hizmetlerimiz",
+    "description": "Her alanda uzman avukatlarımızla yanınızdayız.",
+    "contactUs": "Bize Ulaşın",
+    "detailLink": "Detaylı Bilgi",
+    "contactCta": "Hukuki danışmanlık için bizimle iletişime geçin",
+    "contactButton": "İletişime Geçin",
+    "ourServices": "Hizmetlerimiz"
+  },
+  "contact": {
+    "title": "İletişim",
+    "subtitle": "Bizimle iletişime geçin",
+    "form": {
+      "name": "Adınız Soyadınız",
+      "email": "E-posta Adresiniz",
+      "phone": "Telefon Numaranız",
+      "subject": "Konu",
+      "message": "Mesajınız",
+      "kvkkConsent": "KVKK Aydınlatma Metni'ni okudum ve onaylıyorum.",
+      "submit": "Mesaj Gönder",
+      "sending": "Gönderiliyor...",
+      "success": "Mesajınız başarıyla gönderildi. En kısa sürede size dönüş yapacağız.",
+      "error": "Bir hata oluştu. Lütfen tekrar deneyin."
+    },
+    "info": {
+      "address": "Adres",
+      "phone": "Telefon",
+      "email": "E-posta",
+      "hours": "Çalışma Saatleri",
+      "hoursValue": "Pazartesi - Cuma: 09:00 - 18:00",
+      "saturday": "Cumartesi: Randevu ile"
+    }
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Hukuki makaleler ve güncel gelişmeler",
+    "readMore": "Devamını Oku",
+    "publishedAt": "Yayın Tarihi",
+    "category": "Kategori",
+    "allCategories": "Tüm Kategoriler",
+    "noPosts": "Henüz yazı bulunmuyor.",
+    "share": "Paylaş",
+    "relatedPosts": "İlgili Yazılar"
+  },
+  "footer": {
+    "description": "Profesyonel hukuki danışmanlık ve avukatlık hizmetleri. Deneyimli kadromuzla haklarınızı koruyoruz.",
+    "quickLinks": "Hızlı Bağlantılar",
+    "legal": "Yasal",
+    "contact": "İletişim",
+    "rights": "Tüm hakları saklıdır.",
+    "kvkk": "KVKK Aydınlatma Metni",
+    "cookiePolicy": "Çerez Politikası",
+    "recentPosts": "Son Yayınlar",
+    "noPostsYet": "Yakında yeni içerikler yayınlanacak.",
+    "newsletter": "Bülten",
+    "newsletterDescription": "Hukuki gelişmelerden haberdar olmak için bültenimize abone olun.",
+    "emailPlaceholder": "E-posta adresiniz",
+    "subscribe": "Abone Ol",
+    "subscribeSuccess": "Bültenimize başarıyla abone oldunuz!",
+    "copyright": "Hukuk Bürosu. Tüm hakları saklıdır."
+  },
+  "cookie": {
+    "message": "Bu web sitesi, deneyiminizi iyileştirmek için çerezler kullanmaktadır.",
+    "accept": "Kabul Et",
+    "reject": "Reddet",
+    "learnMore": "Daha Fazla Bilgi"
+  },
+  "kvkk": {
+    "title": "KVKK Aydınlatma Metni",
+    "content": "6698 sayılı Kişisel Verilerin Korunması Kanunu kapsamında, kişisel verilerinizin işlenmesine ilişkin sizleri bilgilendirmek isteriz."
+  },
+  "cookiePolicy": {
+    "title": "Çerez Politikası",
+    "content": "Bu çerez politikası, web sitemizde kullanılan çerezler hakkında sizi bilgilendirmek amacıyla hazırlanmıştır."
+  },
+  "heroSlider": {
+    "slides": [
+      {
+        "tagline": "HUKUK BÜROSU",
+        "title": "Güvenilir Hukuki Çözüm Ortağınız",
+        "subtitle": "Deneyimli avukat kadromuzla, hukuki süreçlerinizde yanınızdayız. Haklarınızı en etkin şekilde korumak için çalışıyoruz.",
+        "cta": "Hakkımızda",
+        "secondaryCta": "Uzmanlık Alanları"
+      },
+      {
+        "tagline": "UZMANLIK ALANLARIMIZ",
+        "title": "Her Alanda Profesyonel Hukuki Destek",
+        "subtitle": "Ceza hukuku, aile hukuku, iş hukuku ve daha birçok alanda uzman avukatlarımızla yanınızdayız.",
+        "cta": "Alanlarımızı İnceleyin"
+      },
+      {
+        "tagline": "İLETİŞİM",
+        "title": "Hukuki Sorununuzu Birlikte Çözelim",
+        "subtitle": "İlk görüşme ücretsizdir. Hemen bizimle iletişime geçin ve haklarınızı öğrenin.",
+        "cta": "Bize Ulaşın",
+        "secondaryCta": "Bizi Arayın"
+      }
+    ]
+  },
+  "storyTabs": {
+    "tabs": {
+      "about": "Hakkımızda",
+      "contact": "İletişim"
+    },
+    "about": {
+      "title": "20 Yılı Aşkın Deneyim",
+      "description": "Hukuk büromuz, müvekkillerimize en yüksek kalitede hukuki danışmanlık ve avukatlık hizmeti sunmaktadır. Etik değerlere bağlılığımız ve müvekkil memnuniyeti odaklı yaklaşımımızla, hukuki süreçlerinizde güvenilir çözüm ortağınızız.",
+      "values": {
+        "integrity": "Dürüstlük ve Şeffaflık",
+        "expertise": "Uzman Kadro",
+        "dedication": "Müvekkil Odaklılık"
+      },
+      "cta": "Daha Fazla Bilgi"
+    },
+    "contact": {
+      "title": "Bize Ulaşın",
+      "address": "Levent Mah. Büyükdere Cad. No:123, Beşiktaş/İstanbul",
+      "phone": "+90 212 123 45 67",
+      "email": "info@hukukburosu.com",
+      "hours": "Pazartesi - Cuma: 09:00 - 18:00",
+      "saturday": "Cumartesi: Randevu ile",
+      "cta": "İletişim Sayfası"
+    }
+  },
+  "stats": {
+    "title": "Rakamlarla Biz",
+    "subtitle": "Yılların deneyimi ve binlerce başarılı dava",
+    "experience": {
+      "label": "Yıllık Deneyim"
+    },
+    "cases": {
+      "label": "Başarılı Dava"
+    },
+    "clients": {
+      "label": "Mutlu Müvekkil"
+    }
+  },
+  "teamPage": {
+    "description": "Hukuk büromuzun güçlü ve deneyimli avukat kadrosu, her biri kendi alanında uzmanlaşmış profesyonellerden oluşmaktadır. Müvekkillerimize en iyi hizmeti sunmak için sürekli kendimizi geliştiriyoruz."
+  },
+  "valuesPage": {
+    "title": "Değerlerimiz",
+    "subtitle": "İlkelerimiz ve çalışma felsefemiz",
+    "description": "Hukuk büromuz, müvekkillerimize en yüksek standartta hizmet sunmayı ilke edinmiştir. Değerlerimiz, her davada ve her müvekkil ilişkisinde rehberimizdir.",
+    "integrity": {
+      "title": "Dürüstlük",
+      "description": "Şeffaflık ve dürüstlük, hukuki süreçlerde en önemli değerlerimizdir. Müvekkillerimizle her zaman açık ve net iletişim kurar, sürecin her aşamasında bilgilendirme yaparız. Güven ilişkisi, başarılı bir avukat-müvekkil ilişkisinin temelidir."
+    },
+    "expertise": {
+      "title": "Uzmanlık",
+      "description": "Hukuk sürekli gelişen bir alan olup, ekibimiz güncel mevzuat ve içtihatları yakından takip eder. Düzenli eğitim ve seminerlerle kendimizi geliştirerek müvekkillerimize en doğru ve güncel hukuki bilgiyle hizmet veriyoruz."
+    },
+    "dedication": {
+      "title": "Özveri",
+      "description": "Her davayı kendi davamız gibi sahiplenir, müvekkillerimizin haklarını en etkin şekilde korumak için var gücümüzle çalışırız. Sonuç odaklı yaklaşımımız ve titiz çalışma anlayışımız ile en iyi sonucu elde etmeyi hedefliyoruz."
+    }
+  },
+  "team": {
+    "title": "Ekibimiz",
+    "subtitle": "Deneyimli ve uzman avukat kadromuz",
+    "members": [
+      {
+        "name": "Av. Ahmet Yılmaz",
+        "role": "Kurucu Ortak",
+        "specialty": "Ceza Hukuku"
+      },
+      {
+        "name": "Av. Elif Kaya",
+        "role": "Kıdemli Avukat",
+        "specialty": "Aile Hukuku"
+      },
+      {
+        "name": "Av. Mehmet Demir",
+        "role": "Kıdemli Avukat",
+        "specialty": "İş Hukuku"
+      },
+      {
+        "name": "Av. Zeynep Arslan",
+        "role": "Avukat",
+        "specialty": "Ticaret Hukuku"
+      }
+    ]
+  },
+  "faq": {
+    "title": "Sıkça Sorulan Sorular",
+    "subtitle": "Merak edilenler ve yanıtları",
+    "items": [
+      {
+        "question": "İlk görüşme ücretsiz mi?",
+        "answer": "Evet, ilk hukuki danışmanlık görüşmemiz ücretsizdir. Bu görüşmede davanızı değerlendirir ve size en uygun çözüm yolunu belirleriz."
+      },
+      {
+        "question": "Dava süreci ne kadar sürer?",
+        "answer": "Dava süresi, davanın türüne ve karmaşıklığına göre değişir. İlk görüşmede tahmini bir süre hakkında sizi bilgilendiririz."
+      },
+      {
+        "question": "Avukatlık ücretleri nasıl belirlenir?",
+        "answer": "Avukatlık ücretleri, davanın niteliğine göre belirlenir. İstanbul Barosu asgari ücret tarifesi temel alınarak, davanızın özelliklerine uygun bir ücret teklifi sunulur."
+      },
+      {
+        "question": "Online danışmanlık hizmeti veriyor musunuz?",
+        "answer": "Evet, yurt içi ve yurt dışındaki müvekkillerimize video konferans aracılığıyla online hukuki danışmanlık hizmeti sunmaktayız."
+      },
+      {
+        "question": "Hangi hukuk alanlarında hizmet veriyorsunuz?",
+        "answer": "Ceza hukuku, aile hukuku, iş hukuku, ticaret hukuku, idare hukuku ve gayrimenkul hukuku başta olmak üzere geniş bir yelpazede hukuki hizmet sunmaktayız."
+      }
+    ]
+  },
+  "common": {
+    "loading": "Yükleniyor...",
+    "error": "Bir hata oluştu",
+    "backToHome": "Ana Sayfaya Dön",
+    "search": "Ara",
+    "viewMore": "Daha Fazla",
+    "close": "Kapat"
+  },
+  "bentoGrid": {
+    "headline": "Neden Bizi Tercih Etmelisiniz?",
+    "subtext": "Yılların deneyimi, uzman kadro ve müvekkil odaklı yaklaşımımızla her alanda yanınızdayız.",
+    "ctaTitle": "Hukuki Danışmanlık",
+    "ctaButton": "Randevu Alın",
+    "detail": "Detay"
+  }
+}

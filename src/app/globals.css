@@ -1,0 +1,347 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #0a0a0a;
+  --foreground: #e5e5e5;
+  --primary: #0a0a0a;
+  --primary-light: #1a1a1a;
+  --primary-dark: #050505;
+  --secondary: #b68c5a;
+  --secondary-light: #c8a478;
+  --accent: #b68c5a;
+  --muted: #141414;
+  --muted-foreground: #737373;
+  --border: #1a1a1a;
+  --card: #111111;
+  --card-foreground: #e5e5e5;
+  --gold: #b68c5a;
+  --gold-light: #c8a478;
+  --topbar-bg: #050505;
+  --navbar-bg: rgba(10, 10, 10, 0.95);
+  /* Brand color scales */
+  --brand: #b68c5a;
+  --brand-50: #faf6f1;
+  --brand-100: #f0e6d8;
+  --brand-200: #e0ccb0;
+  --brand-300: #d4b896;
+  --brand-400: #c8a478;
+  --brand-500: #b68c5a;
+  --brand-600: #9a7349;
+  --brand-700: #7e5c38;
+  --brand-800: #654a2e;
+  --brand-900: #4d3823;
+  --teal: #314e52;
+  --teal-50: #eef4f5;
+  --teal-100: #d4e3e5;
+  --teal-200: #a8c6ca;
+  --teal-300: #7da9af;
+  --teal-400: #5a8a91;
+  --teal-500: #426a70;
+  --teal-600: #314e52;
+  --teal-700: #283f43;
+  --teal-800: #1e3538;
+  --teal-900: #152427;
+}
+
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-light: var(--primary-light);
+  --color-primary-dark: var(--primary-dark);
+  --color-secondary: var(--secondary);
+  --color-secondary-light: var(--secondary-light);
+  --color-accent: var(--accent);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-topbar-bg: var(--topbar-bg);
+  --color-navbar-bg: var(--navbar-bg);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-playfair);
+  /* Brand color scale for Tailwind */
+  --color-brand-50: var(--brand-50);
+  --color-brand-100: var(--brand-100);
+  --color-brand-200: var(--brand-200);
+  --color-brand-300: var(--brand-300);
+  --color-brand-400: var(--brand-400);
+  --color-brand-500: var(--brand-500);
+  --color-brand-600: var(--brand-600);
+  --color-brand-700: var(--brand-700);
+  --color-brand-800: var(--brand-800);
+  --color-brand-900: var(--brand-900);
+  /* Teal color scale for Tailwind */
+  --color-teal-50: var(--teal-50);
+  --color-teal-100: var(--teal-100);
+  --color-teal-200: var(--teal-200);
+  --color-teal-300: var(--teal-300);
+  --color-teal-400: var(--teal-400);
+  --color-teal-500: var(--teal-500);
+  --color-teal-600: var(--teal-600);
+  --color-teal-700: var(--teal-700);
+  --color-teal-800: var(--teal-800);
+  --color-teal-900: var(--teal-900);
+  /* Premium animation tokens */
+  --animate-marquee: marquee var(--duration) linear infinite;
+  --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+  --animate-shimmer-slide: shimmer-slide var(--speed) ease-in-out infinite alternate;
+  --animate-spin-around: spin-around calc(var(--speed) * 2) infinite linear;
+}
+
+body {
+  background: #0a0a0a;
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Accent frame for hero image */
+.gold-frame {
+  position: relative;
+  padding: 8px;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light), var(--gold));
+  border-radius: 0.5rem;
+}
+.gold-frame::before {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border: 1px solid var(--gold-light);
+  border-radius: 0.375rem;
+  pointer-events: none;
+}
+
+/* Admin panel light theme override */
+.admin-theme {
+  --background: #ffffff;
+  --foreground: #1a1a2e;
+  --primary: #1b3a5c;
+  --primary-light: #2d5f8a;
+  --primary-dark: #0f2440;
+  --secondary: #be123c;
+  --secondary-light: #e11d48;
+  --muted: #f5f5f0;
+  --muted-foreground: #6b7280;
+  --border: #e5e7eb;
+  --card: #ffffff;
+  --card-foreground: #1a1a2e;
+}
+
+/* Admin dark mode override */
+.dark .admin-theme {
+  --background: #030712;
+  --foreground: #f3f4f6;
+  --primary: #1b3a5c;
+  --primary-light: #2d5f8a;
+  --primary-dark: #0f2440;
+  --muted: #1f2937;
+  --muted-foreground: #9ca3af;
+  --border: #374151;
+  --card: #111827;
+  --card-foreground: #f3f4f6;
+}
+
+/* Tiptap editor styles */
+.tiptap {
+  outline: none;
+  min-height: 300px;
+  color: #1a1a2e;
+}
+
+.dark .tiptap {
+  color: #f3f4f6;
+}
+
+.tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: #9ca3af;
+  pointer-events: none;
+  height: 0;
+}
+
+.tiptap h1 { font-size: 2em; font-weight: 700; margin: 0.67em 0; }
+.tiptap h2 { font-size: 1.5em; font-weight: 600; margin: 0.83em 0; }
+.tiptap h3 { font-size: 1.17em; font-weight: 600; margin: 1em 0; }
+.tiptap p { margin: 1em 0; }
+.tiptap ul { list-style: disc; padding-left: 1.5em; }
+.tiptap ol { list-style: decimal; padding-left: 1.5em; }
+.tiptap blockquote {
+  border-left: 3px solid var(--primary);
+  padding-left: 1em;
+  margin: 1em 0;
+  color: var(--muted-foreground);
+}
+.tiptap a { color: var(--primary-light); text-decoration: underline; }
+.tiptap img { max-width: 100%; height: auto; border-radius: 0.5rem; }
+.tiptap code {
+  background: var(--muted);
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+}
+.tiptap pre {
+  background: #1a1a2e;
+  color: #e5e7eb;
+  padding: 1em;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+}
+.tiptap pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+/* Blog content styles (museum dark) */
+.prose h2 { font-size: 1.5em; font-weight: 600; margin: 1.5em 0 0.5em; color: var(--secondary); }
+.prose h3 { font-size: 1.25em; font-weight: 600; margin: 1.25em 0 0.5em; color: #e5e5e5; }
+.prose p { margin: 1em 0; line-height: 1.75; color: #a3a3a3; }
+.prose ul { list-style: disc; padding-left: 1.5em; margin: 1em 0; color: #a3a3a3; }
+.prose ol { list-style: decimal; padding-left: 1.5em; margin: 1em 0; color: #a3a3a3; }
+.prose li { margin: 0.25em 0; }
+.prose blockquote {
+  border-left: 4px solid var(--secondary);
+  padding: 0.5em 1em;
+  margin: 1.5em 0;
+  background: rgba(255,255,255,0.03);
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+.prose a { color: var(--secondary); text-decoration: underline; }
+.prose img { max-width: 100%; height: auto; border-radius: 0.5rem; margin: 1.5em 0; }
+
+/* Scroll animation */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Hero CTA pulse glow */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(182,140,90,0.15); }
+  50% { box-shadow: 0 0 40px rgba(182,140,90,0.3); }
+}
+
+/* News ticker scroll */
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Section divider: accent gradient line */
+.section-divider {
+  position: relative;
+}
+.section-divider::before {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  margin: 0 auto 1.5rem;
+  background: linear-gradient(90deg, var(--secondary), var(--secondary-light));
+  border-radius: 2px;
+}
+
+/* Subtle floating animation for decorative elements */
+@keyframes float-slow {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(0, -10px); }
+}
+
+.animate-float-slow { animation: float-slow 6s ease-in-out infinite; }
+
+/* Professional card styles (museum — no border, whitespace) */
+.pro-card {
+  background: #111111;
+  border: none;
+  border-radius: 0.75rem;
+  transition: all 0.4s ease;
+}
+
+.pro-card:hover {
+  background: #181818;
+}
+
+/* ─── Premium component keyframes (Magic UI / Aceternity) ─── */
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-100% - var(--gap))); }
+}
+
+@keyframes marquee-vertical {
+  from { transform: translateY(0); }
+  to { transform: translateY(calc(-100% - var(--gap))); }
+}
+
+@keyframes shimmer-slide {
+  to { transform: translate(calc(100cqw - 100%), 0); }
+}
+
+@keyframes spin-around {
+  0% { transform: translateZ(0) rotate(0); }
+  15%, 35% { transform: translateZ(0) rotate(90deg); }
+  65%, 85% { transform: translateZ(0) rotate(270deg); }
+  100% { transform: translateZ(0) rotate(360deg); }
+}
+
+/* ─── Louvre-inspired halo & particle animations ─── */
+
+@keyframes halo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes halo-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+@keyframes particle-float {
+  0% { transform: translateY(0) scale(1); opacity: 0; }
+  15% { opacity: 0.6; }
+  50% { transform: translateY(-80px) scale(1.1); opacity: 0.3; }
+  85% { opacity: 0; }
+  100% { transform: translateY(-150px) scale(0.6); opacity: 0; }
+}
+
+/* Museum dust — çok yavaş, neredeyse görünmez, havada süzülen tozlar */
+@keyframes dust-drift {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0;
+  }
+  5% {
+    opacity: 0.8;
+  }
+  25% {
+    transform: translate(30px, -40px) scale(1.1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-20px, -90px) scale(0.9);
+    opacity: 0.3;
+  }
+  75% {
+    transform: translate(15px, -140px) scale(1.05);
+    opacity: 0.15;
+  }
+  95% {
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-10px, -200px) scale(0.7);
+    opacity: 0;
+  }
+}
