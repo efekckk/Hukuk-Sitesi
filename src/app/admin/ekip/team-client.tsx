@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Plus, Pencil, Trash2, X, Check, Loader2, Upload, Users } from "lucide-react";
+import { useUnsavedChanges } from "@/hooks/use-unsaved-changes";
 
 interface TeamMember {
   id: string;
@@ -40,6 +41,8 @@ export function TeamClient({ initialMembers }: TeamClientProps) {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
   const [form, setForm] = useState(emptyForm);
+
+  useUnsavedChanges(editingId !== null || showAdd);
 
   const resetForm = () => {
     setForm(emptyForm);

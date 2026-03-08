@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Plus, Pencil, Trash2, X, Check, Loader2, HelpCircle } from "lucide-react";
+import { useUnsavedChanges } from "@/hooks/use-unsaved-changes";
 
 interface FaqItem {
   id: string;
@@ -32,6 +33,8 @@ export function FaqClient({ initialItems }: FaqClientProps) {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [form, setForm] = useState(emptyForm);
+
+  useUnsavedChanges(editingId !== null || showAdd);
 
   const resetForm = () => {
     setForm(emptyForm);

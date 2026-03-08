@@ -26,6 +26,8 @@ import {
   Quote,
   Megaphone,
   Bell,
+  Tag,
+  UserCog,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useDarkMode } from "./admin-dark-wrapper";
@@ -34,6 +36,7 @@ interface SidebarLink {
   href: string;
   label: string;
   icon: React.ComponentType<{ className?: string }>;
+  badge?: number;
 }
 
 interface SidebarGroup {
@@ -48,36 +51,40 @@ function isGroup(item: SidebarItem): item is SidebarGroup {
   return "children" in item;
 }
 
-const sidebarItems: SidebarItem[] = [
-  { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
-  {
-    label: "Sayfalar",
-    icon: Layers,
-    children: [
-      { href: "/admin/sayfalar/slider", label: "Slider", icon: SlidersHorizontal },
-      { href: "/admin/sayfalar/hakkimizda", label: "Hakkımızda", icon: Info },
-      { href: "/admin/sayfalar/degerlerimiz", label: "Değerlerimiz", icon: Heart },
-      { href: "/admin/sayfalar/iletisim", label: "İletişim", icon: Phone },
-      { href: "/admin/sayfalar/istatistikler", label: "İstatistikler", icon: BarChart3 },
-      { href: "/admin/sayfalar/referanslar", label: "Referanslar", icon: Quote },
-      { href: "/admin/sayfalar/cta", label: "CTA Bloğu", icon: Megaphone },
-      { href: "/admin/sayfalar/popup", label: "Popup Bildirimi", icon: Bell },
-    ],
-  },
-  {
-    label: "Blog",
-    icon: FileText,
-    children: [
-      { href: "/admin/yazilar", label: "Yazılar", icon: FileText },
-      { href: "/admin/kategoriler", label: "Kategoriler", icon: FolderOpen },
-    ],
-  },
-  { href: "/admin/uzmanlik-alanlari", label: "Uzmanlık Alanları", icon: Briefcase },
-  { href: "/admin/ekip", label: "Ekip", icon: Users },
-  { href: "/admin/sss", label: "SSS", icon: HelpCircle },
-  { href: "/admin/mesajlar", label: "Mesajlar", icon: MessageSquare },
-  { href: "/admin/ayarlar", label: "Ayarlar", icon: Settings },
-];
+function buildSidebarItems(unreadCount: number): SidebarItem[] {
+  return [
+    { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
+    {
+      label: "Sayfalar",
+      icon: Layers,
+      children: [
+        { href: "/admin/sayfalar/slider", label: "Slider", icon: SlidersHorizontal },
+        { href: "/admin/sayfalar/hakkimizda", label: "Hakkımızda", icon: Info },
+        { href: "/admin/sayfalar/degerlerimiz", label: "Değerlerimiz", icon: Heart },
+        { href: "/admin/sayfalar/iletisim", label: "İletişim", icon: Phone },
+        { href: "/admin/sayfalar/istatistikler", label: "İstatistikler", icon: BarChart3 },
+        { href: "/admin/sayfalar/referanslar", label: "Referanslar", icon: Quote },
+        { href: "/admin/sayfalar/cta", label: "CTA Bloğu", icon: Megaphone },
+        { href: "/admin/sayfalar/popup", label: "Popup Bildirimi", icon: Bell },
+      ],
+    },
+    {
+      label: "Blog",
+      icon: FileText,
+      children: [
+        { href: "/admin/yazilar", label: "Yazılar", icon: FileText },
+        { href: "/admin/kategoriler", label: "Kategoriler", icon: FolderOpen },
+        { href: "/admin/etiketler", label: "Etiketler", icon: Tag },
+      ],
+    },
+    { href: "/admin/uzmanlik-alanlari", label: "Uzmanlık Alanları", icon: Briefcase },
+    { href: "/admin/ekip", label: "Ekip", icon: Users },
+    { href: "/admin/sss", label: "SSS", icon: HelpCircle },
+    { href: "/admin/mesajlar", label: "Mesajlar", icon: MessageSquare, badge: unreadCount },
+    { href: "/admin/kullanicilar", label: "Kullanıcılar", icon: UserCog },
+    { href: "/admin/ayarlar", label: "Ayarlar", icon: Settings },
+  ];
+}
 
 function SidebarLinkItem({ link, pathname }: { link: SidebarLink; pathname: string }) {
   const isActive = pathname === link.href || pathname.startsWith(link.href + "/");
@@ -94,7 +101,12 @@ function SidebarLinkItem({ link, pathname }: { link: SidebarLink; pathname: stri
       )}
     >
       <Icon className="h-5 w-5 shrink-0" />
-      {link.label}
+      <span className="flex-1">{link.label}</span>
+      {link.badge != null && link.badge > 0 && (
+        <span className="ml-auto rounded-full bg-red-500 px-1.5 py-0.5 text-xs font-bold text-white">
+          {link.badge}
+        </span>
+      )}
     </Link>
   );
 }
@@ -154,7 +166,11 @@ function SidebarGroupItem({ group, pathname }: { group: SidebarGroup; pathname: 
   );
 }
 
-export function AdminSidebar() {
+interface AdminSidebarProps {
+  unreadCount?: number;
+}
+
+export function AdminSidebar({ unreadCount = 0 }: AdminSidebarProps) {
   const pathname = usePathname();
   const { isDark, toggle } = useDarkMode();
 
@@ -174,8 +190,8 @@ export function AdminSidebar() {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 space-y-1 px-3 py-4">
-        {sidebarItems.map((item) => {
+      <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4">
+        {buildSidebarItems(unreadCount).map((item) => {
           if (isGroup(item)) {
             return <SidebarGroupItem key={item.label} group={item} pathname={pathname} />;
           }

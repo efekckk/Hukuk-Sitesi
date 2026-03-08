@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Plus, Pencil, Trash2, X, Check, Loader2 } from "lucide-react";
+import { useUnsavedChanges } from "@/hooks/use-unsaved-changes";
 
 interface Category {
   id: string;
@@ -31,6 +32,8 @@ export function CategoriesClient({ initialCategories }: CategoriesClientProps) {
     slug: "",
     order: 0,
   });
+
+  useUnsavedChanges(editingId !== null || showAdd);
 
   const resetForm = () => {
     setForm({ nameTr: "", nameEn: "", slug: "", order: 0 });

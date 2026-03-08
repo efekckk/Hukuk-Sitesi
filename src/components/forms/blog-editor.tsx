@@ -28,6 +28,9 @@ import {
   FileText,
   Settings,
   Search,
+  AlertCircle,
+  CheckCircle,
+  ExternalLink,
 } from "lucide-react";
 import { slugify } from "@/lib/utils";
 
@@ -71,9 +74,13 @@ export function BlogEditor({ initialData }: BlogEditorProps) {
   const [activeTab, setActiveTab] = useState<"tr" | "en">("tr");
   const [saving, setSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
   const [categories, setCategories] = useState<Category[]>([]);
   const [tags, setTags] = useState<Tag[]>([]);
   const [uploadingImage, setUploadingImage] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+  const [linkModalOpen, setLinkModalOpen] = useState(false);
+  const [linkUrl, setLinkUrl] = useState("");
 
   const [formData, setFormData] = useState({
     slug: initialData?.slug || "",
@@ -164,9 +171,11 @@ export function BlogEditor({ initialData }: BlogEditorProps) {
         const data = await res.json();
         if (data.url) {
           currentEditor?.chain().focus().setImage({ src: data.url }).run();
+        } else {
+          setUploadError("Görsel yüklenemedi");
         }
       } catch {
-        alert("Gorsel yuklenemedi");
+        setUploadError("Görsel yüklenemedi");
       }
     };
     input.click();
@@ -189,9 +198,11 @@ export function BlogEditor({ initialData }: BlogEditorProps) {
         const data = await res.json();
         if (data.url) {
           setFormData((prev) => ({ ...prev, featuredImage: data.url }));
+        } else {
+          setUploadError("Görsel yüklenemedi");
         }
       } catch {
-        alert("Gorsel yuklenemedi");
+        setUploadError("Görsel yüklenemedi");
       } finally {
         setUploadingImage(false);
       }
@@ -200,20 +211,35 @@ export function BlogEditor({ initialData }: BlogEditorProps) {
   };
 
   const handleAddLink = useCallback(() => {
-    const url = prompt("URL girin:");
-    if (url && currentEditor) {
-      currentEditor.chain().focus().setLink({ href: url }).run();
+    const existing = currentEditor?.getAttributes("link").href || "";
+    setLinkUrl(existing);
+    setLinkModalOpen(true);
+  }, [currentEditor]);
+
+  const handleLinkConfirm = useCallback(() => {
+    if (linkUrl.trim() && currentEditor) {
+      const href = linkUrl.trim().startsWith("http") ? linkUrl.trim() : `https://${linkUrl.trim()}`;
+      currentEditor.chain().focus().setLink({ href }).run();
     }
+    setLinkModalOpen(false);
+    setLinkUrl("");
+  }, [linkUrl, currentEditor]);
+
+  const handleLinkRemove = useCallback(() => {
+    currentEditor?.chain().focus().unsetLink().run();
+    setLinkModalOpen(false);
+    setLinkUrl("");
   }, [currentEditor]);
 
   const handleSave = async (publish: boolean) => {
     if (!formData.titleTr.trim()) {
-      alert("Baslik (TR) zorunludur");
+      setSaveError("Başlık (TR) zorunludur");
       return;
     }
 
     setSaving(true);
     setSaveSuccess(false);
+    setSaveError(null);
     try {
       // Clean up empty strings to null for optional fields
       const payload = {
@@ -255,7 +281,7 @@ export function BlogEditor({ initialData }: BlogEditorProps) {
         router.refresh();
       }, 500);
     } catch (err) {
-      alert(err instanceof Error ? err.message : "Yazi kaydedilemedi");
+      setSaveError(err instanceof Error ? err.message : "Yazı kaydedilemedi");
     } finally {
       setSaving(false);
     }
@@ -295,8 +321,15 @@ export function BlogEditor({ initialData }: BlogEditorProps) {
 
           <div className="flex items-center gap-3">
             {saveSuccess && (
-              <span className="text-sm text-green-600 font-medium">
+              <span className="flex items-center gap-1 text-sm text-green-600 font-medium">
+                <CheckCircle className="w-4 h-4" />
                 Kaydedildi!
+              </span>
+            )}
+            {saveError && (
+              <span className="flex items-center gap-1 text-sm text-red-600 font-medium">
+                <AlertCircle className="w-4 h-4" />
+                {saveError}
               </span>
             )}
             <button
@@ -517,9 +550,15 @@ export function BlogEditor({ initialData }: BlogEditorProps) {
             <div className="flex items-center gap-2 mb-3">
               <ImageIcon className="w-4 h-4 text-gray-500 dark:text-gray-400" />
               <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">
-                One Cikan Gorsel
+                Öne Çıkan Görsel
               </h3>
             </div>
+            {uploadError && (
+              <p className="mb-2 flex items-center gap-1 text-xs text-red-500">
+                <AlertCircle className="w-3 h-3" />
+                {uploadError}
+              </p>
+            )}
             {formData.featuredImage ? (
               <div className="relative group">
                 <img
@@ -663,6 +702,54 @@ export function BlogEditor({ initialData }: BlogEditorProps) {
           </div>
         </div>
       </div>
+
+      {/* Link Modal */}
+      {linkModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+          <div className="w-full max-w-md rounded-xl bg-white dark:bg-gray-900 p-6 shadow-xl">
+            <div className="flex items-center gap-2 mb-4">
+              <ExternalLink className="w-5 h-5 text-blue-600" />
+              <h3 className="text-base font-semibold text-gray-900 dark:text-gray-100">
+                Link Ekle
+              </h3>
+            </div>
+            <input
+              type="url"
+              value={linkUrl}
+              onChange={(e) => setLinkUrl(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleLinkConfirm()}
+              autoFocus
+              placeholder="https://..."
+              className="w-full px-3 py-2 text-sm text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 bg-white dark:bg-gray-900 mb-4"
+            />
+            <div className="flex items-center gap-2 justify-end">
+              {currentEditor?.isActive("link") && (
+                <button
+                  type="button"
+                  onClick={handleLinkRemove}
+                  className="px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                >
+                  Linki Kaldır
+                </button>
+              )}
+              <button
+                type="button"
+                onClick={() => { setLinkModalOpen(false); setLinkUrl(""); }}
+                className="px-3 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+              >
+                İptal
+              </button>
+              <button
+                type="button"
+                onClick={handleLinkConfirm}
+                className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                Uygula
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

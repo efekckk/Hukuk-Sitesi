@@ -98,12 +98,26 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    // Update post
+    // Fetch existing post to preserve original publishedAt
+    const existing = await prisma.blogPost.findUnique({
+      where: { id },
+      select: { isPublished: true, publishedAt: true },
+    });
+
+    // Only set publishedAt when transitioning from draft → published
+    const wasPublished = existing?.isPublished ?? false;
+    const nowPublished = validationResult.data.isPublished;
+    const publishedAt = nowPublished
+      ? wasPublished
+        ? (existing?.publishedAt ?? new Date())
+        : new Date()
+      : null;
+
     const post = await prisma.blogPost.update({
       where: { id },
       data: {
         ...validationResult.data,
-        publishedAt: validationResult.data.isPublished ? new Date() : null,
+        publishedAt,
         tags: {
           deleteMany: {},
           create: tagIds?.map((tagId: string) => ({ tagId })) || [],
@@ -115,6 +129,29 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json(post);
   } catch (error) {
     console.error("Blog update error:", error);
+    return NextResponse.json({ error: "Sunucu hatası" }, { status: 500 });
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const session = await auth();
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Yetkisiz erişim" }, { status: 401 });
+    }
+
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return NextResponse.json({ error: "ID gerekli" }, { status: 400 });
+    }
+
+    await prisma.blogPost.delete({ where: { id } });
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("Blog delete error:", error);
     return NextResponse.json({ error: "Sunucu hatası" }, { status: 500 });
   }
 }
