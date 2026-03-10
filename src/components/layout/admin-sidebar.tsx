@@ -28,6 +28,7 @@ import {
   Bell,
   Tag,
   UserCog,
+  History,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useDarkMode } from "./admin-dark-wrapper";
@@ -82,6 +83,7 @@ function buildSidebarItems(unreadCount: number): SidebarItem[] {
     { href: "/admin/sss", label: "SSS", icon: HelpCircle },
     { href: "/admin/mesajlar", label: "Mesajlar", icon: MessageSquare, badge: unreadCount },
     { href: "/admin/kullanicilar", label: "Kullanıcılar", icon: UserCog },
+    { href: "/admin/aktivite-log", label: "Aktivite Logu", icon: History },
     { href: "/admin/ayarlar", label: "Ayarlar", icon: Settings },
   ];
 }

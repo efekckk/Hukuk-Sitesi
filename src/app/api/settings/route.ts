@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
+import { getUserRole, canAccess } from "@/lib/permissions";
+import { logAudit } from "@/lib/audit";
 
 export async function GET(request: NextRequest) {
   try {
@@ -24,6 +26,11 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: "Yetkisiz erişim" }, { status: 401 });
     }
 
+    const role = await getUserRole(session.user.id);
+    if (!role || !canAccess(role, "settings")) {
+      return NextResponse.json({ error: "Bu işlem için yetkiniz yok" }, { status: 403 });
+    }
+
     const body = await request.json();
 
     // Support batch update: array of settings
@@ -38,6 +45,9 @@ export async function PUT(request: NextRequest) {
         });
         results.push(setting);
       }
+
+      await logAudit({ userId: session.user.id, action: "UPDATE", entity: "SiteSetting", details: "Toplu güncelleme" });
+
       return NextResponse.json(results);
     }
 
@@ -52,6 +62,8 @@ export async function PUT(request: NextRequest) {
       where: { id },
       data: { valueTr, valueEn },
     });
+
+    await logAudit({ userId: session.user.id, action: "UPDATE", entity: "SiteSetting", entityId: id, details: setting.key });
 
     return NextResponse.json(setting);
   } catch (error) {

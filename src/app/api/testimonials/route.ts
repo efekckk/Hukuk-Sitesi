@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
+import { getUserRole, canAccess } from "@/lib/permissions";
+import { logAudit } from "@/lib/audit";
 
 export async function GET() {
   try {
@@ -19,6 +21,11 @@ export async function POST(request: NextRequest) {
     const session = await auth();
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Yetkisiz erişim" }, { status: 401 });
+    }
+
+    const role = await getUserRole(session.user.id);
+    if (!role || !canAccess(role, "testimonials")) {
+      return NextResponse.json({ error: "Bu işlem için yetkiniz yok" }, { status: 403 });
     }
 
     const body = await request.json();
@@ -41,6 +48,8 @@ export async function POST(request: NextRequest) {
       },
     });
 
+    await logAudit({ userId: session.user.id, action: "CREATE", entity: "Testimonial", entityId: item.id, details: nameTr });
+
     return NextResponse.json(item, { status: 201 });
   } catch (error) {
     console.error("Testimonial create error:", error);
@@ -53,6 +62,11 @@ export async function PUT(request: NextRequest) {
     const session = await auth();
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Yetkisiz erişim" }, { status: 401 });
+    }
+
+    const role = await getUserRole(session.user.id);
+    if (!role || !canAccess(role, "testimonials")) {
+      return NextResponse.json({ error: "Bu işlem için yetkiniz yok" }, { status: 403 });
     }
 
     const body = await request.json();
@@ -80,6 +94,8 @@ export async function PUT(request: NextRequest) {
       },
     });
 
+    await logAudit({ userId: session.user.id, action: "UPDATE", entity: "Testimonial", entityId: id, details: nameTr });
+
     return NextResponse.json(item);
   } catch (error) {
     console.error("Testimonial update error:", error);
@@ -94,6 +110,11 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: "Yetkisiz erişim" }, { status: 401 });
     }
 
+    const role = await getUserRole(session.user.id);
+    if (!role || !canAccess(role, "testimonials")) {
+      return NextResponse.json({ error: "Bu işlem için yetkiniz yok" }, { status: 403 });
+    }
+
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
 
@@ -102,6 +123,9 @@ export async function DELETE(request: NextRequest) {
     }
 
     await prisma.testimonial.delete({ where: { id } });
+
+    await logAudit({ userId: session.user.id, action: "DELETE", entity: "Testimonial", entityId: id });
+
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Testimonial delete error:", error);

@@ -1,12 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
+import { getUserRole, canAccess } from "@/lib/permissions";
+import { logAudit } from "@/lib/audit";
 
 export async function DELETE(request: NextRequest) {
   try {
     const session = await auth();
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Yetkisiz erişim" }, { status: 401 });
+    }
+
+    const role = await getUserRole(session.user.id);
+    if (!role || !canAccess(role, "messages")) {
+      return NextResponse.json({ error: "Bu işlem için yetkiniz yok" }, { status: 403 });
     }
 
     const body = await request.json();
@@ -17,6 +24,8 @@ export async function DELETE(request: NextRequest) {
     }
 
     await prisma.contactSubmission.delete({ where: { id } });
+
+    await logAudit({ userId: session.user.id, action: "DELETE", entity: "ContactSubmission", entityId: id });
 
     return NextResponse.json({ success: true });
   } catch (error) {
@@ -30,6 +39,11 @@ export async function PATCH(request: NextRequest) {
     const session = await auth();
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Yetkisiz erişim" }, { status: 401 });
+    }
+
+    const role = await getUserRole(session.user.id);
+    if (!role || !canAccess(role, "messages")) {
+      return NextResponse.json({ error: "Bu işlem için yetkiniz yok" }, { status: 403 });
     }
 
     const body = await request.json();
@@ -48,6 +62,8 @@ export async function PATCH(request: NextRequest) {
       where: { id },
       data: { status },
     });
+
+    await logAudit({ userId: session.user.id, action: "UPDATE", entity: "ContactSubmission", entityId: id, details: `Status: ${status}` });
 
     return NextResponse.json(submission);
   } catch (error) {

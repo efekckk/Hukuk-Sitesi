@@ -8,14 +8,17 @@ export default async function AdminUsersPage() {
   const session = await auth();
   if (!session) redirect("/admin/giris");
 
+  const currentUser = await prisma.adminUser.findUnique({
+    where: { id: session.user!.id! },
+    select: { role: true },
+  });
+  if (currentUser?.role !== "SUPER_ADMIN") {
+    redirect("/admin/dashboard");
+  }
+
   const users = await prisma.adminUser.findMany({
     select: { id: true, email: true, name: true, role: true, createdAt: true },
     orderBy: { createdAt: "asc" },
-  });
-
-  const currentUser = await prisma.adminUser.findUnique({
-    where: { id: session.user.id },
-    select: { role: true },
   });
 
   const isSuperAdmin = currentUser?.role === "SUPER_ADMIN";
@@ -43,7 +46,7 @@ export default async function AdminUsersPage() {
       </div>
       <UsersClient
         users={serialized}
-        currentUserId={session.user.id!}
+        currentUserId={session.user!.id!}
         isSuperAdmin={isSuperAdmin}
       />
     </div>

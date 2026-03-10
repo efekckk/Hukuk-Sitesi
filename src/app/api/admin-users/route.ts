@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import bcrypt from "bcryptjs";
+import { getUserRole, canAccess } from "@/lib/permissions";
+import { logAudit } from "@/lib/audit";
 
 export async function GET() {
   try {
@@ -27,6 +29,11 @@ export async function POST(request: NextRequest) {
     const session = await auth();
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Yetkisiz erişim" }, { status: 401 });
+    }
+
+    const userRole = await getUserRole(session.user.id);
+    if (!userRole || !canAccess(userRole, "admin-users")) {
+      return NextResponse.json({ error: "Bu işlem için yetkiniz yok" }, { status: 403 });
     }
 
     // Only SUPER_ADMIN can create new users
@@ -71,6 +78,8 @@ export async function POST(request: NextRequest) {
       select: { id: true, email: true, name: true, role: true, createdAt: true },
     });
 
+    await logAudit({ userId: session.user.id, action: "CREATE", entity: "AdminUser", entityId: user.id, details: email });
+
     return NextResponse.json(user, { status: 201 });
   } catch (error) {
     console.error("Admin user create error:", error);
@@ -83,6 +92,11 @@ export async function PUT(request: NextRequest) {
     const session = await auth();
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Yetkisiz erişim" }, { status: 401 });
+    }
+
+    const userRole = await getUserRole(session.user.id);
+    if (!userRole || !canAccess(userRole, "admin-users")) {
+      return NextResponse.json({ error: "Bu işlem için yetkiniz yok" }, { status: 403 });
     }
 
     const body = await request.json();
@@ -136,6 +150,8 @@ export async function PUT(request: NextRequest) {
       select: { id: true, email: true, name: true, role: true, createdAt: true },
     });
 
+    await logAudit({ userId: session.user.id, action: "UPDATE", entity: "AdminUser", entityId: id, details: user.name });
+
     return NextResponse.json(user);
   } catch (error) {
     console.error("Admin user update error:", error);
@@ -148,6 +164,11 @@ export async function DELETE(request: NextRequest) {
     const session = await auth();
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Yetkisiz erişim" }, { status: 401 });
+    }
+
+    const userRole = await getUserRole(session.user.id);
+    if (!userRole || !canAccess(userRole, "admin-users")) {
+      return NextResponse.json({ error: "Bu işlem için yetkiniz yok" }, { status: 403 });
     }
 
     const currentUser = await prisma.adminUser.findUnique({
@@ -177,6 +198,8 @@ export async function DELETE(request: NextRequest) {
     }
 
     await prisma.adminUser.delete({ where: { id } });
+
+    await logAudit({ userId: session.user.id, action: "DELETE", entity: "AdminUser", entityId: id });
 
     return NextResponse.json({ success: true });
   } catch (error) {

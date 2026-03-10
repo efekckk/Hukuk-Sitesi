@@ -10,21 +10,23 @@ export default async function AdminLayout({
 }) {
   const session = await auth();
 
-  const unreadCount = session
-    ? await prisma.contactSubmission.count({ where: { status: "UNREAD" } })
-    : 0;
+  if (!session) {
+    return (
+      <AdminDarkWrapper>
+        <div className="admin-theme">
+          {children}
+        </div>
+      </AdminDarkWrapper>
+    );
+  }
 
-  return session ? (
+  const unreadCount = await prisma.contactSubmission.count({ where: { status: "UNREAD" } });
+
+  return (
     <AdminDarkWrapper>
       <div className="admin-theme min-h-screen bg-gray-100 dark:bg-gray-950">
         <AdminSidebar unreadCount={unreadCount} />
         <main className="ml-64 min-h-screen p-8">{children}</main>
-      </div>
-    </AdminDarkWrapper>
-  ) : (
-    <AdminDarkWrapper>
-      <div className="admin-theme">
-        {children}
       </div>
     </AdminDarkWrapper>
   );

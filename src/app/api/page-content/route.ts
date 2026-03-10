@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
+import { getUserRole, canAccess } from "@/lib/permissions";
+import { logAudit } from "@/lib/audit";
 
 export async function GET(request: NextRequest) {
   try {
@@ -33,6 +35,11 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: "Yetkisiz erişim" }, { status: 401 });
     }
 
+    const role = await getUserRole(session.user.id);
+    if (!role || !canAccess(role, "page-content")) {
+      return NextResponse.json({ error: "Bu işlem için yetkiniz yok" }, { status: 403 });
+    }
+
     const body = await request.json();
     const { slug, titleTr, titleEn, contentTr, contentEn } = body;
 
@@ -60,6 +67,8 @@ export async function PUT(request: NextRequest) {
         contentEn: contentEn || null,
       },
     });
+
+    await logAudit({ userId: session.user.id, action: "UPDATE", entity: "PageContent", entityId: page.id, details: slug });
 
     return NextResponse.json(page);
   } catch (error) {

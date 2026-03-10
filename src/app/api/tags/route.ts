@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { slugify } from "@/lib/utils";
+import { getUserRole, canAccess } from "@/lib/permissions";
+import { logAudit } from "@/lib/audit";
 
 export async function GET() {
   try {
@@ -23,6 +25,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Yetkisiz erişim" }, { status: 401 });
     }
 
+    const role = await getUserRole(session.user.id);
+    if (!role || !canAccess(role, "tags")) {
+      return NextResponse.json({ error: "Bu işlem için yetkiniz yok" }, { status: 403 });
+    }
+
     const body = await request.json();
     const { nameTr, nameEn, slug: customSlug } = body;
 
@@ -42,6 +49,8 @@ export async function POST(request: NextRequest) {
       include: { _count: { select: { posts: true } } },
     });
 
+    await logAudit({ userId: session.user.id, action: "CREATE", entity: "Tag", entityId: tag.id, details: nameTr });
+
     return NextResponse.json(tag, { status: 201 });
   } catch (error) {
     console.error("Tag create error:", error);
@@ -54,6 +63,11 @@ export async function PUT(request: NextRequest) {
     const session = await auth();
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Yetkisiz erişim" }, { status: 401 });
+    }
+
+    const role = await getUserRole(session.user.id);
+    if (!role || !canAccess(role, "tags")) {
+      return NextResponse.json({ error: "Bu işlem için yetkiniz yok" }, { status: 403 });
     }
 
     const body = await request.json();
@@ -80,6 +94,8 @@ export async function PUT(request: NextRequest) {
       include: { _count: { select: { posts: true } } },
     });
 
+    await logAudit({ userId: session.user.id, action: "UPDATE", entity: "Tag", entityId: id, details: nameTr });
+
     return NextResponse.json(tag);
   } catch (error) {
     console.error("Tag update error:", error);
@@ -94,6 +110,11 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: "Yetkisiz erişim" }, { status: 401 });
     }
 
+    const role = await getUserRole(session.user.id);
+    if (!role || !canAccess(role, "tags")) {
+      return NextResponse.json({ error: "Bu işlem için yetkiniz yok" }, { status: 403 });
+    }
+
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
 
@@ -102,6 +123,8 @@ export async function DELETE(request: NextRequest) {
     }
 
     await prisma.tag.delete({ where: { id } });
+
+    await logAudit({ userId: session.user.id, action: "DELETE", entity: "Tag", entityId: id });
 
     return NextResponse.json({ success: true });
   } catch (error) {

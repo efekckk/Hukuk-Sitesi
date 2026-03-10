@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { blogPostSchema } from "@/lib/validations/blog";
 import { auth } from "@/lib/auth";
+import { getUserRole, canAccess } from "@/lib/permissions";
+import { logAudit } from "@/lib/audit";
 
 export async function GET(request: NextRequest) {
   try {
@@ -45,6 +47,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Yetkisiz erişim" }, { status: 401 });
     }
 
+    const role = await getUserRole(session.user.id);
+    if (!role || !canAccess(role, "blog")) {
+      return NextResponse.json({ error: "Bu işlem için yetkiniz yok" }, { status: 403 });
+    }
+
     const body = await request.json();
     const validationResult = blogPostSchema.safeParse(body);
 
@@ -69,6 +76,8 @@ export async function POST(request: NextRequest) {
       include: { category: true, author: true, tags: { include: { tag: true } } },
     });
 
+    await logAudit({ userId: session.user.id, action: "CREATE", entity: "BlogPost", entityId: post.id, details: postData.titleTr });
+
     return NextResponse.json(post, { status: 201 });
   } catch (error) {
     console.error("Blog create error:", error);
@@ -81,6 +90,11 @@ export async function PUT(request: NextRequest) {
     const session = await auth();
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Yetkisiz erişim" }, { status: 401 });
+    }
+
+    const role = await getUserRole(session.user.id);
+    if (!role || !canAccess(role, "blog")) {
+      return NextResponse.json({ error: "Bu işlem için yetkiniz yok" }, { status: 403 });
     }
 
     const body = await request.json();
@@ -126,6 +140,8 @@ export async function PUT(request: NextRequest) {
       include: { category: true, author: true, tags: { include: { tag: true } } },
     });
 
+    await logAudit({ userId: session.user.id, action: "UPDATE", entity: "BlogPost", entityId: id, details: validationResult.data.titleTr });
+
     return NextResponse.json(post);
   } catch (error) {
     console.error("Blog update error:", error);
@@ -140,6 +156,11 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: "Yetkisiz erişim" }, { status: 401 });
     }
 
+    const role = await getUserRole(session.user.id);
+    if (!role || !canAccess(role, "blog")) {
+      return NextResponse.json({ error: "Bu işlem için yetkiniz yok" }, { status: 403 });
+    }
+
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
 
@@ -148,6 +169,8 @@ export async function DELETE(request: NextRequest) {
     }
 
     await prisma.blogPost.delete({ where: { id } });
+
+    await logAudit({ userId: session.user.id, action: "DELETE", entity: "BlogPost", entityId: id });
 
     return NextResponse.json({ success: true });
   } catch (error) {

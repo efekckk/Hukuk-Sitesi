@@ -7,6 +7,14 @@ export default async function AdminSliderPage() {
   const session = await auth();
   if (!session) redirect("/admin/giris");
 
+  const currentUser = await prisma.adminUser.findUnique({
+    where: { id: session.user!.id! },
+    select: { role: true },
+  });
+  if (currentUser?.role !== "SUPER_ADMIN") {
+    redirect("/admin/dashboard");
+  }
+
   const items = await prisma.heroSlide.findMany({
     orderBy: { order: "asc" },
   });

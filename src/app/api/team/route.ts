@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
+import { getUserRole, canAccess } from "@/lib/permissions";
+import { logAudit } from "@/lib/audit";
 
 export async function GET() {
   try {
@@ -19,6 +21,11 @@ export async function POST(request: NextRequest) {
     const session = await auth();
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Yetkisiz erişim" }, { status: 401 });
+    }
+
+    const role = await getUserRole(session.user.id);
+    if (!role || !canAccess(role, "team")) {
+      return NextResponse.json({ error: "Bu işlem için yetkiniz yok" }, { status: 403 });
     }
 
     const body = await request.json();
@@ -44,6 +51,8 @@ export async function POST(request: NextRequest) {
       },
     });
 
+    await logAudit({ userId: session.user.id, action: "CREATE", entity: "TeamMember", entityId: member.id, details: nameTr });
+
     return NextResponse.json(member, { status: 201 });
   } catch (error) {
     console.error("Team create error:", error);
@@ -56,6 +65,11 @@ export async function PUT(request: NextRequest) {
     const session = await auth();
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Yetkisiz erişim" }, { status: 401 });
+    }
+
+    const role = await getUserRole(session.user.id);
+    if (!role || !canAccess(role, "team")) {
+      return NextResponse.json({ error: "Bu işlem için yetkiniz yok" }, { status: 403 });
     }
 
     const body = await request.json();
@@ -86,6 +100,8 @@ export async function PUT(request: NextRequest) {
       },
     });
 
+    await logAudit({ userId: session.user.id, action: "UPDATE", entity: "TeamMember", entityId: id, details: nameTr });
+
     return NextResponse.json(member);
   } catch (error) {
     console.error("Team update error:", error);
@@ -100,6 +116,11 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: "Yetkisiz erişim" }, { status: 401 });
     }
 
+    const role = await getUserRole(session.user.id);
+    if (!role || !canAccess(role, "team")) {
+      return NextResponse.json({ error: "Bu işlem için yetkiniz yok" }, { status: 403 });
+    }
+
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
 
@@ -108,6 +129,9 @@ export async function DELETE(request: NextRequest) {
     }
 
     await prisma.teamMember.delete({ where: { id } });
+
+    await logAudit({ userId: session.user.id, action: "DELETE", entity: "TeamMember", entityId: id });
+
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Team delete error:", error);

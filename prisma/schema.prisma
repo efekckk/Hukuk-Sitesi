@@ -28,8 +28,25 @@ model AdminUser {
   createdAt    DateTime   @default(now()) @map("created_at")
   updatedAt    DateTime   @updatedAt @map("updated_at")
   posts        BlogPost[]
+  auditLogs    AuditLog[]
 
   @@map("admin_users")
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  userId     String   @map("user_id")
+  user       AdminUser @relation(fields: [userId], references: [id], onDelete: Cascade)
+  action     String
+  entity     String
+  entityId   String?  @map("entity_id")
+  details    String?  @db.Text
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@index([userId])
+  @@index([entity])
+  @@index([createdAt])
+  @@map("audit_logs")
 }
 
 model BlogPost {
