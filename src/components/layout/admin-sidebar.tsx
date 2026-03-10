@@ -52,7 +52,7 @@ function isGroup(item: SidebarItem): item is SidebarGroup {
   return "children" in item;
 }
 
-function buildSidebarItems(unreadCount: number): SidebarItem[] {
+function buildSidebarItems(unreadCount: number, isSuperAdmin: boolean): SidebarItem[] {
   return [
     { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
     {
@@ -83,7 +83,7 @@ function buildSidebarItems(unreadCount: number): SidebarItem[] {
     { href: "/admin/sss", label: "SSS", icon: HelpCircle },
     { href: "/admin/mesajlar", label: "Mesajlar", icon: MessageSquare, badge: unreadCount },
     { href: "/admin/kullanicilar", label: "Kullanıcılar", icon: UserCog },
-    { href: "/admin/aktivite-log", label: "Aktivite Logu", icon: History },
+    ...(isSuperAdmin ? [{ href: "/admin/aktivite-log", label: "Aktivite Logu", icon: History }] : []),
     { href: "/admin/ayarlar", label: "Ayarlar", icon: Settings },
   ];
 }
@@ -170,9 +170,10 @@ function SidebarGroupItem({ group, pathname }: { group: SidebarGroup; pathname: 
 
 interface AdminSidebarProps {
   unreadCount?: number;
+  isSuperAdmin?: boolean;
 }
 
-export function AdminSidebar({ unreadCount = 0 }: AdminSidebarProps) {
+export function AdminSidebar({ unreadCount = 0, isSuperAdmin = false }: AdminSidebarProps) {
   const pathname = usePathname();
   const { isDark, toggle } = useDarkMode();
 
@@ -193,7 +194,7 @@ export function AdminSidebar({ unreadCount = 0 }: AdminSidebarProps) {
 
       {/* Navigation */}
       <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4">
-        {buildSidebarItems(unreadCount).map((item) => {
+        {buildSidebarItems(unreadCount, isSuperAdmin).map((item) => {
           if (isGroup(item)) {
             return <SidebarGroupItem key={item.label} group={item} pathname={pathname} />;
           }
