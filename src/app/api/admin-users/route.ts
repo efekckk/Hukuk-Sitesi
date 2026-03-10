@@ -45,6 +45,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "E-posta, ad ve şifre zorunludur" }, { status: 400 });
     }
 
+    // Domain kısıtlaması: sadece @aebhukuk.com uzantılı mailler eklenebilir
+    if (!email.trim().toLowerCase().endsWith("@aebhukuk.com")) {
+      return NextResponse.json({ error: "Sadece @aebhukuk.com uzantılı e-posta adresleri eklenebilir" }, { status: 400 });
+    }
+
     if (password.length < 8) {
       return NextResponse.json({ error: "Şifre en az 8 karakter olmalıdır" }, { status: 400 });
     }

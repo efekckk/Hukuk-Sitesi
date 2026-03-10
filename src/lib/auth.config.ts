@@ -3,6 +3,8 @@ import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { prisma } from "./prisma";
 
+const ALLOWED_EMAIL_DOMAIN = "aebhukuk.com";
+
 export const authConfig: NextAuthConfig = {
   providers: [
     Credentials({
@@ -14,8 +16,13 @@ export const authConfig: NextAuthConfig = {
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
 
+        const email = (credentials.email as string).toLowerCase().trim();
+
+        // Domain kısıtlaması: sadece @aebhukuk.com uzantılı mailler girebilir
+        if (!email.endsWith(`@${ALLOWED_EMAIL_DOMAIN}`)) return null;
+
         const user = await prisma.adminUser.findUnique({
-          where: { email: credentials.email as string },
+          where: { email },
         });
 
         if (!user) return null;
