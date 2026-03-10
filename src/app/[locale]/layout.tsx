@@ -2,7 +2,6 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
-import { TopBar } from "@/components/layout/top-bar";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { WhatsAppButton } from "@/components/whatsapp-button";
@@ -26,15 +25,9 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
 
   setRequestLocale(locale);
   const now = new Date();
-  const [messages, dbAreas, dbRecentPosts, dbPopups] = await Promise.all([
+  const [messages, dbAreas, dbPopups] = await Promise.all([
     getMessages(),
     prisma.practiceArea.findMany({ orderBy: { order: "asc" }, select: { slug: true, titleTr: true, titleEn: true, icon: true } }),
-    prisma.blogPost.findMany({
-      where: { isPublished: true },
-      orderBy: { publishedAt: "desc" },
-      take: 3,
-      select: { slug: true, titleTr: true, titleEn: true, publishedAt: true },
-    }),
     prisma.popup.findMany({
       where: { isActive: true, startDate: { lte: now }, endDate: { gte: now } },
       orderBy: { order: "asc" },
@@ -48,23 +41,16 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
     icon: a.icon,
   }));
 
-  const recentPosts = dbRecentPosts.map((p) => ({
-    title: (locale === "en" && p.titleEn) ? p.titleEn : p.titleTr,
-    slug: p.slug,
-    date: p.publishedAt ? p.publishedAt.toLocaleDateString(locale === "en" ? "en-US" : "tr-TR", { year: "numeric", month: "long", day: "numeric" }) : "",
-  }));
-
   return (
     <NextIntlClientProvider messages={messages}>
       <SmoothScroll>
         <AuroraBackground />
         <div className="relative z-10">
           <div className="fixed top-0 left-0 right-0 z-50">
-            <TopBar />
             <Navbar practiceAreas={practiceAreas} />
           </div>
-          <main className="min-h-screen pt-16 md:pt-[104px]">{children}</main>
-          <Footer recentPosts={recentPosts} />
+          <main className="min-h-screen pt-16">{children}</main>
+          <Footer locale={locale} />
         </div>
         <WhatsAppButton />
         <CookieConsent />

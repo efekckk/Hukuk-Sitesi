@@ -2,7 +2,6 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { prisma } from "@/lib/prisma";
 import { BlogCard } from "@/components/blog/blog-card";
-import { ArrowRight } from "lucide-react";
 import type { BlogPostWithRelations } from "@/types";
 
 interface FeaturedArticlesProps {
@@ -33,18 +32,28 @@ export async function FeaturedArticles({ locale }: FeaturedArticlesProps) {
   }
 
   return (
-    <section className="py-20 relative">
-      <div className="container mx-auto px-4">
-        <div className="section-divider pt-4 text-center mb-14">
-          <h2 className="text-3xl md:text-4xl font-bold font-heading text-white mb-4">
-            {t("title")}
-          </h2>
-          <p className="text-neutral-400 text-lg max-w-2xl mx-auto">
-            {t("subtitle")}
-          </p>
+    <section className="bg-[#f5f5f3] py-20">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        {/* Header */}
+        <div className="mb-16 flex items-end justify-between">
+          <div>
+            <h2 className="font-serif text-4xl font-light text-[#1a1a1a] lg:text-5xl">
+              {t("title")}
+            </h2>
+            <p className="mt-4 text-base text-[#666] max-w-xl">
+              {t("subtitle")}
+            </p>
+          </div>
+          <Link
+            href="/blog"
+            className="hidden sm:inline-flex items-center gap-3 text-sm tracking-[0.15em] uppercase text-[#1a1a1a] group"
+          >
+            <span className="h-px w-8 bg-black/40 transition-all duration-300 group-hover:w-14 group-hover:bg-black" />
+            {t("viewAll")}
+          </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
           {posts.map((post) => (
             <BlogCard
               key={post.id}
@@ -54,13 +63,13 @@ export async function FeaturedArticles({ locale }: FeaturedArticlesProps) {
           ))}
         </div>
 
-        <div className="text-center mt-12">
+        <div className="mt-10 sm:hidden">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-brand-400 hover:text-brand-300 font-medium text-lg transition-colors"
+            className="inline-flex items-center gap-3 text-sm tracking-[0.15em] uppercase text-[#1a1a1a] group"
           >
+            <span className="h-px w-8 bg-black/40 transition-all duration-300 group-hover:w-14 group-hover:bg-black" />
             {t("viewAll")}
-            <ArrowRight className="w-5 h-5" />
           </Link>
         </div>
       </div>

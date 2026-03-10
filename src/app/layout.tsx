@@ -1,31 +1,23 @@
 import type { Metadata } from "next";
-import { Geist, Inter, Playfair_Display } from "next/font/google";
+import { Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Warbler Banner alternatifi — ultra-thin editorial serif
+const cormorant = Cormorant_Garamond({
+  variable: "--font-serif",
   subsets: ["latin"],
-});
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
-});
-
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
   title: {
-    default: "Hukuk Bürosu | Profesyonel Hukuki Danışmanlık",
-    template: "%s | Hukuk Bürosu",
+    default: "AEB Avukatlık Ortaklığı | Hukuki Danışmanlık",
+    template: "%s | AEB Avukatlık Ortaklığı",
   },
   description:
-    "Uzman avukat kadromuzla ceza hukuku, aile hukuku, iş hukuku ve daha birçok alanda profesyonel hukuki danışmanlık hizmeti sunuyoruz.",
+    "Aşçı Etçi Benglian Avukatlık Ortaklığı — ticaret hukuku, uyuşmazlık çözümü ve kurumsal danışmanlık alanlarında uzmanlaşmış bağımsız hukuk bürosu.",
 };
 
 export default function RootLayout({
@@ -35,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr">
-      <body className={`${geistSans.variable} ${inter.variable} ${playfair.variable} antialiased`}>
+      <body className={`${cormorant.variable} antialiased`}>
         {children}
       </body>
     </html>

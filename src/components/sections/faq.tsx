@@ -2,11 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
-import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { AnimatePresence, motion } from "framer-motion";
-import { TracingBeam } from "@/components/tracing-beam";
-import { ScrollReveal } from "@/components/scroll-reveal";
 
 interface FaqItemData {
   question: string;
@@ -27,76 +23,84 @@ export function Faq({ items }: FaqProps) {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  const faqItems: FaqItemData[] = items && items.length > 0
-    ? items
-    : faqIndices.map((i) => ({
-        question: t(`items.${i}.question`),
-        answer: t(`items.${i}.answer`),
-      }));
+  const faqItems: FaqItemData[] =
+    items && items.length > 0
+      ? items
+      : faqIndices.map((i) => ({
+          question: t(`items.${i}.question`),
+          answer: t(`items.${i}.answer`),
+        }));
 
   return (
-    <section className="py-20 relative">
-      <div className="container mx-auto px-4">
-        <ScrollReveal>
-          <div className="section-divider pt-4 text-center mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold font-heading text-white mb-4">
+    <section className="bg-[#f5f5f3] py-24">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+
+        {/* Header — serif başlık + solda numara */}
+        <div className="mb-16 grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-12">
+          <div>
+            <p className="text-xs tracking-[0.2em] uppercase text-black/30 mb-3">SSS</p>
+            <h2 className="font-serif text-4xl font-light text-[#1a1a1a] leading-tight lg:text-5xl">
               {t("title")}
             </h2>
-            <p className="text-neutral-400 text-lg max-w-2xl mx-auto">
-              {t("subtitle")}
-            </p>
           </div>
-        </ScrollReveal>
+          <p className="text-[15px] leading-relaxed text-[#666] self-end">
+            {t("subtitle")}
+          </p>
+        </div>
 
-        <ScrollReveal delay={0.15}>
-          <TracingBeam className="max-w-3xl mx-auto">
-          <div className="space-y-4">
-            {faqItems.map((item, index) => {
-              const isOpen = openIndex === index;
-              return (
-                <div
-                  key={index}
-                  className={cn(
-                    "rounded-2xl overflow-hidden transition-all duration-500",
-                    isOpen ? "bg-[#161616]" : "bg-[#111]"
-                  )}
+        {/* Accordion */}
+        <div className="max-w-4xl">
+          {faqItems.map((item, index) => {
+            const isOpen = openIndex === index;
+            return (
+              <div
+                key={index}
+                className={cn(
+                  "border-t border-black/10 last:border-b",
+                  isOpen && "bg-white"
+                )}
+              >
+                <button
+                  onClick={() => toggle(index)}
+                  className="w-full flex items-start justify-between py-7 px-0 text-left group"
                 >
-                  <button
-                    onClick={() => toggle(index)}
-                    className="w-full flex items-center justify-between p-5 text-left"
-                  >
-                    <span className="text-white font-medium pr-4">
+                  {/* Numara + soru */}
+                  <div className="flex items-start gap-6 pr-8">
+                    <span className="font-serif text-sm text-black/20 mt-0.5 w-6 shrink-0 tabular-nums">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span className={cn(
+                      "font-serif text-lg font-light leading-snug transition-colors",
+                      isOpen ? "text-[#1a1a1a]" : "text-[#444] group-hover:text-[#1a1a1a]"
+                    )}>
                       {item.question}
                     </span>
-                    <motion.span
-                      animate={{ rotate: isOpen ? 180 : 0 }}
-                      transition={{ duration: 0.7 }}
-                      className="shrink-0"
-                    >
-                      <ChevronDown className="w-5 h-5 text-brand-400" />
-                    </motion.span>
-                  </button>
-                  <AnimatePresence initial={false}>
-                    {isOpen && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.7 }}
-                        className="overflow-hidden"
-                      >
-                        <div className="px-5 pb-5 text-neutral-400 leading-relaxed">
-                          {item.answer}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                  </div>
+
+                  {/* + / − işareti */}
+                  <span className={cn(
+                    "font-serif text-2xl font-light text-black/30 shrink-0 leading-none transition-all duration-300 mt-0.5",
+                    isOpen ? "text-black/60 rotate-0" : ""
+                  )}>
+                    {isOpen ? "−" : "+"}
+                  </span>
+                </button>
+
+                <div className={cn(
+                  "overflow-hidden transition-all duration-400",
+                  isOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+                )}>
+                  <div className="pl-12 pr-12 pb-8">
+                    <p className="text-[15px] leading-[1.9] text-[#555]">
+                      {item.answer}
+                    </p>
+                  </div>
                 </div>
-              );
-            })}
-          </div>
-        </TracingBeam>
-        </ScrollReveal>
+              </div>
+            );
+          })}
+        </div>
+
       </div>
     </section>
   );

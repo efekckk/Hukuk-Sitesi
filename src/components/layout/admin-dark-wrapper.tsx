@@ -22,8 +22,11 @@ export function AdminDarkWrapper({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const stored = localStorage.getItem("admin-dark-mode");
-    if (stored === "true") setIsDark(true);
-    setMounted(true);
+    const t = setTimeout(() => {
+      if (stored === "true") setIsDark(true);
+      setMounted(true);
+    }, 0);
+    return () => clearTimeout(t);
   }, []);
 
   useEffect(() => {

@@ -10,7 +10,7 @@ export default async function AdminLayout({
 }) {
   const session = await auth();
 
-  if (!session) {
+  if (!session || !session.user) {
     return (
       <AdminDarkWrapper>
         <div className="admin-theme">
@@ -29,11 +29,12 @@ export default async function AdminLayout({
   ]);
 
   const isSuperAdmin = currentUser?.role === "SUPER_ADMIN";
+  const role = currentUser?.role ?? "EDITOR";
 
   return (
     <AdminDarkWrapper>
       <div className="admin-theme min-h-screen bg-gray-100 dark:bg-gray-950">
-        <AdminSidebar unreadCount={unreadCount} isSuperAdmin={isSuperAdmin} />
+        <AdminSidebar unreadCount={unreadCount} isSuperAdmin={isSuperAdmin} role={role} />
         <main className="ml-64 min-h-screen p-8">{children}</main>
       </div>
     </AdminDarkWrapper>

@@ -52,8 +52,23 @@ function isGroup(item: SidebarItem): item is SidebarGroup {
   return "children" in item;
 }
 
-function buildSidebarItems(unreadCount: number, isSuperAdmin: boolean): SidebarItem[] {
-  return [
+// Items visible only to SUPER_ADMIN (top-level hrefs or group labels)
+const SUPER_ADMIN_ONLY_HREFS = new Set([
+  "/admin/uzmanlik-alanlari",
+  "/admin/ekip",
+  "/admin/kullanicilar",
+  "/admin/ayarlar",
+]);
+const SUPER_ADMIN_ONLY_GROUP_LABELS = new Set(["Sayfalar"]);
+
+function buildSidebarItems(
+  unreadCount: number,
+  isSuperAdmin: boolean,
+  role: string
+): SidebarItem[] {
+  const isEditor = role === "EDITOR";
+
+  const all: SidebarItem[] = [
     { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
     {
       label: "Sayfalar",
@@ -86,6 +101,14 @@ function buildSidebarItems(unreadCount: number, isSuperAdmin: boolean): SidebarI
     ...(isSuperAdmin ? [{ href: "/admin/aktivite-log", label: "Aktivite Logu", icon: History }] : []),
     { href: "/admin/ayarlar", label: "Ayarlar", icon: Settings },
   ];
+
+  if (!isEditor) return all;
+
+  // Filter out SUPER_ADMIN-only items for editors
+  return all.filter((item) => {
+    if (isGroup(item)) return !SUPER_ADMIN_ONLY_GROUP_LABELS.has(item.label);
+    return !SUPER_ADMIN_ONLY_HREFS.has(item.href);
+  });
 }
 
 function SidebarLinkItem({ link, pathname }: { link: SidebarLink; pathname: string }) {
@@ -171,9 +194,10 @@ function SidebarGroupItem({ group, pathname }: { group: SidebarGroup; pathname: 
 interface AdminSidebarProps {
   unreadCount?: number;
   isSuperAdmin?: boolean;
+  role?: string;
 }
 
-export function AdminSidebar({ unreadCount = 0, isSuperAdmin = false }: AdminSidebarProps) {
+export function AdminSidebar({ unreadCount = 0, isSuperAdmin = false, role = "EDITOR" }: AdminSidebarProps) {
   const pathname = usePathname();
   const { isDark, toggle } = useDarkMode();
 
@@ -194,7 +218,7 @@ export function AdminSidebar({ unreadCount = 0, isSuperAdmin = false }: AdminSid
 
       {/* Navigation */}
       <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4">
-        {buildSidebarItems(unreadCount, isSuperAdmin).map((item) => {
+        {buildSidebarItems(unreadCount, isSuperAdmin, role).map((item) => {
           if (isGroup(item)) {
             return <SidebarGroupItem key={item.label} group={item} pathname={pathname} />;
           }

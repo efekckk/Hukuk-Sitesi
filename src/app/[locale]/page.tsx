@@ -1,4 +1,4 @@
-import { HeroSlider } from "@/components/sections/hero-slider";
+import { Hero } from "@/components/sections/hero";
 import { StoryTabs } from "@/components/sections/story-tabs";
 import { HomepageBento } from "@/components/sections/homepage-bento";
 import { FeaturedArticles } from "@/components/sections/featured-articles";
@@ -21,7 +21,6 @@ export default async function HomePage({ params }: HomePageProps) {
     dbFaqItems,
     dbPracticeAreas,
     dbTestimonials,
-    dbHeroSlides,
     statsSettings,
     ctaSettings,
     phoneRawSetting,
@@ -30,7 +29,6 @@ export default async function HomePage({ params }: HomePageProps) {
     prisma.faqItem.findMany({ orderBy: { order: "asc" } }),
     prisma.practiceArea.findMany({ orderBy: { order: "asc" } }),
     prisma.testimonial.findMany({ where: { isActive: true }, orderBy: { order: "asc" } }),
-    prisma.heroSlide.findMany({ where: { isActive: true }, orderBy: { order: "asc" } }),
     prisma.siteSetting.findMany({ where: { group: "stats" } }),
     prisma.siteSetting.findMany({ where: { group: "cta" } }),
     prisma.siteSetting.findFirst({ where: { key: "phone_raw" } }),
@@ -59,19 +57,6 @@ export default async function HomePage({ params }: HomePageProps) {
     name: (locale === "en" && t.nameEn) ? t.nameEn : t.nameTr,
     role: (locale === "en" && t.roleEn) ? t.roleEn : t.roleTr,
     text: (locale === "en" && t.textEn) ? t.textEn : t.textTr,
-  }));
-
-  const heroSlides = dbHeroSlides.map((s) => ({
-    tagline: (locale === "en" && s.taglineEn) ? s.taglineEn : s.taglineTr,
-    title: (locale === "en" && s.titleEn) ? s.titleEn : s.titleTr,
-    subtitle: (locale === "en" && s.subtitleEn) ? s.subtitleEn : s.subtitleTr,
-    ctaText: (locale === "en" && s.ctaTextEn) ? s.ctaTextEn : s.ctaTextTr,
-    ctaLink: s.ctaLink,
-    secondaryCtaText: s.secondaryCtaTextTr
-      ? ((locale === "en" && s.secondaryCtaTextEn) ? s.secondaryCtaTextEn : s.secondaryCtaTextTr)
-      : undefined,
-    secondaryCtaLink: s.secondaryCtaLink || undefined,
-    secondaryCtaIsExternal: s.secondaryCtaIsExternal,
   }));
 
   // Build stats from settings
@@ -108,10 +93,7 @@ export default async function HomePage({ params }: HomePageProps) {
 
   return (
     <>
-      <HeroSlider
-        slides={heroSlides.length > 0 ? heroSlides : undefined}
-        tickerItems={practiceAreas.length > 0 ? practiceAreas.map((a) => a.title) : undefined}
-      />
+      <Hero locale={locale} />
       <GlowDivider />
       <StoryTabs />
       <GlowDivider />
@@ -122,9 +104,9 @@ export default async function HomePage({ params }: HomePageProps) {
       <GlowDivider />
       <FeaturedArticles locale={locale} />
       <GlowDivider />
-      <TeamCinematic members={teamMembers} />
+      <TeamCinematic members={teamMembers} locale={locale} />
       <GlowDivider />
-      <Testimonials testimonials={testimonials.length > 0 ? testimonials : undefined} />
+      <Testimonials testimonials={testimonials.length > 0 ? testimonials : undefined} locale={locale} />
       <GlowDivider />
       <Faq items={faqItems.length > 0 ? faqItems : undefined} />
       <GlowDivider />
@@ -134,6 +116,7 @@ export default async function HomePage({ params }: HomePageProps) {
         buttonText={ctaButtonText}
         phoneText={ctaPhoneText}
         phoneRaw={phoneRaw}
+        locale={locale}
       />
     </>
   );

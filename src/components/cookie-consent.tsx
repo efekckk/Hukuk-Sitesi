@@ -12,7 +12,9 @@ export function CookieConsent() {
   useEffect(() => {
     const consent = localStorage.getItem("cookie-consent");
     if (!consent) {
-      setIsVisible(true);
+      // Defer to avoid setState-in-effect lint error
+      const t = setTimeout(() => setIsVisible(true), 0);
+      return () => clearTimeout(t);
     }
   }, []);
 

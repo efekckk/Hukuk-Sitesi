@@ -27,6 +27,7 @@ export default function AdminLoginPage() {
       if (result?.error) {
         setError("E-posta veya parola hatali. Lutfen tekrar deneyin.");
       } else if (result?.ok) {
+        router.refresh();
         router.push("/admin/dashboard");
       }
     } catch {

@@ -44,4 +44,8 @@ next-env.d.ts
 /public/uploads/*
 !/public/uploads/.gitkeep
 
+# large media — canvas frames ve video sunucuya ayrı kopyalanır
+/public/frames/
+/public/videos/
+
 # prisma migrations tracked in git intentionally

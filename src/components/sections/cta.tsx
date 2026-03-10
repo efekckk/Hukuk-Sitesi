@@ -1,10 +1,6 @@
-"use client";
-
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Phone } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { ShimmerButton } from "@/components/ui/shimmer-button";
 
 interface CtaProps {
   title?: string;
@@ -12,10 +8,11 @@ interface CtaProps {
   buttonText?: string;
   phoneText?: string;
   phoneRaw?: string;
+  locale?: string;
 }
 
-export function Cta({ title, subtitle, buttonText, phoneText, phoneRaw }: CtaProps) {
-  const t = useTranslations("cta");
+export async function Cta({ title, subtitle, buttonText, phoneText, phoneRaw, locale = "tr" }: CtaProps) {
+  const t = await getTranslations({ locale, namespace: "cta" });
 
   const displayTitle = title || t("title");
   const displaySubtitle = subtitle || t("subtitle");
@@ -24,49 +21,35 @@ export function Cta({ title, subtitle, buttonText, phoneText, phoneRaw }: CtaPro
   const telLink = phoneRaw || "+902121234567";
 
   return (
-    <section className="py-20 relative overflow-hidden bg-[#0a0a0a]">
-      {/* Lighthouse metaphor background — chiaroscuro */}
-      <div className="absolute inset-0" aria-hidden="true">
-        <img
-          src="/images/cinematic/metaphor-lighthouse.jpg"
-          alt=""
-          className="w-full h-full object-cover"
-          style={{ filter: "grayscale(90%) contrast(1.3) brightness(0.3)", mixBlendMode: "lighten" }}
-        />
-      </div>
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-[#0a0a0a]/80" />
+    <section className="relative bg-[#0a0a0a] py-32 overflow-hidden">
+      {/* Background image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center opacity-10"
+        style={{ backgroundImage: "url('/images/gavel-stock.jpg')" }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/60 to-[#0a0a0a]" />
 
-      <div className="container mx-auto px-4 relative z-10">
-        <div className="relative text-center">
-          <h2 className="text-3xl md:text-4xl font-bold font-heading text-white mb-4">
-            {displayTitle}
-          </h2>
-          <p className="text-white/60 text-lg max-w-2xl mx-auto mb-10">
-            {displaySubtitle}
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/iletisim">
-              <ShimmerButton
-                shimmerColor="#b68c5a"
-                background="rgba(255, 255, 255, 1)"
-                className="h-14 px-10 text-base font-bold text-[#0a0a0a] shadow-lg"
-              >
-                {displayButton}
-              </ShimmerButton>
-            </Link>
-            <a
-              href={`tel:${telLink}`}
-              className={cn(
-                "inline-flex items-center justify-center gap-2",
-                "border-2 border-white/15 text-white font-medium",
-                "h-14 px-10 text-base rounded-full",
-                "hover:bg-white/[0.03] hover:border-white/30 transition-all duration-300"
-              )}
-            >
-              <Phone className="w-5 h-5" />
-              {displayPhone}
-            </a>
-          </div>
+      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 text-center">
+        <h2 className="font-serif text-4xl font-light text-white leading-tight lg:text-5xl xl:text-6xl max-w-3xl mx-auto">
+          {displayTitle}
+        </h2>
+        <p className="mt-6 text-base text-white/40 max-w-xl mx-auto">
+          {displaySubtitle}
+        </p>
+        <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+          <Link
+            href="/iletisim"
+            className="inline-block bg-white px-10 py-4 text-sm tracking-widest uppercase text-[#0a0a0a] font-medium transition-all hover:bg-white/90"
+          >
+            {displayButton}
+          </Link>
+          <a
+            href={`tel:${telLink}`}
+            className="inline-flex items-center gap-2 border border-white/20 px-10 py-4 text-sm tracking-widest uppercase text-white/60 transition-all hover:border-white/50 hover:text-white"
+          >
+            <Phone className="w-4 h-4" />
+            {displayPhone}
+          </a>
         </div>
       </div>
     </section>

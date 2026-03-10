@@ -5,6 +5,7 @@ import { BlogList } from "@/components/blog/blog-list";
 import { Pagination } from "@/components/ui/pagination";
 import { getLocalizedField } from "@/lib/utils";
 import { PageHero } from "@/components/sections/page-hero";
+import { cn } from "@/lib/utils";
 
 interface BlogPageProps {
   params: Promise<{ locale: string }>;
@@ -53,41 +54,50 @@ export default async function BlogPage({ params, searchParams }: BlogPageProps) 
   const totalPages = Math.ceil(totalCount / POSTS_PER_PAGE);
 
   return (
-    <>
-      <PageHero title={t("title")} subtitle={t("subtitle")} backgroundImage="/images/cinematic/inner-hero-writing.jpg" />
+    <main>
+      <PageHero
+        title={t("title")}
+        subtitle={t("subtitle")}
+        backgroundImage="/images/cinematic/inner-hero-writing.jpg"
+      />
 
-      <section className="py-16 bg-background">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex flex-wrap gap-3 mb-10 justify-center">
-            <Link
-              href="/blog"
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                !category
-                  ? "bg-secondary text-white"
-                  : "bg-muted text-muted-foreground hover:bg-secondary/10 hover:text-secondary"
-              }`}
-            >
-              {t("allCategories")}
-            </Link>
-            {categories.map((cat) => (
+      <section className="bg-[#0a0a0a] py-20">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          {/* Category filter */}
+          {categories.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-16">
               <Link
-                key={cat.id}
-                href={`/blog?category=${cat.slug}`}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-                  category === cat.slug
-                    ? "bg-secondary text-white"
-                    : "bg-muted text-muted-foreground hover:bg-secondary/10 hover:text-secondary"
-                }`}
+                href="/blog"
+                className={cn(
+                  "px-5 py-2 text-xs tracking-widest uppercase transition-all",
+                  !category
+                    ? "bg-white text-[#0a0a0a]"
+                    : "border border-white/20 text-white/40 hover:border-white/50 hover:text-white"
+                )}
               >
-                {getLocalizedField(cat, "name", locale)}
+                {t("allCategories")}
               </Link>
-            ))}
-          </div>
+              {categories.map((cat) => (
+                <Link
+                  key={cat.id}
+                  href={`/blog?category=${cat.slug}`}
+                  className={cn(
+                    "px-5 py-2 text-xs tracking-widest uppercase transition-all",
+                    category === cat.slug
+                      ? "bg-white text-[#0a0a0a]"
+                      : "border border-white/20 text-white/40 hover:border-white/50 hover:text-white"
+                  )}
+                >
+                  {getLocalizedField(cat, "name", locale)}
+                </Link>
+              ))}
+            </div>
+          )}
 
           <BlogList posts={posts as never} locale={locale} />
 
           {totalPages > 1 && (
-            <div className="mt-12">
+            <div className="mt-16">
               <Pagination
                 currentPage={currentPage}
                 totalPages={totalPages}
@@ -97,6 +107,6 @@ export default async function BlogPage({ params, searchParams }: BlogPageProps) 
           )}
         </div>
       </section>
-    </>
+    </main>
   );
 }

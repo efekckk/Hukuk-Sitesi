@@ -3,7 +3,13 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { Send, Loader2, CheckCircle } from "lucide-react";
+import { Loader2, CheckCircle } from "lucide-react";
+
+/* Ortak input className */
+const fieldClass =
+  "w-full px-0 py-3 bg-transparent border-0 border-b border-black/20 text-[#1a1a1a] text-sm placeholder:text-black/30 focus:outline-none focus:border-black transition-colors";
+
+const labelClass = "block text-xs tracking-[0.15em] uppercase text-black/40 mb-2";
 
 export function ContactForm() {
   const t = useTranslations("contact.form");
@@ -40,7 +46,7 @@ export function ContactForm() {
 
       setIsSuccess(true);
       (e.target as HTMLFormElement).reset();
-    } catch (err) {
+    } catch {
       setError(t("error"));
     } finally {
       setIsSubmitting(false);
@@ -49,72 +55,47 @@ export function ContactForm() {
 
   if (isSuccess) {
     return (
-      <div className="text-center py-8 px-4 bg-green-900/20 rounded-lg border border-green-500/30">
-        <CheckCircle className="w-12 h-12 text-green-400 mx-auto mb-4" />
-        <p className="text-green-300 font-medium">{t("success")}</p>
+      <div className="py-12 text-center border-t border-black/10">
+        <CheckCircle className="w-10 h-10 text-black/30 mx-auto mb-4" />
+        <p className="font-serif text-xl font-light text-[#1a1a1a]">{t("success")}</p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <form onSubmit={handleSubmit} className="space-y-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-foreground mb-1">
+          <label htmlFor="name" className={labelClass}>
             {t("name")} *
           </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            required
-            minLength={2}
-            className="w-full px-4 py-3 bg-muted border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-secondary/30 focus:border-secondary transition-colors"
-          />
+          <input type="text" id="name" name="name" required minLength={2} className={fieldClass} />
         </div>
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-foreground mb-1">
+          <label htmlFor="email" className={labelClass}>
             {t("email")} *
           </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            required
-            className="w-full px-4 py-3 bg-muted border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-secondary/30 focus:border-secondary transition-colors"
-          />
+          <input type="email" id="email" name="email" required className={fieldClass} />
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-1">
+          <label htmlFor="phone" className={labelClass}>
             {t("phone")}
           </label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            className="w-full px-4 py-3 bg-muted border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-secondary/30 focus:border-secondary transition-colors"
-          />
+          <input type="tel" id="phone" name="phone" className={fieldClass} />
         </div>
         <div>
-          <label htmlFor="subject" className="block text-sm font-medium text-foreground mb-1">
+          <label htmlFor="subject" className={labelClass}>
             {t("subject")} *
           </label>
-          <input
-            type="text"
-            id="subject"
-            name="subject"
-            required
-            minLength={3}
-            className="w-full px-4 py-3 bg-muted border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-secondary/30 focus:border-secondary transition-colors"
-          />
+          <input type="text" id="subject" name="subject" required minLength={3} className={fieldClass} />
         </div>
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-foreground mb-1">
+        <label htmlFor="message" className={labelClass}>
           {t("message")} *
         </label>
         <textarea
@@ -123,20 +104,21 @@ export function ContactForm() {
           required
           minLength={10}
           rows={5}
-          className="w-full px-4 py-3 bg-muted border border-border rounded-lg text-foreground focus:outline-none focus:ring-2 focus:ring-secondary/30 focus:border-secondary transition-colors resize-y"
+          className={`${fieldClass} resize-none`}
         />
       </div>
 
-      <div className="flex items-start gap-3">
+      {/* KVKK */}
+      <div className="flex items-start gap-4 pt-2">
         <input
           type="checkbox"
           id="kvkkConsent"
           name="kvkkConsent"
           required
-          className="mt-1 w-4 h-4 text-secondary border-border rounded focus:ring-secondary"
+          className="mt-0.5 w-4 h-4 border-black/20 accent-black"
         />
-        <label htmlFor="kvkkConsent" className="text-sm text-muted-foreground">
-          <Link href="/kvkk" className="text-secondary underline hover:text-secondary-light">
+        <label htmlFor="kvkkConsent" className="text-xs leading-relaxed text-[#777]">
+          <Link href="/kvkk" className="underline underline-offset-2 text-[#555] hover:text-black">
             {t("kvkkConsent")}
           </Link>{" "}
           *
@@ -144,26 +126,28 @@ export function ContactForm() {
       </div>
 
       {error && (
-        <p className="text-red-400 text-sm">{error}</p>
+        <p className="text-xs text-red-700 border-l-2 border-red-300 pl-3">{error}</p>
       )}
 
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="w-full md:w-auto px-8 py-3 bg-secondary text-white rounded-lg hover:bg-secondary-light transition-colors font-medium flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        {isSubmitting ? (
-          <>
-            <Loader2 className="w-5 h-5 animate-spin" />
-            {t("sending")}
-          </>
-        ) : (
-          <>
-            <Send className="w-5 h-5" />
-            {t("submit")}
-          </>
-        )}
-      </button>
+      <div className="pt-2">
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="inline-flex items-center gap-3 text-sm tracking-[0.15em] uppercase text-[#1a1a1a] group disabled:opacity-40"
+        >
+          {isSubmitting ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin text-black/40" />
+              {t("sending")}
+            </>
+          ) : (
+            <>
+              <span className="h-px w-8 bg-black/40 transition-all duration-300 group-hover:w-14 group-hover:bg-black" />
+              {t("submit")}
+            </>
+          )}
+        </button>
+      </div>
     </form>
   );
 }

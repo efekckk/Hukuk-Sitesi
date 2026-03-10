@@ -47,7 +47,8 @@ export function PopupNotification({ popups, locale }: PopupNotificationProps) {
   useEffect(() => {
     const dismissed = getDismissed();
     const firstUndismissed = popups.findIndex((p) => !dismissed.includes(p.id));
-    setCurrentIndex(firstUndismissed >= 0 ? firstUndismissed : null);
+    const t = setTimeout(() => setCurrentIndex(firstUndismissed >= 0 ? firstUndismissed : null), 0);
+    return () => clearTimeout(t);
   }, [popups]);
 
   const dismiss = useCallback(() => {

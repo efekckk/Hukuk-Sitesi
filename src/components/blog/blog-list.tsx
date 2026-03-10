@@ -10,7 +10,7 @@ export function BlogList({ posts, locale }: BlogListProps) {
   if (posts.length === 0) {
     return (
       <div className="text-center py-12">
-        <p className="text-muted-foreground text-lg">
+        <p className="text-white/40 text-base">
           {locale === "tr" ? "Henüz yazı bulunmuyor." : "No articles found."}
         </p>
       </div>

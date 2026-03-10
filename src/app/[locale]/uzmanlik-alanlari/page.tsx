@@ -1,114 +1,90 @@
-import { getTranslations } from 'next-intl/server';
-import { Link } from '@/i18n/navigation';
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import { PageHero } from "@/components/sections/page-hero";
-import {
-  Shield,
-  Heart,
-  Briefcase,
-  Building2,
-  Landmark,
-  Home,
-} from 'lucide-react';
-import type { LucideIcon } from 'lucide-react';
-import { prisma } from '@/lib/prisma';
+import { prisma } from "@/lib/prisma";
 
 interface PracticeAreasPageProps {
   params: Promise<{ locale: string }>;
 }
 
-const iconMap: Record<string, LucideIcon> = {
-  Shield,
-  Heart,
-  Briefcase,
-  Building2,
-  Landmark,
-  Home,
-};
-
-const fallbackAreas = [
-  { icon: Shield, key: 'criminal', slug: 'ceza-hukuku' },
-  { icon: Heart, key: 'family', slug: 'aile-hukuku' },
-  { icon: Briefcase, key: 'labor', slug: 'is-hukuku' },
-  { icon: Building2, key: 'commercial', slug: 'ticaret-hukuku' },
-  { icon: Landmark, key: 'administrative', slug: 'idare-hukuku' },
-  { icon: Home, key: 'realEstate', slug: 'gayrimenkul-hukuku' },
-] as const;
-
-export default async function PracticeAreasPage({
-  params,
-}: PracticeAreasPageProps) {
+export default async function PracticeAreasPage({ params }: PracticeAreasPageProps) {
   const { locale } = await params;
-  const t = await getTranslations('practiceAreas');
-  const ts = await getTranslations('services');
+  const t = await getTranslations("practiceAreas");
 
   const dbAreas = await prisma.practiceArea.findMany({
-    orderBy: { order: 'asc' },
+    orderBy: { order: "asc" },
   });
 
   return (
     <main>
-      {/* Hero Section */}
-      <PageHero title={t('title')} subtitle={t('subtitle')} backgroundImage="/images/cinematic/inner-hero-business.jpg" />
+      <PageHero
+        title={t("title")}
+        subtitle={t("subtitle")}
+        backgroundImage="/images/gavel-stock.jpg"
+      />
 
-      {/* Practice Areas Grid */}
-      <section className="py-16 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {dbAreas.length > 0
-              ? dbAreas.map((area) => {
-                  const Icon = iconMap[area.icon] || Shield;
-                  const title = (locale === 'en' && area.titleEn) ? area.titleEn : area.titleTr;
-                  const description = (locale === 'en' && area.descriptionEn) ? area.descriptionEn : area.descriptionTr;
-                  return (
-                    <div
-                      key={area.id}
-                      className="bg-card p-8 rounded-2xl hover:shadow-xl hover:shadow-secondary/10 transition-all duration-300 hover:scale-[1.03] border-l-4 border-secondary"
-                    >
-                      <div className="inline-flex items-center justify-center w-14 h-14 bg-secondary/10 rounded-full mb-5">
-                        <Icon className="w-7 h-7 text-secondary" />
-                      </div>
-                      <h3 className="text-xl font-semibold text-foreground mb-3">
-                        {title}
-                      </h3>
-                      <p className="text-muted-foreground mb-6 leading-relaxed">
+      <section className="bg-white py-16">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1">
+            {dbAreas.map((area, index) => {
+              const title =
+                locale === "en" && area.titleEn ? area.titleEn : area.titleTr;
+              const description =
+                locale === "en" && area.descriptionEn
+                  ? area.descriptionEn
+                  : area.descriptionTr;
+
+              // Alternate cards: odd-indexed with image overlay, even without
+              const cardImages = [
+                "/images/handshake.jpg",
+                null,
+                "/images/gavel-stock.jpg",
+                null,
+                "/images/lawyer-client.jpg",
+                null,
+                "/images/team-meeting.jpg",
+                null,
+              ];
+              const bgImage = cardImages[index % cardImages.length];
+
+              return (
+                <Link
+                  key={area.id}
+                  href={`/uzmanlik-alanlari/${area.slug}`}
+                  className="group relative aspect-square overflow-hidden bg-[#1a1a1a]"
+                >
+                  {/* Background photo or solid dark */}
+                  {bgImage ? (
+                    <img
+                      src={bgImage}
+                      alt=""
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      style={{ filter: "grayscale(30%) brightness(0.45)" }}
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-[#111] transition-colors duration-500 group-hover:bg-[#1a1a1a]" />
+                  )}
+
+                  {/* Gradient overlay for readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+                  {/* Content */}
+                  <div className="absolute inset-0 flex flex-col justify-end p-8">
+                    <h3 className="font-serif text-2xl font-light text-white leading-tight">
+                      {title}
+                    </h3>
+                    {description && (
+                      <p className="mt-3 text-sm leading-relaxed text-white/50 line-clamp-3">
                         {description}
                       </p>
-                      <Link
-                        href={`/uzmanlik-alanlari/${area.slug}`}
-                        className="inline-flex items-center text-secondary font-medium hover:text-secondary-light transition-colors"
-                      >
-                        {t('detailLink')}
-                        <span className="ml-2">&rarr;</span>
-                      </Link>
-                    </div>
-                  );
-                })
-              : fallbackAreas.map((area) => {
-                  const Icon = area.icon;
-                  return (
-                    <div
-                      key={area.key}
-                      className="bg-card p-8 rounded-2xl hover:shadow-xl hover:shadow-secondary/10 transition-all duration-300 hover:scale-[1.03] border-l-4 border-secondary"
-                    >
-                      <div className="inline-flex items-center justify-center w-14 h-14 bg-secondary/10 rounded-full mb-5">
-                        <Icon className="w-7 h-7 text-secondary" />
-                      </div>
-                      <h3 className="text-xl font-semibold text-foreground mb-3">
-                        {ts(`${area.key}.title`)}
-                      </h3>
-                      <p className="text-muted-foreground mb-6 leading-relaxed">
-                        {ts(`${area.key}.description`)}
-                      </p>
-                      <Link
-                        href={`/uzmanlik-alanlari/${area.slug}`}
-                        className="inline-flex items-center text-secondary font-medium hover:text-secondary-light transition-colors"
-                      >
-                        {t('detailLink')}
-                        <span className="ml-2">&rarr;</span>
-                      </Link>
-                    </div>
-                  );
-                })}
+                    )}
+                    <span className="mt-4 text-xs tracking-widest uppercase text-white/30 transition-colors group-hover:text-white/60">
+                      {t("detailLink")} →
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
