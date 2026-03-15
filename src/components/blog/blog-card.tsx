@@ -11,9 +11,7 @@ interface BlogCardProps {
 export function BlogCard({ post, locale }: BlogCardProps) {
   const title = getLocalizedField(post, "title", locale);
   const excerpt = getLocalizedField(post, "excerpt", locale);
-  const categoryName = post.category
-    ? getLocalizedField(post.category, "name", locale)
-    : null;
+  const categoryName = post.category ? getLocalizedField(post.category, "name", locale) : null;
 
   return (
     <article className="group flex flex-col">
@@ -26,24 +24,24 @@ export function BlogCard({ post, locale }: BlogCardProps) {
           />
         </Link>
       )}
-      <div className="flex flex-col flex-1 pt-6">
+      <div className="flex flex-col flex-1" style={{ paddingTop: "var(--space-lg)" }}>
         {categoryName && (
-          <span className="text-xs tracking-widest uppercase text-white/30 mb-3">
+          <span className="tracking-widest uppercase text-white/30" style={{ fontSize: "var(--fs-micro)", marginBottom: "var(--space-xs)" }}>
             {categoryName}
           </span>
         )}
         <Link href={`/blog/${post.slug}`}>
-          <h3 className="font-serif text-xl font-light text-white leading-snug transition-colors group-hover:text-white/70 line-clamp-2">
+          <h3 className="font-serif font-light text-white leading-snug transition-colors group-hover:text-white/70 line-clamp-2" style={{ fontSize: "var(--fs-xl)" }}>
             {title}
           </h3>
         </Link>
         {excerpt && (
-          <p className="mt-3 text-sm leading-relaxed text-white/40 line-clamp-3 flex-1">
+          <p className="leading-relaxed text-white/40 line-clamp-3 flex-1" style={{ fontSize: "var(--fs-sm)", marginTop: "var(--space-xs)" }}>
             {excerpt}
           </p>
         )}
-        <div className="mt-4 flex items-center gap-2 text-xs text-white/20">
-          <Calendar className="w-3 h-3" />
+        <div className="flex items-center text-white/20" style={{ fontSize: "var(--fs-micro)", marginTop: "var(--space-sm)", gap: "var(--space-xs)" }}>
+          <Calendar style={{ width: "0.85em", height: "0.85em" }} />
           <time dateTime={post.publishedAt?.toISOString()}>
             {post.publishedAt ? formatDate(post.publishedAt, locale) : ""}
           </time>

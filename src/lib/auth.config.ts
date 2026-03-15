@@ -2,6 +2,7 @@ import type { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { prisma } from "./prisma";
+import { rateLimit, RATE_LIMITS } from "./rate-limit";
 
 const ALLOWED_EMAIL_DOMAIN = "aebhukuk.com";
 
@@ -20,6 +21,10 @@ export const authConfig: NextAuthConfig = {
 
         // Domain kısıtlaması: sadece @aebhukuk.com uzantılı mailler girebilir
         if (!email.endsWith(`@${ALLOWED_EMAIL_DOMAIN}`)) return null;
+
+        // Brute force koruması: IP yerine email bazlı (credentials'tan IP alınamaz)
+        const rl = rateLimit(`auth-login:${email}`, RATE_LIMITS.auth);
+        if (!rl.success) return null;
 
         const user = await prisma.adminUser.findUnique({
           where: { email },
@@ -65,4 +70,8 @@ export const authConfig: NextAuthConfig = {
   session: {
     strategy: "jwt",
   },
+  jwt: {
+    maxAge: 8 * 60 * 60, // 8 saat
+  },
+  trustHost: true,
 };

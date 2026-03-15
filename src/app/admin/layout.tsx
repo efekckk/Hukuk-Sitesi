@@ -10,31 +10,34 @@ export default async function AdminLayout({
 }) {
   const session = await auth();
 
-  if (!session || !session.user) {
-    return (
-      <AdminDarkWrapper>
-        <div className="admin-theme">
-          {children}
-        </div>
-      </AdminDarkWrapper>
-    );
+  let unreadCount = 0;
+  let isSuperAdmin = false;
+  let role = "EDITOR";
+  let userName = "";
+
+  if (session?.user?.id) {
+    const [count, currentUser] = await Promise.all([
+      prisma.contactSubmission.count({ where: { status: "UNREAD" } }),
+      prisma.adminUser.findUnique({
+        where: { id: session.user.id },
+        select: { role: true, name: true },
+      }),
+    ]);
+    unreadCount = count;
+    isSuperAdmin = currentUser?.role === "SUPER_ADMIN";
+    role = currentUser?.role ?? "EDITOR";
+    userName = currentUser?.name ?? session.user.name ?? "";
   }
-
-  const [unreadCount, currentUser] = await Promise.all([
-    prisma.contactSubmission.count({ where: { status: "UNREAD" } }),
-    prisma.adminUser.findUnique({
-      where: { id: session.user.id },
-      select: { role: true },
-    }),
-  ]);
-
-  const isSuperAdmin = currentUser?.role === "SUPER_ADMIN";
-  const role = currentUser?.role ?? "EDITOR";
 
   return (
     <AdminDarkWrapper>
       <div className="admin-theme min-h-screen bg-gray-100 dark:bg-gray-950">
-        <AdminSidebar unreadCount={unreadCount} isSuperAdmin={isSuperAdmin} role={role} />
+        <AdminSidebar
+          unreadCount={unreadCount}
+          isSuperAdmin={isSuperAdmin}
+          role={role}
+          userName={userName}
+        />
         <main className="ml-64 min-h-screen p-8">{children}</main>
       </div>
     </AdminDarkWrapper>

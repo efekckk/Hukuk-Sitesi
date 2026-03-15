@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Plus, Pencil, Trash2, X, Check, Tag } from "lucide-react";
+import { Plus, Pencil, Trash2, X, Check } from "lucide-react";
 
 interface TagItem {
   id: string;

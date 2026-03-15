@@ -32,28 +32,29 @@ export async function FeaturedArticles({ locale }: FeaturedArticlesProps) {
   }
 
   return (
-    <section className="bg-[#f5f5f3] py-20">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <section className="bg-[#f5f5f3]" style={{ padding: "var(--section-py) var(--section-px)" }}>
+      <div className="mx-auto max-w-7xl">
         {/* Header */}
-        <div className="mb-16 flex items-end justify-between">
+        <div className="flex items-end justify-between" style={{ marginBottom: "var(--space-2xl)" }}>
           <div>
-            <h2 className="font-serif text-4xl font-light text-[#1a1a1a] lg:text-5xl">
+            <h2 className="font-serif font-light text-[#1a1a1a]" style={{ fontSize: "var(--fs-4xl)" }}>
               {t("title")}
             </h2>
-            <p className="mt-4 text-base text-[#666] max-w-xl">
+            <p className="text-[#666]" style={{ fontSize: "var(--fs-base)", marginTop: "var(--space-sm)", maxWidth: "36rem" }}>
               {t("subtitle")}
             </p>
           </div>
           <Link
             href="/blog"
-            className="hidden sm:inline-flex items-center gap-3 text-sm tracking-[0.15em] uppercase text-[#1a1a1a] group"
+            className="hidden sm:inline-flex items-center gap-3 tracking-[0.15em] uppercase text-[#1a1a1a] group"
+            style={{ fontSize: "var(--fs-xs)" }}
           >
             <span className="h-px w-8 bg-black/40 transition-all duration-300 group-hover:w-14 group-hover:bg-black" />
             {t("viewAll")}
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" style={{ gap: "var(--space-xl)" }}>
           {posts.map((post) => (
             <BlogCard
               key={post.id}
@@ -63,10 +64,11 @@ export async function FeaturedArticles({ locale }: FeaturedArticlesProps) {
           ))}
         </div>
 
-        <div className="mt-10 sm:hidden">
+        <div className="sm:hidden" style={{ marginTop: "var(--space-xl)" }}>
           <Link
             href="/blog"
-            className="inline-flex items-center gap-3 text-sm tracking-[0.15em] uppercase text-[#1a1a1a] group"
+            className="inline-flex items-center gap-3 tracking-[0.15em] uppercase text-[#1a1a1a] group"
+            style={{ fontSize: "var(--fs-xs)" }}
           >
             <span className="h-px w-8 bg-black/40 transition-all duration-300 group-hover:w-14 group-hover:bg-black" />
             {t("viewAll")}

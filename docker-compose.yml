@@ -36,6 +36,7 @@ services:
       NEXT_PUBLIC_MAPS_EMBED_URL: ${NEXT_PUBLIC_MAPS_EMBED_URL}
       RESEND_API_KEY: ${RESEND_API_KEY}
       DEEPL_API_KEY: ${DEEPL_API_KEY}
+      SEED_ADMIN_PASSWORD: ${SEED_ADMIN_PASSWORD}
       NODE_ENV: production
     volumes:
       - uploads_data:/app/public/uploads

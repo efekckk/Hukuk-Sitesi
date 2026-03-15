@@ -21,33 +21,34 @@ export async function Cta({ title, subtitle, buttonText, phoneText, phoneRaw, lo
   const telLink = phoneRaw || "+902121234567";
 
   return (
-    <section className="relative bg-[#0a0a0a] py-32 overflow-hidden">
-      {/* Background image */}
+    <section className="relative bg-[#0a0a0a] overflow-hidden" style={{ padding: "var(--space-3xl) var(--section-px)" }}>
       <div
         className="absolute inset-0 bg-cover bg-center opacity-10"
         style={{ backgroundImage: "url('/images/gavel-stock.jpg')" }}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/60 to-[#0a0a0a]" />
 
-      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 text-center">
-        <h2 className="font-serif text-4xl font-light text-white leading-tight lg:text-5xl xl:text-6xl max-w-3xl mx-auto">
+      <div className="relative z-10 mx-auto max-w-7xl text-center">
+        <h2 className="font-serif font-light text-white leading-tight mx-auto" style={{ fontSize: "var(--fs-5xl)", maxWidth: "40rem" }}>
           {displayTitle}
         </h2>
-        <p className="mt-6 text-base text-white/40 max-w-xl mx-auto">
+        <p className="text-white/40 mx-auto" style={{ fontSize: "var(--fs-base)", marginTop: "var(--space-md)", maxWidth: "32rem" }}>
           {displaySubtitle}
         </p>
-        <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+        <div className="flex flex-col items-center sm:flex-row sm:justify-center" style={{ marginTop: "var(--space-xl)", gap: "var(--space-sm)" }}>
           <Link
             href="/iletisim"
-            className="inline-block bg-white px-10 py-4 text-sm tracking-widest uppercase text-[#0a0a0a] font-medium transition-all hover:bg-white/90"
+            className="inline-block bg-white tracking-widest uppercase text-[#0a0a0a] font-medium transition-all hover:bg-white/90"
+            style={{ fontSize: "var(--fs-xs)", padding: "var(--space-sm) var(--space-xl)" }}
           >
             {displayButton}
           </Link>
           <a
             href={`tel:${telLink}`}
-            className="inline-flex items-center gap-2 border border-white/20 px-10 py-4 text-sm tracking-widest uppercase text-white/60 transition-all hover:border-white/50 hover:text-white"
+            className="inline-flex items-center gap-2 border border-white/20 tracking-widest uppercase text-white/60 transition-all hover:border-white/50 hover:text-white"
+            style={{ fontSize: "var(--fs-xs)", padding: "var(--space-sm) var(--space-xl)" }}
           >
-            <Phone className="w-4 h-4" />
+            <Phone className="w-[1em] h-[1em]" />
             {displayPhone}
           </a>
         </div>

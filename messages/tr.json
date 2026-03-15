@@ -14,7 +14,7 @@
     "about": "Hakkımızda",
     "team": "Ekibimiz",
     "values": "Değerlerimiz",
-    "practiceAreas": "Uzmanlık Alanları",
+    "practiceAreas": "Hizmetlerimiz",
     "blog": "Blog",
     "faq": "SSS",
     "contact": "İletişim",
@@ -131,14 +131,18 @@
     }
   },
   "practiceAreas": {
-    "title": "Uzmanlık Alanlarımız",
-    "subtitle": "Geniş kapsamlı hukuki hizmetlerimiz",
-    "description": "Her alanda uzman avukatlarımızla yanınızdayız.",
+    "title": "Hizmetlerimiz",
+    "subtitle": "Aşçı Etci Benglian Avukatlık Ortaklığı olarak hukuki süreçlerin her aşamasında müvekkillerimizin yanındayız.",
+    "tagline": "HİZMETLERİMİZ",
+    "intro1": "Aşçı Etci Benglian Avukatlık Ortaklığı; bireylerden holdinglere, yerli girişimcilerden uluslararası şirketlere uzanan geniş bir müvekkil kitlesine bağımsız ve çok disiplinli hukuki hizmet sunar.",
+    "intro2": "Ticaret ve şirketler hukuku, birleşme ve devralmalar, rekabet, gayrimenkul, sermaye piyasaları, bankacılık ve finans, enerji ve altyapı, proje finansmanı, vergi uyuşmazlıkları, iş hukuku ile ticari ve idari tahkim alanlarındaki derinlikli uzmanlığımızla müvekkillerimize stratejik ve çözüm odaklı hizmet sunuyoruz.",
+    "intro3": "Her davayı kendi özgün koşulları içinde değerlendiriyor; riskleri önceden tespit ederek hukuki güvence sağlıyor, gerektiğinde ise kararlı ve etkili bir şekilde müvekkillerimizi temsil ediyoruz.",
+    "areasTitle": "ÇALIŞMA ALANLARIMIZ",
     "contactUs": "Bize Ulaşın",
-    "detailLink": "Detaylı Bilgi",
-    "contactCta": "Hukuki danışmanlık için bizimle iletişime geçin",
+    "detailLink": "İncele",
+    "contactCta": "Hukuki süreçlerinizde güvenilir bir ortak arıyorsanız görüşmeye hazırız.",
     "contactButton": "İletişime Geçin",
-    "ourServices": "Hizmetlerimiz"
+    "ourServices": "Hizmet Kapsamı"
   },
   "contact": {
     "title": "İletişim",
@@ -352,7 +356,7 @@
     "headline": "Neden Bizi Tercih Etmelisiniz?",
     "subtext": "Yılların deneyimi, uzman kadro ve müvekkil odaklı yaklaşımımızla her alanda yanınızdayız.",
     "ctaTitle": "Hukuki Danışmanlık",
-    "ctaButton": "Randevu Alın",
+    "ctaButton": "Tüm Hizmetler",
     "detail": "Detay"
   }
 }

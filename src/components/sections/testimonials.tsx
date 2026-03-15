@@ -27,14 +27,14 @@ export async function Testimonials({ testimonials, locale = "tr" }: Testimonials
         }));
 
   return (
-    <section className="bg-white py-20">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <section className="bg-white" style={{ padding: "var(--section-py) var(--section-px)" }}>
+      <div className="mx-auto max-w-7xl">
         {/* Header */}
-        <div className="mb-16">
-          <h2 className="font-serif text-4xl font-light text-[#1a1a1a] lg:text-5xl">
+        <div style={{ marginBottom: "var(--space-2xl)" }}>
+          <h2 className="font-serif font-light text-[#1a1a1a]" style={{ fontSize: "var(--fs-4xl)" }}>
             {t("title")}
           </h2>
-          <p className="mt-4 text-base text-[#666] max-w-xl">
+          <p className="text-[#666]" style={{ fontSize: "var(--fs-base)", marginTop: "var(--space-sm)", maxWidth: "36rem" }}>
             {t("subtitle")}
           </p>
         </div>
@@ -42,14 +42,14 @@ export async function Testimonials({ testimonials, locale = "tr" }: Testimonials
         {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-black/10">
           {items.map((item, index) => (
-            <div key={index} className="bg-white p-8 flex flex-col gap-6">
-              <Quote className="w-8 h-8 text-black/10" />
-              <p className="text-sm leading-relaxed text-[#555] italic flex-1">
+            <div key={index} className="bg-white flex flex-col" style={{ padding: "var(--space-lg)", gap: "var(--space-md)" }}>
+              <Quote className="text-black/10" style={{ width: "var(--fs-3xl)", height: "var(--fs-3xl)" }} />
+              <p className="leading-relaxed text-[#555] italic flex-1" style={{ fontSize: "var(--fs-sm)" }}>
                 &ldquo;{item.text}&rdquo;
               </p>
-              <div className="border-t border-black/10 pt-6">
-                <p className="text-sm font-medium text-[#1a1a1a]">{item.name}</p>
-                <p className="text-xs text-[#999] mt-0.5">{item.role}</p>
+              <div className="border-t border-black/10" style={{ paddingTop: "var(--space-md)" }}>
+                <p className="font-medium text-[#1a1a1a]" style={{ fontSize: "var(--fs-sm)" }}>{item.name}</p>
+                <p className="text-[#999]" style={{ fontSize: "var(--fs-xs)", marginTop: "0.2em" }}>{item.role}</p>
               </div>
             </div>
           ))}

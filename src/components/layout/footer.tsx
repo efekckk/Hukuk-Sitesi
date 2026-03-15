@@ -27,70 +27,79 @@ export async function Footer({ locale = "tr" }: FooterProps) {
 
   const contactMap = Object.fromEntries(contactSettings.map((s) => [s.key, s.valueTr]));
   const phone = contactMap["phone"] || "+90 (212) 266 00 76";
+  const phoneRaw = contactMap["phone_raw"] || "+902122660076";
   const email = contactMap["email"] || "info@aebhukuk.com";
-  const address = contactMap["address"] || "Merkez Mah.\nAbide-i Hürriyet Cad. İstiklal Sok.\nNo:11 Kat:3-4 Key Plaza\nŞişli / İstanbul";
+  const address =
+    contactMap["address"] ||
+    "AEB Hukuk\nKEY Plaza, Merkez, İstiklal Sokağı\nNo:11 K:3-4, 34384\nŞişli / İstanbul";
 
   const isTr = locale !== "en";
 
-  return (
-    <footer className="bg-[#0a0a0a] text-white/50">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8 py-20">
-        <div className="grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
+  const pages = [
+    { href: "/", label: isTr ? "Ana Sayfa" : "Home" },
+    { href: "/hakkimizda", label: tNav("about") },
+    { href: "/hizmetlerimiz", label: isTr ? "Hizmetlerimiz" : "Our Services" },
+    { href: "/ekibimiz", label: tNav("team") },
+    { href: "/blog", label: isTr ? "Yayınlar" : "Publications" },
+    { href: "/sss", label: isTr ? "Sıkça S. Sorular" : "FAQ" },
+    { href: "/iletisim", label: tNav("contact") },
+  ];
 
-          {/* Column 1: Logo + description */}
-          <div>
-            <Link href="/" className="inline-block mb-6">
-              <img
-                src="/images/logo.png"
-                alt="AEB Avukatlık Ortaklığı"
-                className="h-14 w-auto"
-              />
+  return (
+    <footer className="bg-[#111110] text-white/50">
+      {/* Main grid */}
+      <div className="mx-auto max-w-7xl" style={{ padding: "var(--space-2xl) var(--section-px)" }}>
+        <div className="grid grid-cols-1 lg:grid-cols-[1.6fr_1px_1fr_1px_1fr_1px_1.1fr] gap-0">
+
+          {/* ── Col 1: Logo + description ── */}
+          <div className="pb-12 lg:pb-0" style={{ paddingRight: "var(--space-xl)" }}>
+            <Link href="/" className="inline-block" style={{ marginBottom: "var(--space-lg)" }}>
+              <img src="/images/logo.png" alt="AEB Avukatlık Ortaklığı" style={{ height: "clamp(2.5rem, 3.5vw, 4rem)", width: "auto" }} />
             </Link>
-            <p className="text-sm leading-relaxed text-white/40">
+            <p className="leading-relaxed text-white/45" style={{ fontSize: "var(--fs-sm)", marginBottom: "var(--space-sm)" }}>
               {t("description")}
+            </p>
+            <p className="leading-relaxed text-white/35" style={{ fontSize: "var(--fs-sm)" }}>
+              {isTr
+                ? "Yasal süreçlerin karmaşasında müvekkillerimizin yanında yer alarak, güven veren çözümler sunuyoruz."
+                : "We stand by our clients through complex legal processes, offering trustworthy solutions."}
             </p>
           </div>
 
-          {/* Column 2: Pages */}
-          <div>
-            <h3 className="mb-6 font-serif text-base italic text-white/60">
+          <div className="hidden lg:block bg-white/[0.07]" style={{ margin: "0 var(--space-lg)" }} />
+
+          {/* ── Col 2: Pages ── */}
+          <div className="pb-12 lg:pb-0" style={{ paddingRight: "var(--space-lg)" }}>
+            <h3 className="font-['Cormorant_Garamond'] font-semibold italic text-white/70" style={{ fontSize: "var(--fs-base)", marginBottom: "var(--space-md)" }}>
               {isTr ? "Sayfalar" : "Pages"}
             </h3>
-            <ul className="space-y-3">
-              {[
-                { href: "/", label: tNav("home") },
-                { href: "/hakkimizda", label: tNav("about") },
-                { href: "/uzmanlik-alanlari", label: isTr ? "Hizmetlerimiz" : "Our Services" },
-                { href: "/ekibimiz", label: tNav("team") },
-                { href: "/blog", label: isTr ? "Yayınlar" : "Publications" },
-                { href: "/sss", label: tNav("faq") },
-                { href: "/iletisim", label: tNav("contact") },
-                { href: "/e-tahsilat", label: "E-Tahsilat" },
-              ].map((item) => (
+            <ul style={{ display: "flex", flexDirection: "column", gap: "var(--space-xs)" }}>
+              {pages.map((item) => (
                 <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="text-sm italic text-white/40 transition-colors hover:text-white"
-                  >
+                  <Link href={item.href} className="italic text-white/45 transition-colors hover:text-white" style={{ fontSize: "var(--fs-sm)" }}>
                     {item.label}
                   </Link>
                 </li>
               ))}
+              <li>
+                <a href="https://pos.param.com.tr/Tahsilat/Default.aspx?k=2524DFB2-A0F3-4A5A-B9DD-9A2A18B0E1BD" target="_blank" rel="noopener noreferrer" className="italic text-white/45 transition-colors hover:text-white" style={{ fontSize: "var(--fs-sm)" }}>
+                  E-Tahsilat
+                </a>
+              </li>
             </ul>
           </div>
 
-          {/* Column 3: Practice Areas */}
-          <div>
-            <h3 className="mb-6 font-serif text-base italic text-white/60">
+          <div className="hidden lg:block bg-white/[0.07]" style={{ margin: "0 var(--space-lg)" }} />
+
+          {/* ── Col 3: Practice Areas ── */}
+          <div className="pb-12 lg:pb-0" style={{ paddingRight: "var(--space-lg)" }}>
+            <h3 className="font-['Cormorant_Garamond'] font-semibold italic text-white/70" style={{ fontSize: "var(--fs-base)", marginBottom: "var(--space-md)" }}>
               {isTr ? "Çalışma Alanlarımız" : "Practice Areas"}
             </h3>
-            <ul className="space-y-3">
+            <ul style={{ display: "flex", flexDirection: "column", gap: "var(--space-xs)" }}>
               {practiceAreas.map((area) => (
                 <li key={area.slug}>
-                  <Link
-                    href={`/uzmanlik-alanlari/${area.slug}`}
-                    className="text-sm italic text-white/40 transition-colors hover:text-white"
-                  >
+                  <Link href={`/hizmetlerimiz/${area.slug}`} className="italic text-white/45 transition-colors hover:text-white" style={{ fontSize: "var(--fs-sm)" }}>
                     {area.title}
                   </Link>
                 </li>
@@ -98,34 +107,32 @@ export async function Footer({ locale = "tr" }: FooterProps) {
             </ul>
           </div>
 
-          {/* Column 4: Contact */}
+          <div className="hidden lg:block bg-white/[0.07]" style={{ margin: "0 var(--space-lg)" }} />
+
+          {/* ── Col 4: Contact ── */}
           <div>
-            <h3 className="mb-3 font-serif text-base italic text-white/60">
+            <h3 className="font-['Cormorant_Garamond'] font-semibold italic text-white/70" style={{ fontSize: "var(--fs-base)", marginBottom: "var(--space-xs)" }}>
               {isTr ? "Telefon" : "Phone"}
             </h3>
-            <p className="text-sm text-white/50">{phone}</p>
+            <a href={`tel:${phoneRaw}`} className="text-white/45 hover:text-white transition-colors" style={{ fontSize: "var(--fs-sm)" }}>{phone}</a>
 
-            <h3 className="mt-8 mb-3 font-serif text-base italic text-white/60">
-              Email
-            </h3>
-            <p className="text-sm text-white/50">{email}</p>
+            <h3 className="font-['Cormorant_Garamond'] font-semibold italic text-white/70" style={{ fontSize: "var(--fs-base)", marginTop: "var(--space-lg)", marginBottom: "var(--space-xs)" }}>Email</h3>
+            <a href={`mailto:${email}`} className="text-white/45 hover:text-white transition-colors" style={{ fontSize: "var(--fs-sm)" }}>{email}</a>
 
-            <h3 className="mt-8 mb-3 font-serif text-base italic text-white/60">
+            <h3 className="font-['Cormorant_Garamond'] font-semibold italic text-white/70" style={{ fontSize: "var(--fs-base)", marginTop: "var(--space-lg)", marginBottom: "var(--space-xs)" }}>
               {isTr ? "Adres" : "Address"}
             </h3>
-            <p className="text-sm leading-relaxed text-white/50 whitespace-pre-line">
-              {address}
-            </p>
+            <p className="leading-relaxed text-white/45 whitespace-pre-line" style={{ fontSize: "var(--fs-sm)" }}>{address}</p>
           </div>
 
         </div>
       </div>
 
       {/* Copyright */}
-      <div className="border-t border-white/[0.05]">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 py-5">
-          <p className="text-center text-xs text-white/20 italic">
-            {new Date().getFullYear()} - Bu internet sitesinde yer alan tüm bilgiler ve logoya ilişkin tüm fikir mülkiyet hakları AEB Avukatlık Ortaklığı&apos;na aittir.
+      <div className="border-t border-white/[0.06]">
+        <div className="mx-auto max-w-7xl" style={{ padding: "var(--space-sm) var(--section-px)" }}>
+          <p className="text-center italic text-white/25" style={{ fontSize: "var(--fs-micro)" }}>
+            2025 - Bu internet sitesinde yer alan tüm bilgiler ve logoya ilişkin tüm fikir mülkiyet hakları AEB Avukatlık Ortaklığı&apos;na aittir.
           </p>
         </div>
       </div>

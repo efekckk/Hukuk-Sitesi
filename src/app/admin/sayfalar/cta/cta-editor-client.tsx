@@ -75,7 +75,7 @@ export function CtaEditorClient({ initialSettings }: CtaEditorClientProps) {
   const isDirty = JSON.stringify(form) !== JSON.stringify(initialRef.current);
   useUnsavedChanges(isDirty);
 
-  const phoneRaw = form["phone_raw"]?.valueTr || "+902121234567";
+  const phoneRaw = form["phone_raw"]?.valueTr || "";
 
   const updateField = (key: string, lang: "valueTr" | "valueEn", value: string) => {
     setForm((prev) => ({

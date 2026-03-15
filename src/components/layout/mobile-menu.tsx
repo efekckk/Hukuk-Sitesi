@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { X, ChevronDown, Shield, Heart, Briefcase, Building2, Landmark, Home } from "lucide-react";
+import { X, ChevronDown, Shield, Heart, Briefcase, Building2, Landmark, Home, Search } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { PracticeAreaNav } from "./navbar";
@@ -33,11 +33,14 @@ interface MobileMenuProps {
   isOpen: boolean;
   onClose: () => void;
   practiceAreas?: PracticeAreaNav[];
+  onSearchOpen?: () => void;
 }
 
-export function MobileMenu({ isOpen, onClose, practiceAreas }: MobileMenuProps) {
+export function MobileMenu({ isOpen, onClose, practiceAreas, onSearchOpen }: MobileMenuProps) {
   const t = useTranslations("nav");
   const tServices = useTranslations("services");
+  const locale = useLocale();
+  const isTr = locale !== "en";
   const [expandedItems, setExpandedItems] = useState<Set<string>>(new Set());
 
   useEffect(() => {
@@ -72,17 +75,17 @@ export function MobileMenu({ isOpen, onClose, practiceAreas }: MobileMenuProps) 
   const practiceAreaChildren: NavChild[] =
     practiceAreas && practiceAreas.length > 0
       ? practiceAreas.map((a) => ({
-          href: `/uzmanlik-alanlari/${a.slug}`,
+          href: `/hizmetlerimiz/${a.slug}`,
           label: a.title,
           icon: iconMap[a.icon] || Shield,
         }))
       : [
-          { href: "/uzmanlik-alanlari/ceza-hukuku", label: tServices("criminal.title"), icon: Shield },
-          { href: "/uzmanlik-alanlari/aile-hukuku", label: tServices("family.title"), icon: Heart },
-          { href: "/uzmanlik-alanlari/is-hukuku", label: tServices("labor.title"), icon: Briefcase },
-          { href: "/uzmanlik-alanlari/ticaret-hukuku", label: tServices("commercial.title"), icon: Building2 },
-          { href: "/uzmanlik-alanlari/idare-hukuku", label: tServices("administrative.title"), icon: Landmark },
-          { href: "/uzmanlik-alanlari/gayrimenkul-hukuku", label: tServices("realEstate.title"), icon: Home },
+          { href: "/hizmetlerimiz/ceza-hukuku", label: tServices("criminal.title"), icon: Shield },
+          { href: "/hizmetlerimiz/aile-hukuku", label: tServices("family.title"), icon: Heart },
+          { href: "/hizmetlerimiz/is-hukuku", label: tServices("labor.title"), icon: Briefcase },
+          { href: "/hizmetlerimiz/ticaret-hukuku", label: tServices("commercial.title"), icon: Building2 },
+          { href: "/hizmetlerimiz/idare-hukuku", label: tServices("administrative.title"), icon: Landmark },
+          { href: "/hizmetlerimiz/gayrimenkul-hukuku", label: tServices("realEstate.title"), icon: Home },
         ];
 
   const navItems: NavItem[] = [
@@ -97,7 +100,7 @@ export function MobileMenu({ isOpen, onClose, practiceAreas }: MobileMenuProps) 
     },
     {
       translationKey: "practiceAreas",
-      href: "/uzmanlik-alanlari",
+      href: "/hizmetlerimiz",
       children: practiceAreaChildren,
     },
     { href: "/blog", translationKey: "blog" },
@@ -142,6 +145,25 @@ export function MobileMenu({ isOpen, onClose, practiceAreas }: MobileMenuProps) 
 
         {/* Navigation */}
         <nav className="flex flex-col overflow-y-auto flex-1 py-4">
+          {onSearchOpen && (
+            <button
+              type="button"
+              onClick={() => { onSearchOpen(); onClose(); }}
+              className="flex items-center gap-3 px-6 py-3 text-sm tracking-widest uppercase text-white/50 hover:text-white transition-colors w-full text-left"
+            >
+              <Search className="h-4 w-4" />
+              {isTr ? "Ara" : "Search"}
+            </button>
+          )}
+          <a
+            href="https://pos.param.com.tr/Tahsilat/Default.aspx?k=2524DFB2-A0F3-4A5A-B9DD-9A2A18B0E1BD"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 px-6 py-3 text-sm tracking-widest uppercase text-white/50 hover:text-white transition-colors border-b border-white/10 mb-2"
+            onClick={onClose}
+          >
+            E-Tahsilat
+          </a>
           {navItems.map((item) => {
             if (item.children) {
               const isExpanded = expandedItems.has(item.translationKey);

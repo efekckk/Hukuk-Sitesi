@@ -6,7 +6,7 @@ import { prisma } from "@/lib/prisma";
 import { getLocalizedField, formatDate } from "@/lib/utils";
 import { BlogContent } from "@/components/blog/blog-content";
 import { PageHero } from "@/components/sections/page-hero";
-import { Calendar, User, FolderOpen, Eye, ArrowLeft } from "lucide-react";
+import { Calendar, User, FolderOpen } from "lucide-react";
 
 interface BlogPostPageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -16,98 +16,71 @@ async function getPost(slug: string) {
   try {
     return await prisma.blogPost.findUnique({
       where: { slug },
-      include: {
-        category: true,
-        author: true,
-        tags: { include: { tag: true } },
-      },
+      include: { category: true, author: true, tags: { include: { tag: true } } },
     });
-  } catch {
-    return null;
-  }
+  } catch { return null; }
 }
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { locale, slug } = await params;
   const post = await getPost(slug);
-
   if (!post) return { title: "Not Found" };
-
   const metaTitle = getLocalizedField(post, "metaTitle", locale) || getLocalizedField(post, "title", locale);
   const metaDesc = getLocalizedField(post, "metaDesc", locale) || getLocalizedField(post, "excerpt", locale);
-
-  return {
-    title: metaTitle,
-    description: metaDesc,
-  };
+  return { title: metaTitle, description: metaDesc };
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { locale, slug } = await params;
-  const t = await getTranslations("blog");
+  await getTranslations("blog");
 
   const post = await getPost(slug);
+  if (!post || !post.isPublished) notFound();
 
-  if (!post || !post.isPublished) {
-    notFound();
-  }
-
-  // Increment view count
   try {
-    await prisma.blogPost.update({
-      where: { id: post.id },
-      data: { viewCount: { increment: 1 } },
-    });
-  } catch {
-    // DB not available
-  }
+    await prisma.blogPost.update({ where: { id: post.id }, data: { viewCount: { increment: 1 } } });
+  } catch { /* DB not available */ }
 
   const title = getLocalizedField(post, "title", locale);
   const content = getLocalizedField(post, "content", locale);
   const excerpt = getLocalizedField(post, "excerpt", locale);
-  const categoryName = post.category
-    ? getLocalizedField(post.category, "name", locale)
-    : null;
+  const categoryName = post.category ? getLocalizedField(post.category, "name", locale) : null;
 
   return (
     <>
       <PageHero title={title} backgroundImage="/images/cinematic/inner-hero-writing.jpg" />
 
-      <section className="border-b border-border bg-background">
-        <div className="max-w-4xl mx-auto px-4 py-6">
-          <div className="flex flex-wrap items-center gap-6 text-muted-foreground text-sm">
-            {post.author && (
-              <div className="flex items-center gap-2">
-                <User className="w-4 h-4" />
-                <span>{post.author.name}</span>
-              </div>
-            )}
+      {/* Meta bar */}
+      <section className="bg-white border-b border-black/[0.07]">
+        <div className="mx-auto max-w-3xl" style={{ padding: "var(--space-md) var(--section-px)" }}>
+          <div className="flex flex-wrap items-center" style={{ gap: "var(--space-lg)", fontSize: "var(--fs-micro)" }} >
+            <span className="tracking-[0.15em] uppercase text-black/40 flex items-center" style={{ gap: "var(--space-xs)" }}>
+              {post.author && (<><User style={{ width: "0.8em", height: "0.8em" }} /><span>{post.author.name}</span></>)}
+            </span>
             {post.publishedAt && (
-              <div className="flex items-center gap-2">
-                <Calendar className="w-4 h-4" />
-                <time dateTime={post.publishedAt.toISOString()}>
-                  {formatDate(post.publishedAt, locale)}
-                </time>
-              </div>
+              <span className="tracking-[0.15em] uppercase text-black/40 flex items-center" style={{ gap: "var(--space-xs)" }}>
+                <Calendar style={{ width: "0.8em", height: "0.8em" }} />
+                <time dateTime={post.publishedAt.toISOString()}>{formatDate(post.publishedAt, locale)}</time>
+              </span>
             )}
             {categoryName && (
-              <div className="flex items-center gap-2">
-                <FolderOpen className="w-4 h-4" />
+              <span className="tracking-[0.15em] uppercase text-black/40 flex items-center" style={{ gap: "var(--space-xs)" }}>
+                <FolderOpen style={{ width: "0.8em", height: "0.8em" }} />
                 <span>{categoryName}</span>
-              </div>
+              </span>
             )}
-            <div className="flex items-center gap-2">
-              <Eye className="w-4 h-4" />
-              <span>{post.viewCount + 1}</span>
-            </div>
           </div>
         </div>
       </section>
 
-      <section className="py-12 bg-background">
-        <div className="max-w-4xl mx-auto px-4">
+      {/* Article body */}
+      <section className="bg-white" style={{ padding: "var(--section-py) var(--section-px)" }}>
+        <div className="mx-auto max-w-3xl">
           {excerpt && (
-            <p className="text-lg text-muted-foreground mb-8 leading-relaxed italic border-l-4 border-secondary pl-4">
+            <p
+              className="font-['Cormorant_Garamond'] leading-relaxed text-black/60 italic border-l-2 border-black/20"
+              style={{ fontSize: "var(--fs-xl)", paddingLeft: "var(--space-lg)", marginBottom: "var(--space-2xl)" }}
+            >
               {excerpt}
             </p>
           )}
@@ -115,33 +88,35 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </div>
       </section>
 
+      {/* Tags */}
       {post.tags.length > 0 && (
-        <section className="pb-12 bg-background">
-          <div className="max-w-4xl mx-auto px-4">
-            <div className="border-t border-border pt-8">
-              <div className="flex flex-wrap gap-2">
-                {post.tags.map(({ tag }) => (
-                  <span
-                    key={tag.id}
-                    className="bg-muted text-muted-foreground text-sm px-3 py-1 rounded-full"
-                  >
-                    {getLocalizedField(tag, "name", locale)}
-                  </span>
-                ))}
-              </div>
+        <section className="bg-white" style={{ paddingBottom: "var(--space-lg)", paddingLeft: "var(--section-px)", paddingRight: "var(--section-px)" }}>
+          <div className="mx-auto max-w-3xl border-t border-black/[0.07]" style={{ paddingTop: "var(--space-lg)" }}>
+            <div className="flex flex-wrap" style={{ gap: "var(--space-xs)" }}>
+              {post.tags.map(({ tag }) => (
+                <span
+                  key={tag.id}
+                  className="tracking-[0.15em] uppercase border border-black/20 text-black/50"
+                  style={{ fontSize: "var(--fs-micro)", padding: "var(--space-xs) var(--space-md)" }}
+                >
+                  {getLocalizedField(tag, "name", locale)}
+                </span>
+              ))}
             </div>
           </div>
         </section>
       )}
 
-      <section className="pb-16 bg-background">
-        <div className="max-w-4xl mx-auto px-4">
+      {/* Back link */}
+      <section className="bg-white" style={{ paddingBottom: "var(--section-py)", paddingLeft: "var(--section-px)", paddingRight: "var(--section-px)" }}>
+        <div className="mx-auto max-w-3xl">
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-secondary font-medium hover:text-secondary-light transition-colors"
+            className="group inline-flex items-center gap-3 tracking-[0.15em] uppercase text-black/40 hover:text-black transition-colors"
+            style={{ fontSize: "var(--fs-micro)" }}
           >
-            <ArrowLeft className="w-4 h-4" />
-            {locale === "tr" ? "Blog'a Don" : "Back to Blog"}
+            <span className="inline-block h-px bg-current transition-all duration-300 group-hover:w-12" style={{ width: "2rem" }} />
+            {locale === "tr" ? "Tüm Makaleler" : "All Articles"}
           </Link>
         </div>
       </section>

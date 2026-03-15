@@ -15,33 +15,23 @@ export function LanguageSwitcher() {
   }
 
   return (
-    <div className="flex items-center overflow-hidden rounded-md border border-border">
-      <button
-        type="button"
-        onClick={() => handleLocaleChange("tr")}
-        className={cn(
-          "px-2.5 py-1 text-xs font-semibold transition-colors",
-          locale === "tr"
-            ? "bg-secondary text-white"
-            : "bg-transparent text-muted-foreground hover:text-foreground"
-        )}
-        aria-label="Turkce"
-      >
-        TR
-      </button>
-      <button
-        type="button"
-        onClick={() => handleLocaleChange("en")}
-        className={cn(
-          "px-2.5 py-1 text-xs font-semibold transition-colors",
-          locale === "en"
-            ? "bg-secondary text-white"
-            : "bg-transparent text-muted-foreground hover:text-foreground"
-        )}
-        aria-label="English"
-      >
-        EN
-      </button>
+    <div className="flex items-center gap-0.5">
+      {(["tr", "en"] as const).map((lang) => (
+        <button
+          key={lang}
+          type="button"
+          onClick={() => handleLocaleChange(lang)}
+          className={cn(
+            "px-2.5 py-1 text-[11px] font-semibold tracking-widest transition-colors uppercase",
+            locale === lang
+              ? "bg-[#b8975a] text-white"
+              : "bg-transparent text-white/40 hover:text-white"
+          )}
+          aria-label={lang === "tr" ? "Türkçe" : "English"}
+        >
+          {lang.toUpperCase()}
+        </button>
+      ))}
     </div>
   );
 }

@@ -7,7 +7,7 @@ interface ValuesPageProps {
   params: Promise<{ locale: string }>;
 }
 
-const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+const iconMap: Record<string, React.ComponentType<{ className?: string; style?: React.CSSProperties }>> = {
   Award, BookOpen, Heart, Shield, Briefcase, Scale, Users, Star, Target, Lightbulb,
 };
 
@@ -30,45 +30,42 @@ export default async function ValuesPage({ params }: ValuesPageProps) {
       ];
 
   return (
-    <main>
-      {/* Hero Section */}
+    <main className="bg-[#0a0a0a]">
       <PageHero title={t('title')} subtitle={t('subtitle')} backgroundImage="/images/cinematic/inner-hero-law.jpg" />
 
       {/* Description */}
-      <section className="py-16 relative">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <p className="text-lg text-neutral-400 leading-relaxed text-center">
+      <section style={{ padding: "var(--section-py) var(--section-px)" }}>
+        <div className="mx-auto max-w-4xl text-center">
+          <p className="leading-relaxed text-white/50" style={{ fontSize: "var(--fs-md)" }}>
             {t('description')}
           </p>
         </div>
       </section>
 
       {/* Values Grid */}
-      <section className="pb-20 relative">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {values.map((value, index) => {
-              const Icon = iconMap[value.icon] || Award;
-              return (
-                <div
-                  key={index}
-                  className="group relative"
-                >
-                  <div className="relative bg-[#111111] p-8 rounded-2xl text-center group-hover:bg-[#181818] group-hover:scale-[1.02] transition-all duration-500">
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-white/[0.05] rounded-full mb-5 border border-white/[0.06]">
-                      <Icon className="w-8 h-8 text-brand-400" />
-                    </div>
-                    <h3 className="text-xl font-semibold text-white mb-4">
-                      {value.title}
-                    </h3>
-                    <p className="text-neutral-400 leading-relaxed">
-                      {value.description}
-                    </p>
+      <section style={{ paddingBottom: "var(--section-py)", paddingLeft: "var(--section-px)", paddingRight: "var(--section-px)" }}>
+        <div className="mx-auto max-w-5xl grid grid-cols-1 md:grid-cols-3" style={{ gap: "var(--space-lg)" }}>
+          {values.map((value, index) => {
+            const Icon = iconMap[value.icon] || Award;
+            return (
+              <div key={index} className="group relative">
+                <div className="relative bg-[#111111] text-center group-hover:bg-[#181818] transition-colors duration-500" style={{ padding: "var(--space-xl)", borderRadius: "1rem" }}>
+                  <div
+                    className="inline-flex items-center justify-center bg-white/[0.05] border border-white/[0.06]"
+                    style={{ width: "clamp(3rem,4vw,4.5rem)", height: "clamp(3rem,4vw,4.5rem)", borderRadius: "50%", marginBottom: "var(--space-md)" }}
+                  >
+                    <Icon className="text-[#b8975a]" style={{ width: "var(--fs-2xl)", height: "var(--fs-2xl)" }} />
                   </div>
+                  <h3 className="font-semibold text-white" style={{ fontSize: "var(--fs-xl)", marginBottom: "var(--space-sm)" }}>
+                    {value.title}
+                  </h3>
+                  <p className="leading-relaxed text-white/50" style={{ fontSize: "var(--fs-sm)" }}>
+                    {value.description}
+                  </p>
                 </div>
-              );
-            })}
-          </div>
+              </div>
+            );
+          })}
         </div>
       </section>
     </main>

@@ -4,10 +4,21 @@ import { auth } from "@/lib/auth";
 import { getUserRole, canAccess } from "@/lib/permissions";
 import { logAudit } from "@/lib/audit";
 
+// Public gruplar: frontend sayfaları için gerekli, auth gerekmez
+const PUBLIC_GROUPS = new Set(["contact", "general", "stats", "cta"]);
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const group = searchParams.get("group");
+
+    // Hassas gruplar (about, maps vs.) için auth gerekli
+    if (!group || !PUBLIC_GROUPS.has(group)) {
+      const session = await auth();
+      if (!session?.user?.id) {
+        return NextResponse.json({ error: "Yetkisiz erişim" }, { status: 401 });
+      }
+    }
 
     const where = group ? { group } : {};
     const settings = await prisma.siteSetting.findMany({ where });

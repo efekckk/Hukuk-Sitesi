@@ -5,8 +5,11 @@ import { useRouter } from "next/navigation";
 import {
   Plus, Pencil, Trash2, X, Check, Loader2, Upload,
   Shield, Heart, Briefcase, Building2, Landmark, Home,
+  Award, BookOpen, Scale, Users, Star, Target, Lightbulb,
+  Gavel, Lock, TrendingUp, Truck, Globe, FileText, Handshake,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { ADMIN_ICON_NAMES, VALIDATION } from "@/lib/constants/admin";
 
 interface PracticeArea {
   id: string;
@@ -29,15 +32,12 @@ interface PracticeAreasClientProps {
 }
 
 const iconMap: Record<string, LucideIcon> = {
-  Shield,
-  Heart,
-  Briefcase,
-  Building2,
-  Landmark,
-  Home,
+  Shield, Heart, Briefcase, Building2, Landmark, Home,
+  Award, BookOpen, Scale, Users, Star, Target, Lightbulb,
+  Gavel, Lock, TrendingUp, Truck, Globe, FileText, Handshake,
 };
 
-const iconOptions = Object.keys(iconMap);
+const iconOptions = [...ADMIN_ICON_NAMES];
 
 const emptyForm = {
   slug: "",

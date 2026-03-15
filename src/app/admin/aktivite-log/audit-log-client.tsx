@@ -17,28 +17,7 @@ interface AuditLog {
   };
 }
 
-const ACTION_LABELS: Record<string, { label: string; color: string }> = {
-  CREATE: { label: "Oluşturma", color: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400" },
-  UPDATE: { label: "Güncelleme", color: "bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400" },
-  DELETE: { label: "Silme", color: "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400" },
-};
-
-const ENTITY_LABELS: Record<string, string> = {
-  BlogPost: "Blog Yazısı",
-  Category: "Kategori",
-  Tag: "Etiket",
-  FaqItem: "SSS",
-  ContactSubmission: "Mesaj",
-  HeroSlide: "Slider",
-  PracticeArea: "Uzmanlık Alanı",
-  TeamMember: "Ekip Üyesi",
-  Testimonial: "Referans",
-  Value: "Değer",
-  Popup: "Popup",
-  PageContent: "Sayfa İçeriği",
-  SiteSetting: "Site Ayarı",
-  AdminUser: "Kullanıcı",
-};
+import { AUDIT_ACTION_LABELS as ACTION_LABELS, AUDIT_ENTITY_LABELS as ENTITY_LABELS, PAGINATION } from "@/lib/constants/admin";
 
 export function AuditLogClient() {
   const [logs, setLogs] = useState<AuditLog[]>([]);
@@ -52,7 +31,7 @@ export function AuditLogClient() {
     setLoading(true);
     setError("");
     try {
-      const params = new URLSearchParams({ page: page.toString(), limit: "30" });
+      const params = new URLSearchParams({ page: page.toString(), limit: PAGINATION.AUDIT_LOGS_PER_PAGE.toString() });
       if (entityFilter) params.set("entity", entityFilter);
 
       const res = await fetch(`/api/audit-logs?${params}`);

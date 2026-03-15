@@ -1,4 +1,5 @@
 import { Hero } from "@/components/sections/hero";
+import { FirmIntro } from "@/components/sections/firm-intro";
 import { StoryTabs } from "@/components/sections/story-tabs";
 import { HomepageBento } from "@/components/sections/homepage-bento";
 import { FeaturedArticles } from "@/components/sections/featured-articles";
@@ -94,6 +95,7 @@ export default async function HomePage({ params }: HomePageProps) {
   return (
     <>
       <Hero locale={locale} />
+      <FirmIntro locale={locale} />
       <GlowDivider />
       <StoryTabs />
       <GlowDivider />

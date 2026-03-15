@@ -2,33 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { contactFormSchema } from "@/lib/validations/contact";
 import { sendContactNotification, sendContactAutoReply } from "@/lib/mail";
-
-const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
-
-function checkRateLimit(ip: string): boolean {
-  const now = Date.now();
-  const windowMs = 15 * 60 * 1000; // 15 minutes
-  const maxRequests = 5;
-
-  const entry = rateLimitMap.get(ip);
-  if (!entry || now > entry.resetTime) {
-    rateLimitMap.set(ip, { count: 1, resetTime: now + windowMs });
-    return true;
-  }
-
-  if (entry.count >= maxRequests) {
-    return false;
-  }
-
-  entry.count++;
-  return true;
-}
+import { rateLimit, getIp, RATE_LIMITS } from "@/lib/rate-limit";
 
 export async function POST(request: NextRequest) {
   try {
-    const ip = request.headers.get("x-forwarded-for") || "unknown";
-
-    if (!checkRateLimit(ip)) {
+    const ip = getIp(request);
+    const rl = rateLimit(`contact:${ip}`, RATE_LIMITS.contact);
+    if (!rl.success) {
       return NextResponse.json(
         { error: "Çok fazla istek gönderildi. Lütfen daha sonra tekrar deneyin." },
         { status: 429 }

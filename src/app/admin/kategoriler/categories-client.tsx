@@ -20,7 +20,7 @@ interface CategoriesClientProps {
 
 export function CategoriesClient({ initialCategories }: CategoriesClientProps) {
   const router = useRouter();
-  const [categories, setCategories] = useState(initialCategories);
+  const categories = initialCategories;
   const [editingId, setEditingId] = useState<string | null>(null);
   const [showAdd, setShowAdd] = useState(false);
   const [saving, setSaving] = useState(false);

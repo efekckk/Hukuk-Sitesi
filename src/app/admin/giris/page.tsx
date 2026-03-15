@@ -25,13 +25,13 @@ export default function AdminLoginPage() {
       });
 
       if (result?.error) {
-        setError("E-posta veya parola hatali. Lutfen tekrar deneyin.");
+        setError("E-posta veya parola hatalı. Lütfen tekrar deneyin.");
       } else if (result?.ok) {
         router.refresh();
         router.push("/admin/dashboard");
       }
     } catch {
-      setError("Bir hata olustu. Lutfen tekrar deneyin.");
+      setError("Bir hata oluştu. Lütfen tekrar deneyin.");
     } finally {
       setLoading(false);
     }
@@ -46,10 +46,10 @@ export default function AdminLoginPage() {
             <Scale className="h-7 w-7 text-white" />
           </div>
           <h1 className="text-2xl font-bold text-primary-dark">
-            Admin Girisi
+            Admin Girişi
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Yonetim paneline erisim icin giris yapin
+            Yönetim paneline erişim için giriş yapın
           </p>
         </div>
 
@@ -68,7 +68,7 @@ export default function AdminLoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              placeholder="admin@example.com"
+              placeholder="admin@aebhukuk.com"
               className="flex h-10 w-full rounded-md border border-border bg-white dark:bg-gray-800 px-3 py-2 text-sm text-primary-dark placeholder:text-muted-foreground transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
             />
           </div>
@@ -105,10 +105,10 @@ export default function AdminLoginPage() {
             {loading ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin" />
-                Giris yapiliyor...
+                Giriş yapılıyor...
               </>
             ) : (
-              "Giris Yap"
+              "Giriş Yap"
             )}
           </button>
         </form>

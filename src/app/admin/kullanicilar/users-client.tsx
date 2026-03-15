@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Plus, Pencil, Trash2, X, Check, KeyRound, Shield, User } from "lucide-react";
+import { ADMIN_ROLES, ADMIN_ROLE_LABELS, VALIDATION } from "@/lib/constants/admin";
 
 interface AdminUser {
   id: string;
@@ -80,7 +81,7 @@ export function UsersClient({ users, currentUserId, isSuperAdmin }: UsersClientP
     if (!selectedUser) return;
     if (!passwordForm.newPassword) { setError("Yeni şifre zorunludur"); return; }
     if (passwordForm.newPassword !== passwordForm.confirmPassword) { setError("Şifreler eşleşmiyor"); return; }
-    if (passwordForm.newPassword.length < 8) { setError("Şifre en az 8 karakter olmalıdır"); return; }
+    if (passwordForm.newPassword.length < VALIDATION.PASSWORD_MIN_LENGTH) { setError(`Şifre en az ${VALIDATION.PASSWORD_MIN_LENGTH} karakter olmalıdır`); return; }
     setLoading(true); setError(null);
     try {
       const res = await fetch("/api/admin-users", {
@@ -166,7 +167,7 @@ export function UsersClient({ users, currentUserId, isSuperAdmin }: UsersClientP
                       : "bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-400"
                   }`}>
                     {user.role === "SUPER_ADMIN" ? <Shield className="h-3 w-3" /> : <User className="h-3 w-3" />}
-                    {user.role === "SUPER_ADMIN" ? "Süper Admin" : "Editör"}
+                    {ADMIN_ROLE_LABELS[user.role as keyof typeof ADMIN_ROLE_LABELS] ?? user.role}
                   </span>
                 </td>
                 <td className="px-6 py-4 text-gray-500 dark:text-gray-400 text-sm">{user.createdAt}</td>
@@ -240,9 +241,8 @@ export function UsersClient({ users, currentUserId, isSuperAdmin }: UsersClientP
                 <div>
                   <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Rol</label>
                   <select value={createForm.role} onChange={(e) => setCreateForm((p) => ({ ...p, role: e.target.value }))}
-                    className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500">
-                    <option value="EDITOR">Editör</option>
-                    <option value="SUPER_ADMIN">Süper Admin</option>
+                     className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500">
+                    {ADMIN_ROLES.map((r) => <option key={r} value={r}>{ADMIN_ROLE_LABELS[r]}</option>)}
                   </select>
                 </div>
               </div>
@@ -260,8 +260,7 @@ export function UsersClient({ users, currentUserId, isSuperAdmin }: UsersClientP
                     <label className="block text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Rol</label>
                     <select value={editForm.role} onChange={(e) => setEditForm((p) => ({ ...p, role: e.target.value }))}
                       className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500">
-                      <option value="EDITOR">Editör</option>
-                      <option value="SUPER_ADMIN">Süper Admin</option>
+                      {ADMIN_ROLES.map((r) => <option key={r} value={r}>{ADMIN_ROLE_LABELS[r]}</option>)}
                     </select>
                   </div>
                 )}

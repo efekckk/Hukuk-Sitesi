@@ -49,7 +49,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
           <div className="fixed top-0 left-0 right-0 z-50">
             <Navbar practiceAreas={practiceAreas} />
           </div>
-          <main className="min-h-screen pt-16">{children}</main>
+          <main className="min-h-screen" style={{ paddingTop: "clamp(3.5rem, 4.5vw, 5rem)" }}>{children}</main>
           <Footer locale={locale} />
         </div>
         <WhatsAppButton />

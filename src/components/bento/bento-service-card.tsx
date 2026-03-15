@@ -41,7 +41,7 @@ export function BentoServiceCard({ slug, title, description, icon }: BentoServic
 
   if (slug) {
     return (
-      <Link href={`/uzmanlik-alanlari/${slug}`} className="block h-full">
+      <Link href={`/hizmetlerimiz/${slug}`} className="block h-full">
         {content}
       </Link>
     );

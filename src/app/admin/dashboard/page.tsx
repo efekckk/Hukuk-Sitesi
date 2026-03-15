@@ -2,8 +2,9 @@ import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
-import { FileText, MessageSquare, Bell, FolderOpen, Plus, Eye, Users } from "lucide-react";
+import { FileText, MessageSquare, Bell, FolderOpen, Plus, Eye } from "lucide-react";
 import { formatDate } from "@/lib/utils";
+import { MESSAGE_STATUS_LABELS, MESSAGE_STATUS_CLASSES, PAGINATION } from "@/lib/constants/admin";
 
 export default async function AdminDashboardPage() {
   const session = await auth();
@@ -25,11 +26,11 @@ export default async function AdminDashboardPage() {
     prisma.category.count(),
     prisma.contactSubmission.findMany({
       orderBy: { createdAt: "desc" },
-      take: 5,
+      take: PAGINATION.DASHBOARD_RECENT_ITEMS,
     }),
     prisma.blogPost.findMany({
       orderBy: { createdAt: "desc" },
-      take: 5,
+      take: PAGINATION.DASHBOARD_RECENT_ITEMS,
       include: { category: true },
     }),
   ]);
@@ -73,12 +74,12 @@ export default async function AdminDashboardPage() {
     },
   ];
 
-  const statusLabels: Record<string, { label: string; className: string }> = {
-    UNREAD: { label: "Okunmadı", className: "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400" },
-    READ: { label: "Okundu", className: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400" },
-    REPLIED: { label: "Yanıtlandı", className: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400" },
-    ARCHIVED: { label: "Arşivlendi", className: "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300" },
-  };
+  const statusLabels = Object.fromEntries(
+    Object.keys(MESSAGE_STATUS_LABELS).map((k) => [
+      k,
+      { label: MESSAGE_STATUS_LABELS[k as keyof typeof MESSAGE_STATUS_LABELS], className: MESSAGE_STATUS_CLASSES[k as keyof typeof MESSAGE_STATUS_CLASSES] },
+    ])
+  );
 
   return (
     <div>

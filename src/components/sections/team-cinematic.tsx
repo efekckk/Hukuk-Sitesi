@@ -20,14 +20,14 @@ export async function TeamCinematic({ members, locale = "tr" }: TeamCinematicPro
   if (members.length === 0) return null;
 
   return (
-    <section className="bg-white py-20">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <section className="bg-white" style={{ padding: "var(--section-py) var(--section-px)" }}>
+      <div className="mx-auto max-w-7xl">
         {/* Header */}
-        <div className="mb-16">
-          <h2 className="font-serif text-4xl font-light text-[#1a1a1a] lg:text-5xl">
+        <div style={{ marginBottom: "var(--space-2xl)" }}>
+          <h2 className="font-serif font-light text-[#1a1a1a]" style={{ fontSize: "var(--fs-4xl)" }}>
             {t("title")}
           </h2>
-          <p className="mt-4 text-base text-[#666] max-w-xl">
+          <p className="text-[#666]" style={{ fontSize: "var(--fs-base)", marginTop: "var(--space-sm)", maxWidth: "36rem" }}>
             {t("subtitle")}
           </p>
         </div>
@@ -40,28 +40,28 @@ export async function TeamCinematic({ members, locale = "tr" }: TeamCinematicPro
                 <img
                   src={member.image}
                   alt={member.name}
-                  className="h-full w-full object-cover grayscale transition-transform duration-700 group-hover:scale-105"
+                  className="h-full w-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  style={{ filter: "contrast(1.05) brightness(1.02)" }}
                 />
               ) : (
                 <div className="h-full w-full flex items-center justify-center">
-                  <Users className="w-16 h-16 text-black/10" />
+                  <Users className="text-black/10" style={{ width: "var(--fs-display)", height: "var(--fs-display)" }} />
                 </div>
               )}
-              {/* Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-              <div className="absolute bottom-0 left-0 p-6">
-                <p className="font-serif text-xl font-light text-white">{member.name}</p>
-                <p className="mt-1 text-xs tracking-widest uppercase text-white/60">{member.role}</p>
+              <div className="absolute bottom-0 left-0" style={{ padding: "var(--space-lg)" }}>
+                <p className="font-serif font-light text-white" style={{ fontSize: "var(--fs-xl)" }}>{member.name}</p>
+                <p className="tracking-widest uppercase text-white/60" style={{ fontSize: "var(--fs-micro)", marginTop: "0.3em" }}>{member.role}</p>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Link to full team page */}
-        <div className="mt-12">
+        <div style={{ marginTop: "var(--space-xl)" }}>
           <Link
             href="/ekibimiz"
-            className="inline-flex items-center gap-3 text-sm tracking-[0.15em] uppercase text-[#1a1a1a] group"
+            className="inline-flex items-center gap-3 tracking-[0.15em] uppercase text-[#1a1a1a] group"
+            style={{ fontSize: "var(--fs-xs)" }}
           >
             <span className="h-px w-8 bg-black/40 transition-all duration-300 group-hover:w-14 group-hover:bg-black" />
             {t("viewAll")}

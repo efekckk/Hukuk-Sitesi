@@ -1,7 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { rateLimit, getIp, RATE_LIMITS } from "@/lib/rate-limit";
 
 export async function GET(request: NextRequest) {
+  const ip = getIp(request);
+  const rl = rateLimit(`search:${ip}`, RATE_LIMITS.search);
+  if (!rl.success) {
+    return NextResponse.json(
+      { error: "Çok fazla istek. Lütfen bir dakika bekleyin." },
+      { status: 429, headers: { "Retry-After": "60" } }
+    );
+  }
+
   const { searchParams } = new URL(request.url);
   const q = searchParams.get("q")?.trim();
   const locale = searchParams.get("locale") || "tr";
@@ -11,7 +21,6 @@ export async function GET(request: NextRequest) {
   }
 
   const isTr = locale === "tr";
-  const query = `%${q}%`;
 
   try {
     const [practiceAreas, blogPosts, faqItems, teamMembers] = await Promise.all([
@@ -81,7 +90,7 @@ export async function GET(request: NextRequest) {
         type: "practiceArea" as const,
         title: isTr ? a.titleTr : (a.titleEn || a.titleTr),
         description: isTr ? a.descriptionTr : (a.descriptionEn || a.descriptionTr),
-        href: `/uzmanlik-alanlari/${a.slug}`,
+        href: `/hizmetlerimiz/${a.slug}`,
         icon: a.icon,
       })),
       blogPosts: blogPosts.map((p) => ({

@@ -76,6 +76,7 @@ export function BlogEditor({ initialData }: BlogEditorProps) {
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [categories, setCategories] = useState<Category[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [tags, setTags] = useState<Tag[]>([]);
   const [uploadingImage, setUploadingImage] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);

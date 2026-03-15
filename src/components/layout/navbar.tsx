@@ -4,10 +4,11 @@ import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import { Link } from "@/i18n/navigation";
-import { Menu, ChevronDown } from "lucide-react";
+import { Menu, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { MobileMenu } from "@/components/layout/mobile-menu";
+import { SearchModal } from "@/components/search-modal";
 
 export interface PracticeAreaNav {
   slug: string;
@@ -16,74 +17,16 @@ export interface PracticeAreaNav {
 }
 
 interface NavItem {
-  href?: string;
+  href: string;
   label: string;
-  children?: { href: string; label: string }[];
 }
 
-function DropdownItem({
-  item,
-  isActive,
-}: {
-  item: NavItem;
-  isActive: (href: string) => boolean;
-}) {
-  const [open, setOpen] = useState(false);
-
-  const parentActive = item.children?.some((c) => isActive(c.href));
-
-  return (
-    <div
-      className="relative"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
-    >
-      <button
-        type="button"
-        className={cn(
-          "relative inline-flex items-center gap-1 px-1 pb-1 pt-1 text-sm tracking-widest uppercase transition-colors",
-          parentActive
-            ? "text-white after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-white"
-            : "text-white/60 hover:text-white"
-        )}
-      >
-        {item.label}
-        <ChevronDown
-          className={cn(
-            "h-3 w-3 transition-transform duration-200",
-            open && "rotate-180"
-          )}
-        />
-      </button>
-
-      {open && (
-        <div className="absolute top-full left-0 pt-2 z-50">
-          <div className="min-w-[220px] bg-[#0a0a0a] border border-white/10 py-1">
-            {item.children?.map((child) => (
-              <Link
-                key={child.href}
-                href={child.href}
-                className={cn(
-                  "block px-5 py-2.5 text-sm tracking-wide transition-colors",
-                  isActive(child.href)
-                    ? "text-white"
-                    : "text-white/50 hover:text-white"
-                )}
-              >
-                {child.label}
-              </Link>
-            ))}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
 
 export function Navbar({ practiceAreas }: { practiceAreas?: PracticeAreaNav[] }) {
   const t = useTranslations("nav");
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -92,26 +35,27 @@ export function Navbar({ practiceAreas }: { practiceAreas?: PracticeAreaNav[] })
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  /* Ctrl+K / Cmd+K global kısayolu */
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+        e.preventDefault();
+        setSearchOpen(true);
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, []);
+
   const isActive = (href: string) => {
     const cleanPath = pathname.replace(/^\/(tr|en)/, "") || "/";
     return href === "/" ? cleanPath === "/" : cleanPath.startsWith(href);
   };
 
-  const practiceAreaChildren = practiceAreas && practiceAreas.length > 0
-    ? practiceAreas.map((a) => ({
-        href: `/uzmanlik-alanlari/${a.slug}`,
-        label: a.title,
-      }))
-    : [];
-
   const navItems: NavItem[] = [
     { href: "/", label: t("home") },
     { href: "/hakkimizda", label: t("about") },
-    {
-      label: t("practiceAreas"),
-      href: "/uzmanlik-alanlari",
-      children: practiceAreaChildren,
-    },
+    { href: "/hizmetlerimiz", label: t("practiceAreas") },
     { href: "/ekibimiz", label: t("team") },
     { href: "/blog", label: t("blog") },
     { href: "/sss", label: t("faq") },
@@ -120,56 +64,70 @@ export function Navbar({ practiceAreas }: { practiceAreas?: PracticeAreaNav[] })
 
   return (
     <>
-      <header
-        className={cn(
-          "bg-[#0a0a0a] transition-shadow duration-300",
-          scrolled && "shadow-[0_1px_0_rgba(255,255,255,0.06)]"
-        )}
-      >
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="flex h-16 items-center justify-between">
+      <header className={cn(
+        "bg-[#0a0a0a] transition-shadow duration-300",
+        scrolled && "shadow-[0_1px_0_rgba(255,255,255,0.06)]"
+      )}>
+        <div className="mx-auto max-w-7xl" style={{ padding: "0 var(--section-px)" }}>
+          <div className="flex items-center justify-between" style={{ height: "clamp(3.5rem, 4.5vw, 5rem)" }}>
 
             {/* Logo */}
             <Link href="/" className="shrink-0">
-              <img
-                src="/images/logo.png"
-                alt="AEB Avukatlık Ortaklığı"
-                className="h-10 w-auto"
-              />
+              <img src="/images/logo.png" alt="AEB Avukatlık Ortaklığı" style={{ height: "clamp(2rem, 2.8vw, 3rem)", width: "auto" }} />
             </Link>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden items-center gap-8 md:flex">
-              {navItems.map((item) =>
-                item.children && item.children.length > 0 ? (
-                  <DropdownItem key={item.label} item={item} isActive={isActive} />
-                ) : (
-                  <Link
-                    key={item.href}
-                    href={item.href!}
-                    className={cn(
-                      "relative text-sm tracking-widest uppercase transition-colors pb-1",
-                      isActive(item.href!)
-                        ? "text-white after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-white"
-                        : "text-white/60 hover:text-white"
-                    )}
-                  >
-                    {item.label}
-                  </Link>
-                )
-              )}
+            {/* Desktop Nav */}
+            <nav className="hidden items-center md:flex" style={{ gap: "clamp(1.2rem, 2vw, 2.5rem)" }}>
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={cn(
+                    "relative tracking-[0.12em] uppercase transition-colors pb-1",
+                    isActive(item.href)
+                      ? "text-white font-semibold"
+                      : "text-white/55 hover:text-white"
+                  )}
+                  style={{ fontSize: "var(--fs-micro)" }}
+                >
+                  {item.label}
+                </Link>
+              ))}
             </nav>
 
-            {/* Right: Language + Mobile */}
-            <div className="flex items-center gap-4">
+            {/* Right: E-Tahsilat + Search + Language + Mobile */}
+            <div className="flex items-center" style={{ gap: "clamp(0.75rem, 1.2vw, 1.5rem)" }}>
+              <a
+                href="https://pos.param.com.tr/Tahsilat/Default.aspx?k=2524DFB2-A0F3-4A5A-B9DD-9A2A18B0E1BD"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden md:inline-flex items-center border border-[#b8975a]/60 tracking-[0.15em] uppercase text-[#b8975a] hover:bg-[#b8975a]/10 hover:border-[#b8975a] transition-colors"
+                style={{ fontSize: "var(--fs-micro)", padding: "0.35em 0.8em" }}
+              >
+                E-Tahsilat
+              </a>
+
+              <button
+                type="button"
+                onClick={() => setSearchOpen(true)}
+                className="flex items-center gap-2 text-white/40 hover:text-white/80 transition-colors"
+                aria-label="Ara"
+              >
+                <Search style={{ width: "var(--fs-base)", height: "var(--fs-base)" }} />
+                <span className="hidden lg:inline-flex items-center tracking-widest text-white/20 border border-white/10" style={{ fontSize: "var(--fs-micro)", padding: "0.2em 0.4em" }}>
+                  ⌘K
+                </span>
+              </button>
+
               <LanguageSwitcher />
+
               <button
                 type="button"
                 className="md:hidden text-white/60 hover:text-white transition-colors"
                 onClick={() => setMobileMenuOpen(true)}
                 aria-label="Menüyü aç"
               >
-                <Menu className="h-5 w-5" />
+                <Menu style={{ width: "var(--fs-xl)", height: "var(--fs-xl)" }} />
               </button>
             </div>
           </div>
@@ -180,7 +138,10 @@ export function Navbar({ practiceAreas }: { practiceAreas?: PracticeAreaNav[] })
         isOpen={mobileMenuOpen}
         onClose={() => setMobileMenuOpen(false)}
         practiceAreas={practiceAreas}
+        onSearchOpen={() => { setMobileMenuOpen(false); setSearchOpen(true); }}
       />
+
+      <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   );
 }

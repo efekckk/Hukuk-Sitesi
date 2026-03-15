@@ -41,28 +41,21 @@ export default async function AboutPage({ params }: AboutPageProps) {
   return (
     <main>
       {/* About — two-column section */}
-      <section className="bg-white py-20">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid grid-cols-1 items-start gap-16 lg:grid-cols-2">
-            {/* Left: text */}
+      <section className="bg-white" style={{ padding: "var(--section-py) var(--section-px)" }}>
+        <div className="mx-auto max-w-7xl">
+          <div className="grid grid-cols-1 items-start lg:grid-cols-2" style={{ gap: "var(--space-2xl)" }}>
             <div>
-              <h1 className="font-serif text-5xl font-light text-[#1a1a1a] leading-tight">
+              <h1 className="font-serif font-light text-[#1a1a1a] leading-tight" style={{ fontSize: "var(--fs-5xl)" }}>
                 {t("title")}
               </h1>
-              <div className="mt-8 space-y-5 text-base leading-relaxed text-[#555]">
+              <div className="leading-relaxed text-[#555]" style={{ fontSize: "var(--fs-base)", marginTop: "var(--space-lg)", display: "flex", flexDirection: "column", gap: "var(--space-sm)" }}>
                 {description.split("\n\n").map((para, i) => (
                   <p key={i}>{para}</p>
                 ))}
               </div>
             </div>
-
-            {/* Right: photo placeholder */}
             <div className="relative aspect-[4/3] overflow-hidden bg-[#e8e4de]">
-              <img
-                src="/images/team-meeting.jpg"
-                alt="AEB Hukuk Ofisi"
-                className="h-full w-full object-cover grayscale"
-              />
+              <img src="/images/team-meeting.jpg" alt="AEB Hukuk Ofisi" className="h-full w-full object-cover grayscale" />
             </div>
           </div>
         </div>
@@ -70,16 +63,15 @@ export default async function AboutPage({ params }: AboutPageProps) {
 
       {/* Stats band */}
       {statsData.length > 0 && (
-        <section className="bg-[#d0cdc9] py-16">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+        <section className="bg-[#d0cdc9]" style={{ padding: "var(--space-2xl) var(--section-px)" }}>
+          <div className="mx-auto max-w-7xl">
+            <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: "var(--space-xl)" }}>
               {statsData.map((stat) => (
                 <div key={stat.label} className="text-center">
-                  <p className="font-serif text-6xl font-light text-[#333] lg:text-7xl">
-                    {stat.value}
-                    {stat.suffix}
+                  <p className="font-serif font-light text-[#333]" style={{ fontSize: "var(--fs-display)" }}>
+                    {stat.value}{stat.suffix}
                   </p>
-                  <p className="mt-2 text-xs tracking-widest uppercase text-[#666]">
+                  <p className="tracking-widest uppercase text-[#666]" style={{ fontSize: "var(--fs-micro)", marginTop: "var(--space-xs)" }}>
                     {stat.label}
                   </p>
                 </div>

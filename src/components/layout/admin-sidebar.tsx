@@ -195,21 +195,24 @@ interface AdminSidebarProps {
   unreadCount?: number;
   isSuperAdmin?: boolean;
   role?: string;
+  userName?: string;
 }
 
-export function AdminSidebar({ unreadCount = 0, isSuperAdmin = false, role = "EDITOR" }: AdminSidebarProps) {
+export function AdminSidebar({ unreadCount = 0, isSuperAdmin = false, role = "EDITOR", userName = "" }: AdminSidebarProps) {
   const pathname = usePathname();
   const { isDark, toggle } = useDarkMode();
 
+  const initial = userName ? userName.charAt(0).toUpperCase() : "A";
+
   return (
     <aside className="fixed left-0 top-0 z-40 flex h-screen w-64 flex-col bg-primary-dark text-white">
-      {/* Logo */}
-      <div className="flex h-16 items-center justify-between border-b border-white/10 px-6">
-        <span className="text-lg font-bold tracking-wide">Admin Panel</span>
+      {/* Header */}
+      <div className="flex h-16 items-center justify-between border-b border-white/10 px-5">
+        <span className="text-base font-bold tracking-wide text-white">Admin Panel</span>
         <button
           type="button"
           onClick={toggle}
-          className="rounded-lg p-1.5 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+          className="rounded-lg p-1.5 text-white/50 transition-colors hover:bg-white/10 hover:text-white"
           title={isDark ? "Açık Mod" : "Koyu Mod"}
         >
           {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
@@ -217,7 +220,7 @@ export function AdminSidebar({ unreadCount = 0, isSuperAdmin = false, role = "ED
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4">
+      <nav className="flex-1 space-y-0.5 overflow-y-auto px-3 py-3">
         {buildSidebarItems(unreadCount, isSuperAdmin, role).map((item) => {
           if (isGroup(item)) {
             return <SidebarGroupItem key={item.label} group={item} pathname={pathname} />;
@@ -226,15 +229,18 @@ export function AdminSidebar({ unreadCount = 0, isSuperAdmin = false, role = "ED
         })}
       </nav>
 
-      {/* Logout Button */}
+      {/* Footer — avatar + çıkış */}
       <div className="border-t border-white/10 p-3">
         <button
           type="button"
-          onClick={() => signOut({ callbackUrl: "/" })}
-          className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-white/70 transition-colors hover:bg-white/5 hover:text-white"
+          onClick={() => signOut({ callbackUrl: "/admin/giris" })}
+          className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-white/60 transition-colors hover:bg-white/5 hover:text-white"
         >
-          <LogOut className="h-5 w-5 shrink-0" />
-          Çıkış Yap
+          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/15 text-xs font-bold text-white">
+            {initial}
+          </span>
+          <span>Çıkış Yap</span>
+          <LogOut className="ml-auto h-4 w-4 shrink-0" />
         </button>
       </div>
     </aside>

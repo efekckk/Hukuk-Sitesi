@@ -4,12 +4,15 @@ import { blogPostSchema } from "@/lib/validations/blog";
 import { auth } from "@/lib/auth";
 import { getUserRole, canAccess } from "@/lib/permissions";
 import { logAudit } from "@/lib/audit";
+import { rateLimit, getIp, RATE_LIMITS } from "@/lib/rate-limit";
 
 export async function GET(request: NextRequest) {
+  const rl = rateLimit(`blog-get:${getIp(request)}`, RATE_LIMITS.publicList);
+  if (!rl.success) return NextResponse.json({ error: "Çok fazla istek" }, { status: 429 });
   try {
     const { searchParams } = new URL(request.url);
-    const page = parseInt(searchParams.get("page") || "1");
-    const limit = parseInt(searchParams.get("limit") || "10");
+    const page = Math.max(1, parseInt(searchParams.get("page") || "1"));
+    const limit = Math.min(100, Math.max(1, parseInt(searchParams.get("limit") || "10")));
     const category = searchParams.get("category");
     const published = searchParams.get("published");
 

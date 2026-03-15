@@ -3,8 +3,11 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/lib/auth";
 import { getUserRole, canAccess } from "@/lib/permissions";
 import { logAudit } from "@/lib/audit";
+import { rateLimit, getIp, RATE_LIMITS } from "@/lib/rate-limit";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const rl = rateLimit(`practice-areas-get:${getIp(request)}`, RATE_LIMITS.publicList);
+  if (!rl.success) return NextResponse.json({ error: "Çok fazla istek" }, { status: 429 });
   try {
     const areas = await prisma.practiceArea.findMany({
       orderBy: { order: "asc" },

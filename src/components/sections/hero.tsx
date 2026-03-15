@@ -52,10 +52,13 @@ export async function Hero({ locale = "tr" }: HeroProps) {
         {/* Üst/alt karartma */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/30 via-transparent to-[#0a0a0a]/50 z-10" />
 
-        {/* İçerik — tasarıma göre sol alt bölge */}
-        <div className="absolute inset-0 z-20 flex items-end pb-24 mx-auto max-w-7xl px-6 lg:px-8 w-full left-0 right-0">
-          <div className="max-w-xl">
-            <h1 className="font-serif text-5xl font-light leading-[1.1] text-white lg:text-6xl xl:text-7xl">
+        {/* İçerik — sol üst, viewport'a orantılı tipografi */}
+        <div className="absolute inset-0 z-20 flex items-start pt-[13vh] px-[5vw]">
+          <div style={{ maxWidth: "44vw" }}>
+            <h1
+              className="font-serif font-light leading-[1.08] text-white"
+              style={{ fontSize: "clamp(2.2rem, 4vw, 5.5rem)" }}
+            >
               {title.split("\n").map((line, i) => (
                 <span key={i}>
                   {line}
@@ -63,20 +66,29 @@ export async function Hero({ locale = "tr" }: HeroProps) {
                 </span>
               ))}
             </h1>
-            <p className="mt-6 text-sm leading-relaxed text-white/50 max-w-sm">
+            <p
+              className="mt-8 leading-relaxed text-white/50"
+              style={{
+                fontSize: "clamp(0.78rem, 1.05vw, 1rem)",
+                maxWidth: "clamp(260px, 28vw, 440px)",
+              }}
+            >
               {subtitle}
             </p>
-            <p className="mt-3 text-sm leading-relaxed text-white/50 max-w-sm">
-              {subtitle2}
-            </p>
+            {subtitle2 && (
+              <p
+                className="mt-3 leading-relaxed text-white/50"
+                style={{
+                  fontSize: "clamp(0.78rem, 1.05vw, 1rem)",
+                  maxWidth: "clamp(260px, 28vw, 440px)",
+                }}
+              >
+                {subtitle2}
+              </p>
+            )}
           </div>
         </div>
 
-        {/* Aşağı kaydır ipucu */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2">
-          <span className="text-[10px] tracking-[0.3em] uppercase text-white/20">Kaydır</span>
-          <div className="w-px h-8 bg-gradient-to-b from-white/20 to-transparent" />
-        </div>
 
       </div>
     </div>
