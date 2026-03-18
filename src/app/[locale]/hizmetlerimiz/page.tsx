@@ -26,10 +26,10 @@ export default async function PracticeAreasPage({ params }: PracticeAreasPagePro
       {/* Hero */}
       <div className="bg-[#0a0a0a]" style={{ padding: "var(--space-3xl) var(--section-px) var(--space-2xl)" }}>
         <div className="mx-auto max-w-7xl">
-          <p className="tracking-[0.35em] uppercase text-white/30" style={{ fontSize: "var(--fs-micro)", marginBottom: "var(--space-sm)" }}>
+          <p className="tracking-[0.35em] uppercase text-white/30" style={{ fontSize: "0.6875rem", marginBottom: "var(--space-sm)" }}>
             {t("tagline")}
           </p>
-          <h1 className="font-serif font-light text-white leading-[1.05]" style={{ fontSize: "var(--fs-5xl)" }}>
+          <h1 className="font-serif font-light text-white leading-[1.05]" style={{ fontSize: "5.1875rem" }}>
             {t("title")}
           </h1>
         </div>
@@ -40,16 +40,16 @@ export default async function PracticeAreasPage({ params }: PracticeAreasPagePro
         <div className="mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-2" style={{ gap: "var(--space-2xl)" }}>
 
           <div className="flex flex-col justify-center">
-            <p className="tracking-[0.3em] uppercase text-[#b8975a]" style={{ fontSize: "var(--fs-micro)", marginBottom: "var(--space-lg)" }}>
+            <p className="tracking-[0.3em] uppercase text-[#b8975a]" style={{ fontSize: "0.6875rem", marginBottom: "var(--space-lg)" }}>
               {t("tagline")}
             </p>
-            <p className="leading-[1.85] text-[#333]" style={{ fontSize: "var(--fs-base)", marginBottom: "var(--space-md)" }}>
+            <p className="leading-[1.85] text-[#333]" style={{ fontSize: "1.875rem", marginBottom: "var(--space-md)" }}>
               {t("intro1")}
             </p>
-            <p className="leading-[1.85] text-[#555]" style={{ fontSize: "var(--fs-base)", marginBottom: "var(--space-md)" }}>
+            <p className="leading-[1.85] text-[#555]" style={{ fontSize: "1.875rem", marginBottom: "var(--space-md)" }}>
               {t("intro2")}
             </p>
-            <p className="leading-[1.85] text-[#555]" style={{ fontSize: "var(--fs-base)" }}>
+            <p className="leading-[1.85] text-[#555]" style={{ fontSize: "1.875rem" }}>
               {t("intro3")}
             </p>
             <div style={{ marginTop: "var(--space-xl)" }}>

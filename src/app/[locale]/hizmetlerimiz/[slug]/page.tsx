@@ -78,13 +78,13 @@ export default async function PracticeAreaDetailPage({ params }: PracticeAreaDet
           <Link
             href="/hizmetlerimiz"
             className="inline-flex items-center gap-2 text-white/30 hover:text-white/60 transition-colors mb-8"
-            style={{ fontSize: "var(--fs-micro)" }}
+            style={{ fontSize: "0.6875rem" }}
           >
             ← {tp("title")}
           </Link>
           <h1
             className="font-serif font-light text-white leading-[1.05]"
-            style={{ fontSize: "var(--fs-5xl)", maxWidth: "32rem" }}
+            style={{ fontSize: "3.125rem", maxWidth: "32rem" }}
           >
             {title}
           </h1>
@@ -100,7 +100,7 @@ export default async function PracticeAreaDetailPage({ params }: PracticeAreaDet
             {/* Başlık */}
             <h2
               className="font-serif font-light text-[#1a1a1a] leading-snug"
-              style={{ fontSize: "var(--fs-4xl)", marginBottom: "var(--space-xl)" }}
+              style={{ fontSize: "4.375rem", marginBottom: "var(--space-xl)" }}
             >
               {title}{isTr ? " Nedir?" : " – What is it?"}
             </h2>
@@ -108,7 +108,7 @@ export default async function PracticeAreaDetailPage({ params }: PracticeAreaDet
             {/* Uzun açıklama */}
             <div
               className="text-[#444] leading-[1.9]"
-              style={{ fontSize: "var(--fs-base)" }}
+              style={{ fontSize: "1.5rem" }}
             >
               {longDesc.split("\n\n").map((para, i) => (
                 <p key={i} style={{ marginBottom: "var(--space-md)" }}>{para}</p>
@@ -120,7 +120,7 @@ export default async function PracticeAreaDetailPage({ params }: PracticeAreaDet
               <div style={{ marginTop: "var(--space-2xl)" }}>
                 <h3
                   className="font-serif font-light text-[#1a1a1a]"
-                  style={{ fontSize: "var(--fs-xl)", marginBottom: "var(--space-lg)" }}
+                  style={{ fontSize: "1.875rem", marginBottom: "var(--space-lg)" }}
                 >
                   {tp("ourServices")}
                 </h3>
@@ -131,8 +131,8 @@ export default async function PracticeAreaDetailPage({ params }: PracticeAreaDet
                       className="flex items-center border-b border-[#e8e4de]"
                       style={{ gap: "var(--space-sm)", padding: "var(--space-md) var(--space-xs)" }}
                     >
-                      <span className="text-[#b8975a] shrink-0" style={{ fontSize: "var(--fs-xs)" }}>—</span>
-                      <span className="text-[#444]" style={{ fontSize: "var(--fs-sm)" }}>{item}</span>
+                      <span className="text-[#b8975a] shrink-0" style={{ fontSize: "0.8125rem" }}>—</span>
+                      <span className="text-[#444]" style={{ fontSize: "0.875rem" }}>{item}</span>
                     </div>
                   ))}
                 </div>
@@ -146,13 +146,13 @@ export default async function PracticeAreaDetailPage({ params }: PracticeAreaDet
 
               <h3
                 className="font-serif font-light text-white leading-snug"
-                style={{ fontSize: "clamp(1.3rem, 1.6vw, 1.9rem)", marginBottom: "0.6em" }}
+                style={{ fontSize: "1.875rem", marginBottom: "0.6em" }}
               >
                 {isTr ? "Size Nasıl Yardımcı Olabiliriz?" : "How Can We Help You?"}
               </h3>
               <p
                 className="text-white/45 leading-relaxed"
-                style={{ fontSize: "clamp(0.72rem, 0.8vw, 0.88rem)", marginBottom: "var(--space-lg)" }}
+                style={{ fontSize: "1rem", marginBottom: "var(--space-lg)" }}
               >
                 {isTr
                   ? "Hukuki süreçleriniz için bizimle iletişime geçebilirsiniz."
@@ -160,7 +160,7 @@ export default async function PracticeAreaDetailPage({ params }: PracticeAreaDet
               </p>
 
               {/* İletişim satırları */}
-              <div style={{ display: "flex", flexDirection: "column", gap: "clamp(0.75rem, 1vw, 1.1rem)" }}>
+              <div               style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                 {[
                   {
                     icon: Phone,
@@ -187,17 +187,17 @@ export default async function PracticeAreaDetailPage({ params }: PracticeAreaDet
                     key={label}
                     className="flex items-start"
                     style={{
-                      gap: "clamp(0.6rem, 0.8vw, 1rem)",
-                      paddingBottom: "clamp(0.75rem, 1vw, 1.1rem)",
+                      gap: "0.75rem",
+                      paddingBottom: "1rem",
                       borderBottom: i < arr.length - 1 ? "1px solid rgba(255,255,255,0.08)" : "none",
                     }}
                   >
-                    <Icon className="text-[#b8975a] shrink-0 mt-0.5" style={{ width: "clamp(0.8rem, 0.9vw, 1rem)", height: "clamp(0.8rem, 0.9vw, 1rem)" }} />
+                    <Icon className="text-[#b8975a] shrink-0 mt-0.5" style={{ width: "1rem", height: "1rem" }} />
                     <div>
-                      <p className="text-white/30 uppercase tracking-widest" style={{ fontSize: "clamp(0.55rem, 0.6vw, 0.68rem)", marginBottom: "0.2em" }}>
+                      <p className="text-white/30 uppercase tracking-widest" style={{ fontSize: "0.6875rem", marginBottom: "0.2em" }}>
                         {label}
                       </p>
-                      <div style={{ fontSize: "clamp(0.72rem, 0.8vw, 0.88rem)", lineHeight: 1.5 }}>
+                      <div style={{ fontSize: "1rem", lineHeight: 1.5 }}>
                         {content}
                       </div>
                     </div>
@@ -205,7 +205,7 @@ export default async function PracticeAreaDetailPage({ params }: PracticeAreaDet
                 ))}
               </div>
 
-              <p className="text-white/20 italic" style={{ fontSize: "clamp(0.55rem, 0.6vw, 0.68rem)", marginTop: "var(--space-md)" }}>
+              <p className="text-white/20 italic" style={{ fontSize: "0.6875rem", marginTop: "var(--space-md)" }}>
                 {isTr ? "*Hafta içi 09:00 – 18:00 arası hizmete açıktır." : "*Available weekdays 09:00 – 18:00."}
               </p>
             </div>

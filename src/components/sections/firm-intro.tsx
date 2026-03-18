@@ -8,7 +8,7 @@ export function FirmIntro({ locale = "tr" }: FirmIntroProps) {
   const heading = isTr ? "AEB Hukuk" : "AEB Law";
 
   const p1 = isTr
-    ? "Aşçı Etci Benglian Avukatlık Ortaklığı, bütün hukuki alanlarda, uzmanlık ve deneyimi bir araya getiren bağımsız bir avukatlık bürosudur."
+    ? "Aşcı Etci Benglian Avukatlık Ortaklığı, bütün hukuki alanlarda, uzmanlık ve deneyimi bir araya getiren bağımsız bir avukatlık bürosudur."
     : "Aşçı Etci Benglian Law Partnership is an independent law firm that brings together expertise and experience in all areas of law.";
 
   const p2 = isTr
@@ -24,14 +24,14 @@ export function FirmIntro({ locale = "tr" }: FirmIntroProps) {
           <div>
             <h2
               className="font-serif font-light text-[#1a1a1a] leading-[1.05]"
-              style={{ fontSize: "var(--fs-5xl)", marginBottom: "var(--space-lg)" }}
+              style={{ fontSize: "var(--fs-display)", marginBottom: "2rem" }}
             >
               {heading}
             </h2>
-            <p className="text-[#444] leading-[1.8]" style={{ fontSize: "var(--fs-base)", marginBottom: "var(--space-md)" }}>
+            <p className="text-[#444] leading-[1.8]" style={{ fontSize: "var(--fs-2xl)", marginBottom: "1.5rem" }}>
               {p1}
             </p>
-            <p className="text-[#666] leading-[1.8]" style={{ fontSize: "var(--fs-base)" }}>
+            <p className="text-[#666] leading-[1.8]" style={{ fontSize: "var(--fs-2xl)" }}>
               {p2}
             </p>
           </div>

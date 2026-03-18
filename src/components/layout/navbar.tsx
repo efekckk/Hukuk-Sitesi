@@ -57,7 +57,6 @@ export function Navbar({ practiceAreas }: { practiceAreas?: PracticeAreaNav[] })
     { href: "/hakkimizda", label: t("about") },
     { href: "/hizmetlerimiz", label: t("practiceAreas") },
     { href: "/ekibimiz", label: t("team") },
-    { href: "/blog", label: t("blog") },
     { href: "/sss", label: t("faq") },
     { href: "/iletisim", label: t("contact") },
   ];
@@ -68,16 +67,16 @@ export function Navbar({ practiceAreas }: { practiceAreas?: PracticeAreaNav[] })
         "bg-[#0a0a0a] transition-shadow duration-300",
         scrolled && "shadow-[0_1px_0_rgba(255,255,255,0.06)]"
       )}>
-        <div className="mx-auto max-w-7xl" style={{ padding: "0 var(--section-px)" }}>
-          <div className="flex items-center justify-between" style={{ height: "clamp(3.5rem, 4.5vw, 5rem)" }}>
+        <div style={{ padding: "0 3rem" }}>
+          <div className="flex items-center justify-between" style={{ height: "5rem" }}>
 
             {/* Logo */}
             <Link href="/" className="shrink-0">
-              <img src="/images/logo.png" alt="AEB Avukatlık Ortaklığı" style={{ height: "clamp(2rem, 2.8vw, 3rem)", width: "auto" }} />
+              <img src="/images/logo.png" alt="AEB Avukatlık Ortaklığı" style={{ height: "4rem", width: "auto" }} />
             </Link>
 
             {/* Desktop Nav */}
-            <nav className="hidden items-center md:flex" style={{ gap: "clamp(1.2rem, 2vw, 2.5rem)" }}>
+            <nav className="hidden items-center md:flex" style={{ gap: "2rem" }}>
               {navItems.map((item) => (
                 <Link
                   key={item.href}
@@ -88,7 +87,7 @@ export function Navbar({ practiceAreas }: { practiceAreas?: PracticeAreaNav[] })
                       ? "text-white font-semibold"
                       : "text-white/55 hover:text-white"
                   )}
-                  style={{ fontSize: "var(--fs-micro)" }}
+                  style={{ fontSize: "var(--fs-lg)" }}
                 >
                   {item.label}
                 </Link>
@@ -102,7 +101,7 @@ export function Navbar({ practiceAreas }: { practiceAreas?: PracticeAreaNav[] })
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hidden md:inline-flex items-center border border-[#b8975a]/60 tracking-[0.15em] uppercase text-[#b8975a] hover:bg-[#b8975a]/10 hover:border-[#b8975a] transition-colors"
-                style={{ fontSize: "var(--fs-micro)", padding: "0.35em 0.8em" }}
+                style={{ fontSize: "var(--fs-lg)", padding: "0.35em 0.8em" }}
               >
                 E-Tahsilat
               </a>
@@ -114,7 +113,7 @@ export function Navbar({ practiceAreas }: { practiceAreas?: PracticeAreaNav[] })
                 aria-label="Ara"
               >
                 <Search style={{ width: "var(--fs-base)", height: "var(--fs-base)" }} />
-                <span className="hidden lg:inline-flex items-center tracking-widest text-white/20 border border-white/10" style={{ fontSize: "var(--fs-micro)", padding: "0.2em 0.4em" }}>
+                <span className="hidden lg:inline-flex items-center tracking-widest text-white/20 border border-white/10"                   style={{ fontSize: "var(--fs-xs)", padding: "0.2em 0.4em" }}>
                   ⌘K
                 </span>
               </button>

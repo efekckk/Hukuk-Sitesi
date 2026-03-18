@@ -63,7 +63,7 @@ export default async function TeamPage({ params }: TeamPageProps) {
               </div>
               <div style={{ marginTop: "var(--space-sm)", padding: "0 var(--space-xs)" }}>
                 <p className="tracking-widest uppercase text-white/30" style={{ fontSize: "var(--fs-micro)" }}>{member.role}</p>
-                <h3 className="font-serif font-light text-white" style={{ fontSize: "var(--fs-xl)", marginTop: "0.2em" }}>{member.name}</h3>
+                <h3 className="font-serif font-light text-white" style={{ fontSize: "var(--fs-3xl)", marginTop: "0.2em" }}>{member.name}</h3>
                 {member.specialty && (
                   <p className="text-white/30" style={{ fontSize: "var(--fs-xs)", marginTop: "0.2em" }}>{member.specialty}</p>
                 )}
@@ -76,7 +76,7 @@ export default async function TeamPage({ params }: TeamPageProps) {
       {/* Quote section */}
       <section className="border-t border-white/10" style={{ padding: "var(--section-py) var(--section-px)" }}>
         <div className="mx-auto max-w-7xl">
-          <p className="font-serif font-light leading-relaxed text-white/70" style={{ fontSize: "var(--fs-4xl)", maxWidth: "50rem" }}>
+          <p className="font-serif font-light leading-relaxed text-white/70" style={{ fontSize: "var(--fs-5xl)", maxWidth: "48rem" }}>
             Deneyimli ve koordineli ekibimiz, müvekkillerimizin ihtiyaç duyduğu
             en karmaşık hukuki süreçleri çözüm odaklı bir anlayışla yönetir.
           </p>
@@ -90,18 +90,18 @@ export default async function TeamPage({ params }: TeamPageProps) {
             <p className="font-serif font-light tracking-widest text-black" style={{ fontSize: "var(--fs-display)" }}>
               AŞÇI&nbsp;&nbsp;ETÇİ&nbsp;&nbsp;BENGLİAN
             </p>
-            <p className="tracking-[0.4em] uppercase text-black/30" style={{ fontSize: "var(--fs-micro)", marginTop: "var(--space-sm)" }}>
+            <p className="tracking-[0.4em] uppercase text-black/30" style={{ fontSize: "var(--fs-4xl)", marginTop: "var(--space-sm)" }}>
               Avukatlık Ortaklığı
             </p>
           </div>
 
           <div className="grid grid-cols-1 border-t border-black/10 md:grid-cols-2" style={{ marginTop: "var(--space-2xl)", paddingTop: "var(--space-2xl)", gap: "var(--space-xl)" }}>
-            <p className="leading-relaxed text-[#555]" style={{ fontSize: "var(--fs-sm)" }}>
+            <p className="leading-relaxed text-[#555]" style={{ fontSize: "var(--fs-2xl)" }}>
               Aşçı Etci Benglian Avukatlık Ortaklığı, bütün hukuki alanlarda, uzmanlık ve deneyimi bir araya getiren bağımsız bir avukatlık bürosudur.
               <br /><br />
               AEB Avukatlık Bürosu olarak özel kişilerden, orta ve büyük ölçekli şirketlere, devlet kuruluşlarından uluslararası ve küresel holdinglere kadar herkesin hukuki ihtiyaçlarına yönelik hizmet vermekteyiz.
             </p>
-            <p className="leading-relaxed text-[#555]" style={{ fontSize: "var(--fs-sm)" }}>
+            <p className="leading-relaxed text-[#555]" style={{ fontSize: "var(--fs-2xl)" }}>
               Aşçı Etci Benglian Avukatlık Ortaklığı, bütün hukuki alanlarda, uzmanlık ve deneyimi bir araya getiren bağımsız bir avukatlık bürosudur.
               <br /><br />
               AEB Avukatlık Bürosu olarak özel kişilerden, orta ve büyük ölçekli şirketlere, devlet kuruluşlarından uluslararası ve küresel holdinglere kadar herkesin hukuki ihtiyaçlarına yönelik hizmet vermekteyiz.

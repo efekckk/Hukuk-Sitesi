@@ -9,9 +9,8 @@ export async function Hero({ locale = "tr" }: HeroProps) {
   // Hero metinlerini DB'den çek, yoksa sabit fallback
   let title = "Hukuki Süreçlerde\nStratejik Güç Ortağınız";
   let subtitle =
-    "AEB Hukuk; ticaret hukuku, uyuşmazlık çözümü ve kurumsal danışmanlık alanlarında uzmanlaşmış, çok disiplinli bir ekip ile faaliyet göstermektedir.";
-  let subtitle2 =
-    "Hizmet anlayışımız, güçlü hukuki analiz ve sürdürülebilir çözüm üretme kapasitesine dayanır.";
+    "Karmaşık hukuki süreçleri güçlü analiz ve stratejik temsil anlayışıyla yönetiyoruz. Müvekkillerimizin haklarını korurken sürdürülebilir ve etkili çözümler üretmeyi hedefliyoruz.";
+  let subtitle2 = "";
 
   try {
     const settings = await prisma.siteSetting.findMany({
@@ -52,12 +51,12 @@ export async function Hero({ locale = "tr" }: HeroProps) {
         {/* Üst/alt karartma */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/30 via-transparent to-[#0a0a0a]/50 z-10" />
 
-        {/* İçerik — sol üst, viewport'a orantılı tipografi */}
-        <div className="absolute inset-0 z-20 flex items-start pt-[13vh] px-[5vw]">
-          <div style={{ maxWidth: "44vw" }}>
+        {/* İçerik — sol dikey orta */}
+        <div className="absolute inset-0 z-20 flex items-center" style={{ paddingLeft: "3rem" }}>
+          <div style={{ maxWidth: "36rem" }}>
             <h1
               className="font-serif font-light leading-[1.08] text-white"
-              style={{ fontSize: "clamp(2.2rem, 4vw, 5.5rem)" }}
+              style={{ fontSize: "var(--fs-6xl)" }}
             >
               {title.split("\n").map((line, i) => (
                 <span key={i}>
@@ -67,20 +66,22 @@ export async function Hero({ locale = "tr" }: HeroProps) {
               ))}
             </h1>
             <p
-              className="mt-8 leading-relaxed text-white/50"
+              className="leading-relaxed text-white/50"
               style={{
-                fontSize: "clamp(0.78rem, 1.05vw, 1rem)",
-                maxWidth: "clamp(260px, 28vw, 440px)",
+                fontSize: "var(--fs-sm)",
+                maxWidth: "26rem",
+                marginTop: "2rem",
               }}
             >
               {subtitle}
             </p>
             {subtitle2 && (
               <p
-                className="mt-3 leading-relaxed text-white/50"
+                className="leading-relaxed text-white/50"
                 style={{
-                  fontSize: "clamp(0.78rem, 1.05vw, 1rem)",
-                  maxWidth: "clamp(260px, 28vw, 440px)",
+                  fontSize: "var(--fs-sm)",
+                  maxWidth: "26rem",
+                  marginTop: "0.75rem",
                 }}
               >
                 {subtitle2}
