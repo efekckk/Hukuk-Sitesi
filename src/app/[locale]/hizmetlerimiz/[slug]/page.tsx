@@ -84,7 +84,7 @@ export default async function PracticeAreaDetailPage({ params }: PracticeAreaDet
           </Link>
           <h1
             className="font-serif font-light text-white leading-[1.05]"
-            style={{ fontSize: "3.125rem", maxWidth: "32rem" }}
+            style={{ fontSize: "var(--fs-3xl)", maxWidth: "32rem" }}
           >
             {title}
           </h1>
@@ -100,7 +100,7 @@ export default async function PracticeAreaDetailPage({ params }: PracticeAreaDet
             {/* Başlık */}
             <h2
               className="font-serif font-light text-[#1a1a1a] leading-snug"
-              style={{ fontSize: "4.375rem", marginBottom: "var(--space-xl)" }}
+              style={{ fontSize: "var(--fs-3xl)", marginBottom: "var(--space-xl)" }}
             >
               {title}{isTr ? " Nedir?" : " – What is it?"}
             </h2>
@@ -108,7 +108,7 @@ export default async function PracticeAreaDetailPage({ params }: PracticeAreaDet
             {/* Uzun açıklama */}
             <div
               className="text-[#444] leading-[1.9]"
-              style={{ fontSize: "1.5rem" }}
+              style={{ fontSize: "var(--fs-base)" }}
             >
               {longDesc.split("\n\n").map((para, i) => (
                 <p key={i} style={{ marginBottom: "var(--space-md)" }}>{para}</p>
@@ -120,7 +120,7 @@ export default async function PracticeAreaDetailPage({ params }: PracticeAreaDet
               <div style={{ marginTop: "var(--space-2xl)" }}>
                 <h3
                   className="font-serif font-light text-[#1a1a1a]"
-                  style={{ fontSize: "1.875rem", marginBottom: "var(--space-lg)" }}
+                  style={{ fontSize: "var(--fs-xl)", marginBottom: "var(--space-lg)" }}
                 >
                   {tp("ourServices")}
                 </h3>
@@ -146,7 +146,7 @@ export default async function PracticeAreaDetailPage({ params }: PracticeAreaDet
 
               <h3
                 className="font-serif font-light text-white leading-snug"
-                style={{ fontSize: "1.875rem", marginBottom: "0.6em" }}
+                style={{ fontSize: "var(--fs-xl)", marginBottom: "0.6em" }}
               >
                 {isTr ? "Size Nasıl Yardımcı Olabiliriz?" : "How Can We Help You?"}
               </h3>

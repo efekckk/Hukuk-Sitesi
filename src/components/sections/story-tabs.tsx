@@ -40,7 +40,7 @@ export function StoryTabs() {
         {activeTab === "about" ? (
           <div className="grid grid-cols-1 lg:grid-cols-2 items-center" style={{ gap: "var(--space-2xl)" }}>
             <div>
-              <h2 className="font-serif font-light text-[#1a1a1a] leading-tight" style={{ fontSize: "var(--fs-4xl)" }}>
+              <h2 className="font-serif font-light text-[#1a1a1a] leading-tight" style={{ fontSize: "var(--fs-3xl)" }}>
                 {t("about.title")}
               </h2>
               <p className="leading-[1.9] text-[#555]" style={{ fontSize: "var(--fs-base)", marginTop: "var(--space-lg)" }}>
@@ -67,13 +67,13 @@ export function StoryTabs() {
               </Link>
             </div>
             <div className="relative aspect-[4/3] overflow-hidden">
-              <img src="/images/lawyer-client.jpg" alt="" className="h-full w-full object-cover grayscale" />
+              <img src="/images/lawyer-discussing-with-client-about-contract-agre-2026-01-08-06-22-17-utc.jpg.webp" alt="" className="h-full w-full object-cover grayscale" />
             </div>
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-2 items-start" style={{ gap: "var(--space-2xl)" }}>
             <div>
-              <h2 className="font-serif font-light text-[#1a1a1a] leading-tight" style={{ fontSize: "var(--fs-4xl)" }}>
+              <h2 className="font-serif font-light text-[#1a1a1a] leading-tight" style={{ fontSize: "var(--fs-3xl)" }}>
                 {t("contact.title")}
               </h2>
               <div style={{ marginTop: "var(--space-xl)" }}>
@@ -106,7 +106,7 @@ export function StoryTabs() {
               </Link>
             </div>
             <div className="relative aspect-[4/3] overflow-hidden">
-              <img src="/images/handshake.jpg" alt="" className="h-full w-full object-cover grayscale" />
+              <img src="/images/businessmen-investors-shake-hands-with-lawyers-to-2026-01-08-02-27-24-utc.jpg.webp" alt="" className="h-full w-full object-cover grayscale" />
             </div>
           </div>
         )}

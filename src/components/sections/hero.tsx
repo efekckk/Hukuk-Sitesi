@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { HeroScrollVideo } from "@/components/sections/hero-scroll-video";
+import { HeroContent } from "@/components/sections/hero-content";
 
 interface HeroProps {
   locale?: string;
@@ -46,49 +47,13 @@ export async function Hero({ locale = "tr" }: HeroProps) {
         {/* Canvas image sequence */}
         <HeroScrollVideo />
 
-        {/* Sol gradient */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/70 to-transparent z-10" />
+        {/* Sol gradient — hafif, görseli korur */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a]/80 via-[#0a0a0a]/30 to-transparent z-10" />
         {/* Üst/alt karartma */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/30 via-transparent to-[#0a0a0a]/50 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a]/40 via-transparent to-[#0a0a0a]/40 z-10" />
 
-        {/* İçerik — sol dikey orta */}
-        <div className="absolute inset-0 z-20 flex items-center" style={{ paddingLeft: "3rem" }}>
-          <div style={{ maxWidth: "36rem" }}>
-            <h1
-              className="font-serif font-light leading-[1.08] text-white"
-              style={{ fontSize: "var(--fs-6xl)" }}
-            >
-              {title.split("\n").map((line, i) => (
-                <span key={i}>
-                  {line}
-                  {i < title.split("\n").length - 1 && <br />}
-                </span>
-              ))}
-            </h1>
-            <p
-              className="leading-relaxed text-white/50"
-              style={{
-                fontSize: "var(--fs-sm)",
-                maxWidth: "26rem",
-                marginTop: "2rem",
-              }}
-            >
-              {subtitle}
-            </p>
-            {subtitle2 && (
-              <p
-                className="leading-relaxed text-white/50"
-                style={{
-                  fontSize: "var(--fs-sm)",
-                  maxWidth: "26rem",
-                  marginTop: "0.75rem",
-                }}
-              >
-                {subtitle2}
-              </p>
-            )}
-          </div>
-        </div>
+        {/* İçerik — kelime kelime reveal animasyonu */}
+        <HeroContent title={title} subtitle={subtitle} subtitle2={subtitle2 || undefined} />
 
 
       </div>

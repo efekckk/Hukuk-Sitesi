@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 interface FaqItemData {
@@ -11,11 +12,13 @@ interface FaqItemData {
 
 interface FaqProps {
   items?: FaqItemData[];
+  maxItems?: number;
+  showMoreLink?: boolean;
 }
 
 const faqIndices = [0, 1, 2, 3, 4] as const;
 
-export function Faq({ items }: FaqProps) {
+export function Faq({ items, maxItems, showMoreLink }: FaqProps) {
   const t = useTranslations("faq");
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
@@ -23,13 +26,15 @@ export function Faq({ items }: FaqProps) {
     setOpenIndex(openIndex === index ? null : index);
   };
 
-  const faqItems: FaqItemData[] =
+  const allItems: FaqItemData[] =
     items && items.length > 0
       ? items
       : faqIndices.map((i) => ({
           question: t(`items.${i}.question`),
           answer: t(`items.${i}.answer`),
         }));
+
+  const faqItems = maxItems ? allItems.slice(0, maxItems) : allItems;
 
   return (
     <section className="bg-[#f5f5f3]" style={{ padding: "var(--section-py) var(--section-px)" }}>
@@ -39,7 +44,7 @@ export function Faq({ items }: FaqProps) {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr]" style={{ gap: "var(--space-xl)", marginBottom: "var(--space-2xl)" }}>
           <div>
             <p className="tracking-[0.2em] uppercase text-black/30" style={{ fontSize: "var(--fs-micro)", marginBottom: "var(--space-xs)" }}>SSS</p>
-            <h2 className="font-serif font-light text-[#1a1a1a] leading-tight" style={{ fontSize: "var(--fs-4xl)" }}>
+            <h2 className="font-serif font-light text-[#1a1a1a] leading-tight" style={{ fontSize: "var(--fs-3xl)" }}>
               {t("title")}
             </h2>
           </div>
@@ -98,6 +103,19 @@ export function Faq({ items }: FaqProps) {
             );
           })}
         </div>
+
+        {showMoreLink && (
+          <div style={{ marginTop: "var(--space-xl)" }}>
+            <Link
+              href="/sss"
+              className="inline-flex items-center gap-3 tracking-[0.15em] uppercase text-[#1a1a1a] group"
+              style={{ fontSize: "var(--fs-xs)" }}
+            >
+              <span className="h-px w-8 bg-black/40 transition-all duration-300 group-hover:w-14 group-hover:bg-black" />
+              {t("viewAll")}
+            </Link>
+          </div>
+        )}
 
       </div>
     </section>

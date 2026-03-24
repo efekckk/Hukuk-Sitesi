@@ -54,7 +54,7 @@ export async function Footer({ locale = "tr" }: FooterProps) {
           {/* ── Col 1: Logo + description ── */}
           <div className="pb-12 lg:pb-0" style={{ paddingRight: "var(--space-xl)" }}>
             <Link href="/" className="inline-block" style={{ marginBottom: "var(--space-lg)" }}>
-              <img src="/images/logo.png" alt="AEB Avukatlık Ortaklığı" style={{ height: "clamp(2.5rem, 3.5vw, 4rem)", width: "auto" }} />
+              <img src="/images/LOGO.webp" alt="AEB Avukatlık Ortaklığı" style={{ height: "clamp(2.5rem, 3.5vw, 4rem)", width: "auto" }} />
             </Link>
             <p className="leading-relaxed text-white/45" style={{ fontSize: "var(--fs-sm)", marginBottom: "var(--space-sm)" }}>
               {t("description")}

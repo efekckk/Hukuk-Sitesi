@@ -24,12 +24,12 @@ export async function Cta({ title, subtitle, buttonText, phoneText, phoneRaw, lo
     <section className="relative bg-[#0a0a0a] overflow-hidden" style={{ padding: "var(--space-3xl) var(--section-px)" }}>
       <div
         className="absolute inset-0 bg-cover bg-center opacity-10"
-        style={{ backgroundImage: "url('/images/gavel-stock.jpg')" }}
+        style={{ backgroundImage: "url('/images/concept-of-auction-composition-with-wooden-hammer-2026-01-09-07-14-29-utc.jpg.webp')" }}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/60 to-[#0a0a0a]" />
 
       <div className="relative z-10 mx-auto max-w-7xl text-center">
-        <h2 className="font-serif font-light text-white leading-tight mx-auto" style={{ fontSize: "var(--fs-5xl)", maxWidth: "40rem" }}>
+        <h2 className="font-serif font-light text-white leading-tight mx-auto" style={{ fontSize: "var(--fs-3xl)", maxWidth: "40rem" }}>
           {displayTitle}
         </h2>
         <p className="text-white/40 mx-auto" style={{ fontSize: "var(--fs-base)", marginTop: "var(--space-md)", maxWidth: "32rem" }}>

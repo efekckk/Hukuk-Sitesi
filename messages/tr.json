@@ -321,6 +321,7 @@
   "faq": {
     "title": "Sıkça Sorulan Sorular",
     "subtitle": "Merak edilenler ve yanıtları",
+    "viewAll": "Tüm Sorular",
     "items": [
       {
         "question": "İlk görüşme ücretsiz mi?",

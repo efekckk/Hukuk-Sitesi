@@ -2,11 +2,9 @@ import { Hero } from "@/components/sections/hero";
 import { FirmIntro } from "@/components/sections/firm-intro";
 import { StoryTabs } from "@/components/sections/story-tabs";
 import { HomepageBento } from "@/components/sections/homepage-bento";
-import { FeaturedArticles } from "@/components/sections/featured-articles";
 import { Testimonials } from "@/components/sections/testimonials";
 import { Faq } from "@/components/sections/faq";
 import { Cta } from "@/components/sections/cta";
-import { TeamCinematic } from "@/components/sections/team-cinematic";
 import { GlowDivider } from "@/components/glow-divider";
 import { prisma } from "@/lib/prisma";
 
@@ -18,7 +16,6 @@ export default async function HomePage({ params }: HomePageProps) {
   const { locale } = await params;
 
   const [
-    dbMembers,
     dbFaqItems,
     dbPracticeAreas,
     dbTestimonials,
@@ -26,7 +23,6 @@ export default async function HomePage({ params }: HomePageProps) {
     ctaSettings,
     phoneRawSetting,
   ] = await Promise.all([
-    prisma.teamMember.findMany({ orderBy: { order: "asc" } }),
     prisma.faqItem.findMany({ orderBy: { order: "asc" } }),
     prisma.practiceArea.findMany({ orderBy: { order: "asc" } }),
     prisma.testimonial.findMany({ where: { isActive: true }, orderBy: { order: "asc" } }),
@@ -34,13 +30,6 @@ export default async function HomePage({ params }: HomePageProps) {
     prisma.siteSetting.findMany({ where: { group: "cta" } }),
     prisma.siteSetting.findFirst({ where: { key: "phone_raw" } }),
   ]);
-
-  const teamMembers = dbMembers.map((m) => ({
-    name: (locale === "en" && m.nameEn) ? m.nameEn : m.nameTr,
-    role: (locale === "en" && m.roleEn) ? m.roleEn : m.roleTr,
-    specialty: (locale === "en" && m.specialtyEn) ? m.specialtyEn : m.specialtyTr,
-    image: m.image,
-  }));
 
   const faqItems = dbFaqItems.map((f) => ({
     question: (locale === "en" && f.questionEn) ? f.questionEn : f.questionTr,
@@ -93,7 +82,7 @@ export default async function HomePage({ params }: HomePageProps) {
   const phoneRaw = phoneRawSetting?.valueTr || undefined;
 
   return (
-    <>
+    <div style={{ marginTop: "calc(-1 * clamp(3.5rem, 4.5vw, 5rem))" }}>
       <Hero locale={locale} />
       <FirmIntro locale={locale} />
       <GlowDivider />
@@ -104,13 +93,9 @@ export default async function HomePage({ params }: HomePageProps) {
         stats={statsData}
       />
       <GlowDivider />
-      <FeaturedArticles locale={locale} />
-      <GlowDivider />
-      <TeamCinematic members={teamMembers} locale={locale} />
-      <GlowDivider />
       <Testimonials testimonials={testimonials.length > 0 ? testimonials : undefined} locale={locale} />
       <GlowDivider />
-      <Faq items={faqItems.length > 0 ? faqItems : undefined} />
+      <Faq items={faqItems.length > 0 ? faqItems : undefined} maxItems={4} showMoreLink />
       <GlowDivider />
       <Cta
         title={ctaTitle}
@@ -120,6 +105,6 @@ export default async function HomePage({ params }: HomePageProps) {
         phoneRaw={phoneRaw}
         locale={locale}
       />
-    </>
+    </div>
   );
 }

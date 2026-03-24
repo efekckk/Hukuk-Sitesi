@@ -129,7 +129,7 @@ export function MobileMenu({ isOpen, onClose, practiceAreas, onSearchOpen }: Mob
         {/* Header */}
         <div className="flex items-center justify-between border-b border-white/10 px-6 py-5">
           <img
-            src="/images/logo.png"
+            src="/images/LOGO.webp"
             alt="AEB Avukatlık Ortaklığı"
             className="h-8 w-auto"
           />

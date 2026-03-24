@@ -78,7 +78,7 @@ export default async function ContactPage({ params }: ContactPageProps) {
             <p className="tracking-[0.2em] uppercase text-black/30" style={{ fontSize: "var(--fs-micro)", marginBottom: "var(--space-xs)" }}>
               {locale === "tr" ? "Bize Yazın" : "Get in Touch"}
             </p>
-            <h2 className="font-['Cormorant_Garamond'] font-normal text-black leading-snug" style={{ fontSize: "var(--fs-3xl)", marginBottom: "var(--space-xl)" }}>
+            <h2 className="font-['Cormorant_Garamond'] font-normal text-black leading-snug" style={{ fontSize: "var(--fs-2xl)", marginBottom: "var(--space-xl)" }}>
               {locale === "tr" ? "Durumunuzu değerlendirmek için hazırız." : "We are ready to evaluate your situation."}
             </h2>
             <ContactForm />
@@ -89,7 +89,7 @@ export default async function ContactPage({ params }: ContactPageProps) {
             <p className="tracking-[0.2em] uppercase text-black/30" style={{ fontSize: "var(--fs-micro)", marginBottom: "var(--space-xs)" }}>
               {locale === "tr" ? "İletişim" : "Contact"}
             </p>
-            <h2 className="font-['Cormorant_Garamond'] font-normal text-black leading-snug" style={{ fontSize: "var(--fs-3xl)", marginBottom: "var(--space-xl)" }}>
+            <h2 className="font-['Cormorant_Garamond'] font-normal text-black leading-snug" style={{ fontSize: "var(--fs-2xl)", marginBottom: "var(--space-xl)" }}>
               {locale === "tr" ? "Bilgilerimiz" : "Our Details"}
             </h2>
 

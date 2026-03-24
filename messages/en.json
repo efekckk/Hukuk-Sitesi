@@ -321,6 +321,7 @@
   "faq": {
     "title": "Frequently Asked Questions",
     "subtitle": "Curiosities and answers",
+    "viewAll": "View All Questions",
     "items": [
       {
         "question": "Is the first call free?",

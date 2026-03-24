@@ -24,12 +24,21 @@ export default async function PracticeAreasPage({ params }: PracticeAreasPagePro
     <main className="bg-white">
 
       {/* Hero */}
-      <div className="bg-[#0a0a0a]" style={{ padding: "var(--space-3xl) var(--section-px) var(--space-2xl)" }}>
-        <div className="mx-auto max-w-7xl">
-          <p className="tracking-[0.35em] uppercase text-white/30" style={{ fontSize: "0.6875rem", marginBottom: "var(--space-sm)" }}>
+      <div className="relative bg-[#0a0a0a] overflow-hidden" style={{ padding: "var(--space-3xl) var(--section-px) var(--space-2xl)" }}>
+        <div className="absolute inset-0" aria-hidden="true">
+          <img
+            src="/images/concept-of-auction-composition-with-wooden-hammer-2026-01-09-07-14-29-utc.jpg.webp"
+            alt=""
+            className="w-full h-full object-cover"
+            style={{ filter: "grayscale(60%) brightness(0.3)" }}
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/50 to-transparent" />
+        <div className="relative z-10 mx-auto max-w-7xl">
+          <p className="tracking-[0.35em] uppercase text-white/30" style={{ fontSize: "var(--fs-micro)", marginBottom: "var(--space-sm)" }}>
             {t("tagline")}
           </p>
-          <h1 className="font-serif font-light text-white leading-[1.05]" style={{ fontSize: "5.1875rem" }}>
+          <h1 className="font-serif font-light text-white leading-[1.05]" style={{ fontSize: "var(--fs-3xl)" }}>
             {t("title")}
           </h1>
         </div>
@@ -40,16 +49,16 @@ export default async function PracticeAreasPage({ params }: PracticeAreasPagePro
         <div className="mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-2" style={{ gap: "var(--space-2xl)" }}>
 
           <div className="flex flex-col justify-center">
-            <p className="tracking-[0.3em] uppercase text-[#b8975a]" style={{ fontSize: "0.6875rem", marginBottom: "var(--space-lg)" }}>
+            <p className="tracking-[0.3em] uppercase text-[#b8975a]" style={{ fontSize: "var(--fs-micro)", marginBottom: "var(--space-lg)" }}>
               {t("tagline")}
             </p>
-            <p className="leading-[1.85] text-[#333]" style={{ fontSize: "1.875rem", marginBottom: "var(--space-md)" }}>
+            <p className="leading-[1.85] text-[#333]" style={{ fontSize: "var(--fs-base)", marginBottom: "var(--space-md)" }}>
               {t("intro1")}
             </p>
-            <p className="leading-[1.85] text-[#555]" style={{ fontSize: "1.875rem", marginBottom: "var(--space-md)" }}>
+            <p className="leading-[1.85] text-[#555]" style={{ fontSize: "var(--fs-base)", marginBottom: "var(--space-md)" }}>
               {t("intro2")}
             </p>
-            <p className="leading-[1.85] text-[#555]" style={{ fontSize: "1.875rem" }}>
+            <p className="leading-[1.85] text-[#555]" style={{ fontSize: "var(--fs-base)" }}>
               {t("intro3")}
             </p>
             <div style={{ marginTop: "var(--space-xl)" }}>
@@ -66,7 +75,7 @@ export default async function PracticeAreasPage({ params }: PracticeAreasPagePro
 
           <div className="hidden lg:flex items-center">
             <div className="relative w-full aspect-[4/5] overflow-hidden bg-[#111]">
-              <img src="/images/handshake.jpg" alt="" className="h-full w-full object-cover" style={{ filter: "grayscale(15%) brightness(0.7)" }} />
+              <img src="/images/businessmen-investors-shake-hands-with-lawyers-to-2026-01-08-02-27-24-utc.jpg.webp" alt="" className="h-full w-full object-cover" style={{ filter: "grayscale(15%) brightness(0.7)" }} />
               <div className="absolute inset-5 border border-white/8 pointer-events-none" />
             </div>
           </div>
@@ -98,7 +107,7 @@ export default async function PracticeAreasPage({ params }: PracticeAreasPagePro
       {/* Alt CTA */}
       <section className="bg-[#0a0a0a]" style={{ padding: "var(--section-py) var(--section-px)" }}>
         <div className="mx-auto max-w-7xl flex flex-col sm:flex-row items-start sm:items-center justify-between" style={{ gap: "var(--space-xl)" }}>
-          <p className="font-serif font-light text-white leading-snug" style={{ fontSize: "var(--fs-3xl)", maxWidth: "32rem" }}>
+          <p className="font-serif font-light text-white leading-snug" style={{ fontSize: "var(--fs-2xl)", maxWidth: "32rem" }}>
             {t("contactCta")}
           </p>
           <Link

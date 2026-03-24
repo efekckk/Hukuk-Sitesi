@@ -7,7 +7,7 @@ import { Footer } from "@/components/layout/footer";
 import { WhatsAppButton } from "@/components/whatsapp-button";
 import { CookieConsent } from "@/components/cookie-consent";
 import { PopupNotification } from "@/components/popup-notification";
-import { AuroraBackground } from "@/components/aurora-background";
+// AuroraBackground removed for performance — was running a full-screen canvas rAF loop
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { prisma } from "@/lib/prisma";
 
@@ -44,7 +44,6 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
   return (
     <NextIntlClientProvider messages={messages}>
       <SmoothScroll>
-        <AuroraBackground />
         <div className="relative z-10">
           <div className="fixed top-0 left-0 right-0 z-50">
             <Navbar practiceAreas={practiceAreas} />

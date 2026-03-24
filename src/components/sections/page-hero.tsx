@@ -20,7 +20,7 @@ export function PageHero({ title, subtitle, backgroundImage }: PageHeroProps) {
       )}
       {!backgroundImage && <div className="absolute inset-0 bg-[#0a0a0a]" />}
       <div className="relative z-10 mx-auto max-w-7xl w-full" style={{ padding: "0 var(--section-px) var(--space-lg)" }}>
-        <h1 className="font-serif font-light tracking-tight text-white" style={{ fontSize: "var(--fs-4xl)" }}>
+        <h1 className="font-serif font-light tracking-tight text-white" style={{ fontSize: "var(--fs-3xl)" }}>
           {title}
         </h1>
         {subtitle && (

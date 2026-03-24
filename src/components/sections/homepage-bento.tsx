@@ -15,7 +15,7 @@ export async function HomepageBento({ practiceAreas, stats }: HomepageBentoProps
       <div className="mx-auto max-w-7xl">
         {/* Header */}
         <div style={{ marginBottom: "var(--space-2xl)" }}>
-          <h2 className="font-serif font-light text-[#1a1a1a]" style={{ fontSize: "var(--fs-4xl)" }}>
+          <h2 className="font-serif font-light text-[#1a1a1a]" style={{ fontSize: "var(--fs-3xl)" }}>
             {t("headline")}
           </h2>
           <p className="text-[#666]" style={{ fontSize: "var(--fs-base)", marginTop: "var(--space-sm)", maxWidth: "36rem" }}>
@@ -28,7 +28,7 @@ export async function HomepageBento({ practiceAreas, stats }: HomepageBentoProps
           <div className="grid grid-cols-1 gap-px sm:grid-cols-3 border border-black/10" style={{ marginBottom: "var(--space-2xl)" }}>
             {stats.map((stat) => (
               <div key={stat.label} className="bg-[#f5f5f3] border-r border-black/10 last:border-r-0" style={{ padding: "var(--space-lg) var(--space-xl)" }}>
-                <p className="font-serif font-light text-[#1a1a1a]" style={{ fontSize: "var(--fs-display)" }}>
+                <p className="font-serif font-light text-[#1a1a1a]" style={{ fontSize: "var(--fs-3xl)" }}>
                   <CountUp target={stat.value} suffix={stat.suffix} />
                 </p>
                 <p className="tracking-widest uppercase text-[#888]" style={{ fontSize: "var(--fs-micro)", marginTop: "var(--space-xs)" }}>

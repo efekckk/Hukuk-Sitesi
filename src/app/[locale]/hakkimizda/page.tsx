@@ -45,7 +45,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 items-start lg:grid-cols-2" style={{ gap: "var(--space-2xl)" }}>
             <div>
-              <h1 className="font-serif font-light text-[#1a1a1a] leading-tight" style={{ fontSize: "var(--fs-5xl)" }}>
+              <h1 className="font-serif font-light text-[#1a1a1a] leading-tight" style={{ fontSize: "var(--fs-3xl)" }}>
                 {t("title")}
               </h1>
               <div className="leading-relaxed text-[#555]" style={{ fontSize: "var(--fs-base)", marginTop: "var(--space-lg)", display: "flex", flexDirection: "column", gap: "var(--space-sm)" }}>
@@ -55,7 +55,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
               </div>
             </div>
             <div className="relative aspect-[4/3] overflow-hidden bg-[#e8e4de]">
-              <img src="/images/team-meeting.jpg" alt="AEB Hukuk Ofisi" className="h-full w-full object-cover grayscale" />
+              <img src="/images/businessmen-investors-shake-hands-with-lawyers-to-2026-01-08-02-27-24-utc.jpg.webp" alt="AEB Hukuk Ofisi" className="h-full w-full object-cover grayscale" />
             </div>
           </div>
         </div>
@@ -68,7 +68,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
             <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: "var(--space-xl)" }}>
               {statsData.map((stat) => (
                 <div key={stat.label} className="text-center">
-                  <p className="font-serif font-light text-[#333]" style={{ fontSize: "var(--fs-display)" }}>
+                  <p className="font-serif font-light text-[#333]" style={{ fontSize: "var(--fs-4xl)" }}>
                     {stat.value}{stat.suffix}
                   </p>
                   <p className="tracking-widest uppercase text-[#666]" style={{ fontSize: "var(--fs-micro)", marginTop: "var(--space-xs)" }}>

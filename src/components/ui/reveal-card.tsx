@@ -75,14 +75,14 @@ export function RevealCard({ href, title, description, image, index }: RevealCar
       <div className="relative z-10" style={{ padding: "var(--space-xl)" }}>
         <h2
           className="font-serif font-light text-white leading-snug transition-colors duration-300 group-hover:text-[#b8975a]"
-          style={{ fontSize: "2.625rem" }}
+          style={{ fontSize: "var(--fs-xl)" }}
         >
           {title}
         </h2>
         {description && (
           <p
             className="leading-relaxed text-white/45 line-clamp-3"
-            style={{ fontSize: "1.4375rem", marginTop: "var(--space-xs)" }}
+            style={{ fontSize: "var(--fs-sm)", marginTop: "var(--space-xs)" }}
           >
             {description}
           </p>

@@ -14,8 +14,7 @@ const INITIAL_FRAME = FRAME_COUNT - 1;
 
 export function HeroScrollVideo() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const framesRef = useRef<HTMLImageElement[]>([]);
-  // Başlangıç değerlerini doğru frame'e set et — LERP geçişini önler
+  const framesRef = useRef<(HTMLImageElement | null)[]>([]);
   const currentFrameRef = useRef(INITIAL_FRAME);
   const targetFrameRef = useRef(INITIAL_FRAME);
   const rafRef = useRef(0);
@@ -24,31 +23,61 @@ export function HeroScrollVideo() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    let mounted = true;
 
-    // Scroll pozisyonundan doğru başlangıç frame'ini hesapla
     const animationRange = window.innerHeight * 1.0;
     const progress = Math.min(Math.max(window.scrollY / animationRange, 0), 1);
     const startFrame = (1 - progress) * (FRAME_COUNT - 1);
     currentFrameRef.current = startFrame;
     targetFrameRef.current = startFrame;
 
-    framesRef.current = Array.from({ length: FRAME_COUNT }, (_, i) => {
-      const img = new Image();
-      img.src = frameSrc(i);
-      img.onload = () => {
-        // Başlangıç frame'i yüklenince hemen çiz (ilk görsel doğru olsun)
-        const sf = Math.round(startFrame);
-        if (i === sf) {
-          const ctx = canvas.getContext("2d");
-          if (ctx) {
-            canvas.width = img.naturalWidth;
-            canvas.height = img.naturalHeight;
-            ctx.drawImage(img, 0, 0);
+    framesRef.current = Array.from({ length: FRAME_COUNT }, () => null);
+
+    const loadFrame = (i: number): Promise<void> => {
+      return new Promise((resolve) => {
+        if (!mounted) { resolve(); return; }
+        if (framesRef.current[i]?.complete) { resolve(); return; }
+        const img = new Image();
+        img.src = frameSrc(i);
+        img.onload = () => {
+          if (!mounted) { resolve(); return; }
+          const sf = Math.round(startFrame);
+          if (i === sf) {
+            const ctx = canvas.getContext("2d");
+            if (ctx) {
+              canvas.width = img.naturalWidth;
+              canvas.height = img.naturalHeight;
+              ctx.drawImage(img, 0, 0);
+            }
           }
-        }
-      };
-      return img;
+          resolve();
+        };
+        img.onerror = () => resolve();
+        framesRef.current[i] = img;
+      });
+    };
+
+    const sf = Math.round(startFrame);
+    loadFrame(sf).then(async () => {
+      if (!mounted) return;
+      const nearby: number[] = [];
+      for (let d = 1; d <= 20; d++) {
+        if (sf - d >= 0) nearby.push(sf - d);
+        if (sf + d < FRAME_COUNT) nearby.push(sf + d);
+      }
+      await Promise.all(nearby.map(loadFrame));
+
+      if (!mounted) return;
+      const nearbySet = new Set([sf, ...nearby]);
+      const rest = Array.from({ length: FRAME_COUNT }, (_, i) => i)
+        .filter((i) => !nearbySet.has(i));
+      for (let b = 0; b < rest.length; b += 6) {
+        if (!mounted) break;
+        await Promise.all(rest.slice(b, b + 6).map(loadFrame));
+      }
     });
+
+    return () => { mounted = false; };
   }, []);
 
   /* ── 2. rAF lerp loop ── */
@@ -61,13 +90,16 @@ export function HeroScrollVideo() {
     const tick = () => {
       rafRef.current = requestAnimationFrame(tick);
 
+      // Hero görünmüyorsa çizimi atla
+      if (window.scrollY > window.innerHeight * 1.2) return;
+
       const target = targetFrameRef.current;
       const current = currentFrameRef.current;
       const diff = target - current;
 
-      if (Math.abs(diff) < 0.01) return;
+      if (Math.abs(diff) < 0.05) return;
 
-      const next = current + diff * 0.28;
+      const next = current + diff * 0.35;
       currentFrameRef.current = next;
 
       // Alpha blend between two adjacent frames for smooth interpolation
@@ -80,7 +112,7 @@ export function HeroScrollVideo() {
       const imgB = framesRef.current[frameB];
 
       if (imgA?.complete && imgA.naturalWidth > 0) {
-        if (canvas.width !== imgA.naturalWidth) {
+        if (canvas.width === 0) {
           canvas.width = imgA.naturalWidth;
           canvas.height = imgA.naturalHeight;
         }
@@ -111,7 +143,8 @@ export function HeroScrollVideo() {
        *
        * progress = scrollY / vh → 100vh'de tam 1.0'a ulaşır
        */
-      const animationRange = window.innerHeight * 1.0;
+      // Animasyonu %90vh'de bitir — son %10 geçiş tamponu
+      const animationRange = window.innerHeight * 0.9;
       const progress = Math.min(Math.max(window.scrollY / animationRange, 0), 1);
       // Ters: scroll aşağı → yakından uzağa (frame 150 → 1); float for smooth blend
       targetFrameRef.current = (1 - progress) * (FRAME_COUNT - 1);

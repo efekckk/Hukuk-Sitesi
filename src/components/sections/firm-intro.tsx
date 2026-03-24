@@ -24,14 +24,14 @@ export function FirmIntro({ locale = "tr" }: FirmIntroProps) {
           <div>
             <h2
               className="font-serif font-light text-[#1a1a1a] leading-[1.05]"
-              style={{ fontSize: "var(--fs-display)", marginBottom: "2rem" }}
+              style={{ fontSize: "var(--fs-4xl)", marginBottom: "1.5rem" }}
             >
               {heading}
             </h2>
-            <p className="text-[#444] leading-[1.8]" style={{ fontSize: "var(--fs-2xl)", marginBottom: "1.5rem" }}>
+            <p className="text-[#444] leading-[1.8]" style={{ fontSize: "var(--fs-base)", marginBottom: "1.5rem" }}>
               {p1}
             </p>
-            <p className="text-[#666] leading-[1.8]" style={{ fontSize: "var(--fs-2xl)" }}>
+            <p className="text-[#666] leading-[1.8]" style={{ fontSize: "var(--fs-base)" }}>
               {p2}
             </p>
           </div>

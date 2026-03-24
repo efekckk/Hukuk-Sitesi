@@ -2,11 +2,17 @@
 
 import { ReactLenis, useLenis } from "lenis/react";
 
+let scrollPending = false;
+
 function LenisScrollBridge() {
   useLenis(() => {
-    // Lenis her scroll tick'inde window'a event fırlat
-    // reveal-card gibi native scroll listener'lar bunu yakalar
-    window.dispatchEvent(new Event("scroll", { bubbles: false }));
+    if (!scrollPending) {
+      scrollPending = true;
+      requestAnimationFrame(() => {
+        window.dispatchEvent(new Event("scroll", { bubbles: false }));
+        scrollPending = false;
+      });
+    }
   });
   return null;
 }
@@ -16,10 +22,11 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     <ReactLenis
       root
       options={{
-        lerp: 0.12,
-        duration: 0.8,
+        lerp: 0.1,
+        duration: 1.0,
         smoothWheel: true,
         syncTouch: false,
+        wheelMultiplier: 0.9,
       }}
     >
       <LenisScrollBridge />

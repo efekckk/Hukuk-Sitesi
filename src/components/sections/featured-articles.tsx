@@ -37,7 +37,7 @@ export async function FeaturedArticles({ locale }: FeaturedArticlesProps) {
         {/* Header */}
         <div className="flex items-end justify-between" style={{ marginBottom: "var(--space-2xl)" }}>
           <div>
-            <h2 className="font-serif font-light text-[#1a1a1a]" style={{ fontSize: "var(--fs-4xl)" }}>
+            <h2 className="font-serif font-light text-[#1a1a1a]" style={{ fontSize: "var(--fs-3xl)" }}>
               {t("title")}
             </h2>
             <p className="text-[#666]" style={{ fontSize: "var(--fs-base)", marginTop: "var(--space-sm)", maxWidth: "36rem" }}>
