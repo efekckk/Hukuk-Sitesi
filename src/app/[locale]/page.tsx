@@ -93,8 +93,7 @@ export default async function HomePage({ params }: HomePageProps) {
         stats={statsData}
       />
       <GlowDivider />
-      <Testimonials testimonials={testimonials.length > 0 ? testimonials : undefined} locale={locale} />
-      <GlowDivider />
+      {/* Testimonials gizlendi */}
       <Faq items={faqItems.length > 0 ? faqItems : undefined} maxItems={4} showMoreLink />
       <GlowDivider />
       <Cta

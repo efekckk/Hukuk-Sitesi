@@ -47,10 +47,10 @@ export async function HomepageBento({ practiceAreas, stats }: HomepageBentoProps
                 <Link
                   key={area.slug}
                   href={`/hizmetlerimiz/${area.slug}`}
-                  className="group bg-[#f5f5f3] flex flex-col transition-colors hover:bg-white"
+                  className="group bg-[#f5f5f3] flex flex-col transition-all duration-300 hover:bg-white hover:-translate-y-1 hover:shadow-lg hover:shadow-black/5"
                   style={{ padding: "var(--space-lg)", gap: "var(--space-sm)" }}
                 >
-                  <h3 className="font-serif font-light text-[#1a1a1a]" style={{ fontSize: "var(--fs-xl)" }}>
+                  <h3 className="font-serif font-light text-[#1a1a1a] transition-colors duration-300 group-hover:text-[#b8975a]" style={{ fontSize: "var(--fs-xl)" }}>
                     {area.title}
                   </h3>
                   {area.description && (
@@ -58,8 +58,8 @@ export async function HomepageBento({ practiceAreas, stats }: HomepageBentoProps
                       {area.description}
                     </p>
                   )}
-                  <span className="mt-auto tracking-widest uppercase text-[#aaa] transition-colors group-hover:text-[#1a1a1a]" style={{ fontSize: "var(--fs-micro)" }}>
-                    {t("detail")} →
+                  <span className="mt-auto inline-flex items-center gap-1 tracking-widest uppercase text-[#aaa] transition-colors duration-300 group-hover:text-[#1a1a1a]" style={{ fontSize: "var(--fs-micro)" }}>
+                    {t("detail")} <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
                   </span>
                 </Link>
               ))}

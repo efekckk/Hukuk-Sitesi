@@ -1,11 +1,15 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
 import { ReactLenis, useLenis } from "lenis/react";
 
 let scrollPending = false;
 
 function LenisScrollBridge() {
-  useLenis(() => {
+  useLenis((lenis) => {
+    // Lenis instance'ını global'e expose et (modal lock için)
+    if (!(window as any).__lenis) (window as any).__lenis = lenis;
     if (!scrollPending) {
       scrollPending = true;
       requestAnimationFrame(() => {
@@ -14,6 +18,27 @@ function LenisScrollBridge() {
       });
     }
   });
+  return null;
+}
+
+function LenisScrollReset() {
+  const pathname = usePathname();
+  const isFirst = useRef(true);
+
+  useEffect(() => {
+    // İlk mount'ta scroll reset yapma
+    if (isFirst.current) {
+      isFirst.current = false;
+      return;
+    }
+    // Route değiştiğinde hem Lenis hem native scroll'u sıfırla
+    const lenis = (window as any).__lenis;
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true });
+    }
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   return null;
 }
 
@@ -30,6 +55,7 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       }}
     >
       <LenisScrollBridge />
+      <LenisScrollReset />
       {children}
     </ReactLenis>
   );

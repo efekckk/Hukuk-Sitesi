@@ -72,22 +72,31 @@ export default async function PracticeAreaDetailPage({ params }: PracticeAreaDet
   return (
     <main className="bg-white">
 
-      {/* ── Hero band ── */}
-      <div className="bg-[#0a0a0a]" style={{ paddingTop: "clamp(5rem, 8vw, 9rem)", paddingBottom: "var(--space-2xl)", paddingLeft: "var(--section-px)", paddingRight: "var(--section-px)" }}>
-        <div className="mx-auto max-w-7xl">
-          <Link
-            href="/hizmetlerimiz"
-            className="inline-flex items-center gap-2 text-white/30 hover:text-white/60 transition-colors mb-8"
-            style={{ fontSize: "0.6875rem" }}
-          >
-            ← {tp("title")}
-          </Link>
+      {/* ── Hero banner ── */}
+      <div className="relative bg-[#0a0a0a] overflow-hidden flex items-end" style={{ minHeight: "clamp(18rem, 40vh, 28rem)", paddingLeft: "var(--section-px)", paddingRight: "var(--section-px)", paddingBottom: "clamp(2rem, 4vw, 3.5rem)" }}>
+        <div className="absolute inset-0" aria-hidden="true">
+          <img
+            src={dbArea.image || "/images/services-hero.webp"}
+            alt=""
+            className="w-full h-full object-cover object-center"
+            style={{ filter: "grayscale(30%) brightness(0.4)" }}
+          />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/80 via-[#0a0a0a]/40 to-transparent" />
+        <div className="relative z-10 mx-auto max-w-7xl w-full">
           <h1
-            className="font-serif font-light text-white leading-[1.05]"
-            style={{ fontSize: "var(--fs-3xl)", maxWidth: "32rem" }}
+            className="font-serif font-light text-white leading-[1.1]"
+            style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)", marginBottom: "0.75rem" }}
           >
             {title}
           </h1>
+          <nav className="text-white/35" style={{ fontSize: "var(--fs-micro)" }}>
+            <Link href="/" className="hover:text-white/60 transition-colors">{isTr ? "Anasayfa" : "Home"}</Link>
+            <span className="mx-2">&gt;</span>
+            <Link href="/hizmetlerimiz" className="hover:text-white/60 transition-colors">{tp("title")}</Link>
+            <span className="mx-2">&gt;</span>
+            <span className="text-white/50">{title}</span>
+          </nav>
         </div>
       </div>
 

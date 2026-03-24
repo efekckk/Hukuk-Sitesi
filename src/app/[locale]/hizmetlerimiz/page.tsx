@@ -23,24 +23,29 @@ export default async function PracticeAreasPage({ params }: PracticeAreasPagePro
   return (
     <main className="bg-white">
 
-      {/* Hero */}
-      <div className="relative bg-[#0a0a0a] overflow-hidden" style={{ padding: "var(--space-3xl) var(--section-px) var(--space-2xl)" }}>
+      {/* Hero banner */}
+      <div className="relative bg-[#0a0a0a] overflow-hidden flex items-end" style={{ minHeight: "clamp(18rem, 40vh, 28rem)", paddingLeft: "var(--section-px)", paddingRight: "var(--section-px)", paddingBottom: "clamp(2rem, 4vw, 3.5rem)" }}>
         <div className="absolute inset-0" aria-hidden="true">
           <img
-            src="/images/concept-of-auction-composition-with-wooden-hammer-2026-01-09-07-14-29-utc.jpg.webp"
+            src="/images/services-hero.webp"
             alt=""
-            className="w-full h-full object-cover"
-            style={{ filter: "grayscale(60%) brightness(0.3)" }}
+            className="w-full h-full object-cover object-center"
+            style={{ filter: "grayscale(30%) brightness(0.4)" }}
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/50 to-transparent" />
-        <div className="relative z-10 mx-auto max-w-7xl">
-          <p className="tracking-[0.35em] uppercase text-white/30" style={{ fontSize: "var(--fs-micro)", marginBottom: "var(--space-sm)" }}>
-            {t("tagline")}
-          </p>
-          <h1 className="font-serif font-light text-white leading-[1.05]" style={{ fontSize: "var(--fs-3xl)" }}>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/80 via-[#0a0a0a]/40 to-transparent" />
+        <div className="relative z-10 mx-auto max-w-7xl w-full">
+          <h1
+            className="font-serif font-light text-white leading-[1.1]"
+            style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)", marginBottom: "0.75rem" }}
+          >
             {t("title")}
           </h1>
+          <nav className="text-white/35" style={{ fontSize: "var(--fs-micro)" }}>
+            <Link href="/" className="hover:text-white/60 transition-colors">{locale !== "en" ? "Anasayfa" : "Home"}</Link>
+            <span className="mx-2">&gt;</span>
+            <span className="text-white/50">{t("title")}</span>
+          </nav>
         </div>
       </div>
 

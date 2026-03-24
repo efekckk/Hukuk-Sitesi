@@ -22,11 +22,13 @@ export async function Cta({ title, subtitle, buttonText, phoneText, phoneRaw, lo
 
   return (
     <section className="relative bg-[#0a0a0a] overflow-hidden" style={{ padding: "var(--space-3xl) var(--section-px)" }}>
-      <div
-        className="absolute inset-0 bg-cover bg-center opacity-10"
-        style={{ backgroundImage: "url('/images/concept-of-auction-composition-with-wooden-hammer-2026-01-09-07-14-29-utc.jpg.webp')" }}
+      <img
+        src="/images/cta-themis.webp"
+        alt=""
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ filter: "brightness(0.35)" }}
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/60 to-[#0a0a0a]" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/80 via-transparent to-[#0a0a0a]/80" />
 
       <div className="relative z-10 mx-auto max-w-7xl text-center">
         <h2 className="font-serif font-light text-white leading-tight mx-auto" style={{ fontSize: "var(--fs-3xl)", maxWidth: "40rem" }}>

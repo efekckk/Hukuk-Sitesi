@@ -31,7 +31,7 @@ export async function Footer({ locale = "tr" }: FooterProps) {
   const email = contactMap["email"] || "info@aebhukuk.com";
   const address =
     contactMap["address"] ||
-    "AEB Hukuk\nKEY Plaza, Merkez, İstiklal Sokağı\nNo:11 K:3-4, 34384\nŞişli / İstanbul";
+    "Merkez Mah,\nAbide-i Hürriyet Cad. İstiklal Sok.\nNo:11 Kat:3-4 Key Plaza\nŞişli / İstanbul";
 
   const isTr = locale !== "en";
 
@@ -43,63 +43,66 @@ export async function Footer({ locale = "tr" }: FooterProps) {
     { href: "/blog", label: isTr ? "Yayınlar" : "Publications" },
     { href: "/sss", label: isTr ? "Sıkça S. Sorular" : "FAQ" },
     { href: "/iletisim", label: tNav("contact") },
+    { href: "https://pos.param.com.tr/Tahsilat/Default.aspx?k=2524DFB2-A0F3-4A5A-B9DD-9A2A18B0E1BD", label: "E-Tahsilat", external: true },
   ];
 
   return (
-    <footer className="bg-[#111110] text-white/50">
-      {/* Main grid */}
-      <div className="mx-auto max-w-7xl" style={{ padding: "var(--space-2xl) var(--section-px)" }}>
-        <div className="grid grid-cols-1 lg:grid-cols-[1.6fr_1px_1fr_1px_1fr_1px_1.1fr] gap-0">
+    <footer className="bg-[#1a1a1a] text-white/50">
+      {/* Üst çizgi */}
+      <div className="border-t border-white/[0.08]" />
+
+      {/* Main content */}
+      <div className="mx-auto max-w-7xl" style={{ padding: "clamp(2.5rem, 4vw, 4rem) clamp(0.5rem, 1vw, 1rem)" }}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4" style={{ gap: 0 }}>
 
           {/* ── Col 1: Logo + description ── */}
-          <div className="pb-12 lg:pb-0" style={{ paddingRight: "var(--space-xl)" }}>
-            <Link href="/" className="inline-block" style={{ marginBottom: "var(--space-lg)" }}>
-              <img src="/images/LOGO.webp" alt="AEB Avukatlık Ortaklığı" style={{ height: "clamp(2.5rem, 3.5vw, 4rem)", width: "auto" }} />
+          <div className="lg:border-r lg:border-white/[0.08]" style={{ paddingRight: "clamp(1.5rem, 2.5vw, 2.5rem)", paddingBottom: "2rem", paddingLeft: 0 }}>
+            <Link href="/" className="inline-block" style={{ marginBottom: "clamp(1.25rem, 2vw, 1.75rem)" }}>
+              <img src="/images/LOGO.webp" alt="AEB Avukatlık Ortaklığı" style={{ height: "clamp(2.5rem, 3.5vw, 3.5rem)", width: "auto" }} />
             </Link>
-            <p className="leading-relaxed text-white/45" style={{ fontSize: "var(--fs-sm)", marginBottom: "var(--space-sm)" }}>
-              {t("description")}
+            <p className="leading-[1.75] text-white/40" style={{ fontSize: "var(--fs-sm)", marginBottom: "0.75rem" }}>
+              {isTr
+                ? "AEB Hukuk Bürosu, bireylerin ve kurumların haklarını en etkili şekilde savunmak amacıyla kurulmuş, dinamik ve vizyoner bir hukuk kuruluşudur."
+                : "AEB Law Firm is a dynamic and visionary legal organization established to defend the rights of individuals and institutions in the most effective way."}
             </p>
-            <p className="leading-relaxed text-white/35" style={{ fontSize: "var(--fs-sm)" }}>
+            <p className="leading-[1.75] text-white/30" style={{ fontSize: "var(--fs-sm)" }}>
               {isTr
                 ? "Yasal süreçlerin karmaşasında müvekkillerimizin yanında yer alarak, güven veren çözümler sunuyoruz."
                 : "We stand by our clients through complex legal processes, offering trustworthy solutions."}
             </p>
           </div>
 
-          <div className="hidden lg:block bg-white/[0.07]" style={{ margin: "0 var(--space-lg)" }} />
-
-          {/* ── Col 2: Pages ── */}
-          <div className="pb-12 lg:pb-0" style={{ paddingRight: "var(--space-lg)" }}>
-            <h3 className="font-['Cormorant_Garamond'] font-semibold italic text-white/70" style={{ fontSize: "var(--fs-base)", marginBottom: "var(--space-md)" }}>
+          {/* ── Col 2: Sayfalar ── */}
+          <div className="lg:border-r lg:border-white/[0.08]" style={{ paddingLeft: "clamp(1.5rem, 2.5vw, 2.5rem)", paddingRight: "clamp(1.5rem, 2.5vw, 2.5rem)", paddingBottom: "2rem" }}>
+            <h3 className="font-serif italic text-white/70" style={{ fontSize: "var(--fs-base)", marginBottom: "clamp(1rem, 1.5vw, 1.5rem)" }}>
               {isTr ? "Sayfalar" : "Pages"}
             </h3>
-            <ul style={{ display: "flex", flexDirection: "column", gap: "var(--space-xs)" }}>
+            <ul style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
               {pages.map((item) => (
                 <li key={item.href}>
-                  <Link href={item.href} className="italic text-white/45 transition-colors hover:text-white" style={{ fontSize: "var(--fs-sm)" }}>
-                    {item.label}
-                  </Link>
+                  {"external" in item ? (
+                    <a href={item.href} target="_blank" rel="noopener noreferrer" className="italic text-white/40 transition-colors hover:text-white" style={{ fontSize: "var(--fs-sm)" }}>
+                      {item.label}
+                    </a>
+                  ) : (
+                    <Link href={item.href} className="italic text-white/40 transition-colors hover:text-white" style={{ fontSize: "var(--fs-sm)" }}>
+                      {item.label}
+                    </Link>
+                  )}
                 </li>
               ))}
-              <li>
-                <a href="https://pos.param.com.tr/Tahsilat/Default.aspx?k=2524DFB2-A0F3-4A5A-B9DD-9A2A18B0E1BD" target="_blank" rel="noopener noreferrer" className="italic text-white/45 transition-colors hover:text-white" style={{ fontSize: "var(--fs-sm)" }}>
-                  E-Tahsilat
-                </a>
-              </li>
             </ul>
           </div>
 
-          <div className="hidden lg:block bg-white/[0.07]" style={{ margin: "0 var(--space-lg)" }} />
-
-          {/* ── Col 3: Practice Areas ── */}
-          <div className="pb-12 lg:pb-0" style={{ paddingRight: "var(--space-lg)" }}>
-            <h3 className="font-['Cormorant_Garamond'] font-semibold italic text-white/70" style={{ fontSize: "var(--fs-base)", marginBottom: "var(--space-md)" }}>
+          {/* ── Col 3: Çalışma Alanları ── */}
+          <div className="lg:border-r lg:border-white/[0.08]" style={{ paddingLeft: "clamp(1.5rem, 2.5vw, 2.5rem)", paddingRight: "clamp(1.5rem, 2.5vw, 2.5rem)", paddingBottom: "2rem" }}>
+            <h3 className="font-serif italic text-white/70" style={{ fontSize: "var(--fs-base)", marginBottom: "clamp(1rem, 1.5vw, 1.5rem)" }}>
               {isTr ? "Çalışma Alanlarımız" : "Practice Areas"}
             </h3>
-            <ul style={{ display: "flex", flexDirection: "column", gap: "var(--space-xs)" }}>
+            <ul style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
               {practiceAreas.map((area) => (
                 <li key={area.slug}>
-                  <Link href={`/hizmetlerimiz/${area.slug}`} className="italic text-white/45 transition-colors hover:text-white" style={{ fontSize: "var(--fs-sm)" }}>
+                  <Link href={`/hizmetlerimiz/${area.slug}`} className="italic text-white/40 transition-colors hover:text-white" style={{ fontSize: "var(--fs-sm)" }}>
                     {area.title}
                   </Link>
                 </li>
@@ -107,30 +110,28 @@ export async function Footer({ locale = "tr" }: FooterProps) {
             </ul>
           </div>
 
-          <div className="hidden lg:block bg-white/[0.07]" style={{ margin: "0 var(--space-lg)" }} />
-
-          {/* ── Col 4: Contact ── */}
-          <div>
-            <h3 className="font-['Cormorant_Garamond'] font-semibold italic text-white/70" style={{ fontSize: "var(--fs-base)", marginBottom: "var(--space-xs)" }}>
+          {/* ── Col 4: İletişim ── */}
+          <div style={{ paddingLeft: "clamp(1.5rem, 2.5vw, 2.5rem)", paddingBottom: "2rem" }}>
+            <h3 className="font-serif italic text-white/70" style={{ fontSize: "var(--fs-base)", marginBottom: "0.5rem" }}>
               {isTr ? "Telefon" : "Phone"}
             </h3>
-            <a href={`tel:${phoneRaw}`} className="text-white/45 hover:text-white transition-colors" style={{ fontSize: "var(--fs-sm)" }}>{phone}</a>
+            <a href={`tel:${phoneRaw}`} className="italic text-white/40 hover:text-white transition-colors" style={{ fontSize: "var(--fs-sm)" }}>{phone}</a>
 
-            <h3 className="font-['Cormorant_Garamond'] font-semibold italic text-white/70" style={{ fontSize: "var(--fs-base)", marginTop: "var(--space-lg)", marginBottom: "var(--space-xs)" }}>Email</h3>
-            <a href={`mailto:${email}`} className="text-white/45 hover:text-white transition-colors" style={{ fontSize: "var(--fs-sm)" }}>{email}</a>
+            <h3 className="font-serif italic text-white/70" style={{ fontSize: "var(--fs-base)", marginTop: "1.5rem", marginBottom: "0.5rem" }}>Email</h3>
+            <a href={`mailto:${email}`} className="italic text-white/40 hover:text-white transition-colors" style={{ fontSize: "var(--fs-sm)" }}>{email}</a>
 
-            <h3 className="font-['Cormorant_Garamond'] font-semibold italic text-white/70" style={{ fontSize: "var(--fs-base)", marginTop: "var(--space-lg)", marginBottom: "var(--space-xs)" }}>
+            <h3 className="font-serif italic text-white/70" style={{ fontSize: "var(--fs-base)", marginTop: "1.5rem", marginBottom: "0.5rem" }}>
               {isTr ? "Adres" : "Address"}
             </h3>
-            <p className="leading-relaxed text-white/45 whitespace-pre-line" style={{ fontSize: "var(--fs-sm)" }}>{address}</p>
+            <p className="italic leading-[1.75] text-white/40 whitespace-pre-line" style={{ fontSize: "var(--fs-sm)" }}>{address}</p>
           </div>
 
         </div>
       </div>
 
       {/* Copyright */}
-      <div className="border-t border-white/[0.06]">
-        <div className="mx-auto max-w-7xl" style={{ padding: "var(--space-sm) var(--section-px)" }}>
+      <div className="border-t border-white/[0.08]">
+        <div className="mx-auto max-w-7xl" style={{ padding: "clamp(0.75rem, 1.2vw, 1.25rem) var(--section-px)" }}>
           <p className="text-center italic text-white/25" style={{ fontSize: "var(--fs-micro)" }}>
             2025 - Bu internet sitesinde yer alan tüm bilgiler ve logoya ilişkin tüm fikir mülkiyet hakları AEB Avukatlık Ortaklığı&apos;na aittir.
           </p>
