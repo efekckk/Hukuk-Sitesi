@@ -50,11 +50,55 @@ export default async function TeamPage({ params }: TeamPageProps) {
         <TeamSearch locale={locale} members={allNames} />
       </div>
 
-      {/* ── Scatter Layout ── */}
+      {/* ── Team Layout ── */}
       <section className="mx-auto max-w-6xl" style={{ padding: "var(--space-3xl) var(--section-px) 0" }}>
 
-        {/* ── Scatter Layout: Team + Quote ── */}
-        <div className="relative" style={{ minHeight: "clamp(38rem, 58vw, 52rem)" }}>
+        {/* Mobile: stack layout / Desktop: scatter layout */}
+        {/* ── Mobile Layout (< md) ── */}
+        <div className="md:hidden flex flex-col" style={{ gap: "var(--space-xl)" }}>
+          <div className="grid grid-cols-2" style={{ gap: "var(--space-md)" }}>
+            {members.slice(0, 2).map((m) => (
+              <div key={m.name}>
+                <div className="relative aspect-[3/4] overflow-hidden bg-[#1a1a1a]">
+                  {m.image ? (
+                    <img src={m.image} alt={m.name} className="h-full w-full object-cover object-top" />
+                  ) : (
+                    <div className="flex h-full items-center justify-center">
+                      <User className="text-white/10" style={{ width: "3rem", height: "3rem" }} />
+                    </div>
+                  )}
+                </div>
+                <p className="font-serif font-light text-white/80 italic" style={{ fontSize: "var(--fs-base)", marginTop: "0.5rem" }}>
+                  Av. {m.name}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <p className="font-serif font-light italic text-white/70 leading-[1.35]" style={{ fontSize: "clamp(1.1rem, 4vw, 1.5rem)" }}>
+            {quote}
+          </p>
+
+          {members[2] && (
+            <div style={{ width: "60%", marginLeft: "auto" }}>
+              <div className="relative aspect-[3/4] overflow-hidden bg-[#1a1a1a]">
+                {members[2].image ? (
+                  <img src={members[2].image} alt={members[2].name} className="h-full w-full object-cover object-top" />
+                ) : (
+                  <div className="flex h-full items-center justify-center">
+                    <User className="text-white/10" style={{ width: "3rem", height: "3rem" }} />
+                  </div>
+                )}
+              </div>
+              <p className="font-serif font-light text-white/80 italic" style={{ fontSize: "var(--fs-base)", marginTop: "0.5rem" }}>
+                Av. {members[2].name}
+              </p>
+            </div>
+          )}
+        </div>
+
+        {/* ── Desktop Scatter Layout (>= md) ── */}
+        <div className="hidden md:block relative" style={{ minHeight: "clamp(38rem, 58vw, 52rem)" }}>
 
           {/* Member 0 — sol üst */}
           {members[0] && (
@@ -137,7 +181,7 @@ export default async function TeamPage({ params }: TeamPageProps) {
         <div className="mx-auto max-w-6xl">
           <div className="text-center" style={{ marginBottom: "var(--space-2xl)" }}>
             <p className="font-serif font-light tracking-[0.15em] text-black" style={{ fontSize: "clamp(2.5rem, 6vw, 5rem)" }}>
-              AŞÇI&nbsp;&nbsp;&nbsp;ETÇİ&nbsp;&nbsp;&nbsp;BENGLİAN
+              AŞCI&nbsp;&nbsp;&nbsp;ETCİ&nbsp;&nbsp;&nbsp;BENGLİAN
             </p>
             <p className="tracking-[0.4em] uppercase text-black/40" style={{ fontSize: "var(--fs-md)", marginTop: "var(--space-xs)" }}>
               Avukatlık Ortaklığı

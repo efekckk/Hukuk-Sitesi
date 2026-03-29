@@ -98,8 +98,8 @@ async function main() {
   // Create team members
   const teamMembers = [
     {
-      nameTr: "Turgay Aşçı",
-      nameEn: "Turgay Aşçı",
+      nameTr: "Turgay Aşcı",
+      nameEn: "Turgay Aşcı",
       roleTr: "Kurucu Ortak",
       roleEn: "Founding Partner",
       specialtyTr: "Avukatlık Ortaklığı",
@@ -108,8 +108,8 @@ async function main() {
       order: 1,
     },
     {
-      nameTr: "Barış Etçi",
-      nameEn: "Barış Etçi",
+      nameTr: "Barış Etci",
+      nameEn: "Barış Etci",
       roleTr: "Kurucu Ortak",
       roleEn: "Founding Partner",
       specialtyTr: "Avukatlık Ortaklığı",
