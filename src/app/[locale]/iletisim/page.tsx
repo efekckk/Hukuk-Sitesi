@@ -112,10 +112,8 @@ export default async function ContactPage({ params }: ContactPageProps) {
         </div>
       </section>
 
-      <section className="bg-[#f5f5f3]" style={{ paddingBottom: "var(--section-py)", paddingLeft: "var(--section-px)", paddingRight: "var(--section-px)" }}>
-        <div className="mx-auto max-w-7xl">
-          <GoogleMap embedUrl={mapsUrl} />
-        </div>
+      <section>
+        <GoogleMap embedUrl={mapsUrl} className="!aspect-[3.5/1]" />
       </section>
     </>
   );

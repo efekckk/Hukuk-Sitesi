@@ -17,7 +17,7 @@ export function HeroContent({ title, subtitle, subtitle2 }: HeroContentProps) {
       y: 0,
       transition: {
         duration: 0.8,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        ease: [0.25, 0.46, 0.45, 0.94] as const,
         delay: 1.2,
       },
     },

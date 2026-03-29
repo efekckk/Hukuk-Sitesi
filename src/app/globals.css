@@ -174,7 +174,6 @@ img {
 
 /* ── Reveal card scroll animation ── */
 .reveal-card {
-  will-change: opacity, transform;
   transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
               transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
 }

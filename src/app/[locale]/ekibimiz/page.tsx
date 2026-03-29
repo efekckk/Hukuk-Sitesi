@@ -16,12 +16,19 @@ export default async function TeamPage({ params }: TeamPageProps) {
     orderBy: { order: "asc" },
   });
 
-  const members = dbMembers.map((m) => ({
+  // Ortaklar (görselleriyle sayfada görünür)
+  const partners = dbMembers.filter((m) => m.isPartner);
+  const members = partners.map((m) => ({
     name: locale === "en" && m.nameEn ? m.nameEn : m.nameTr,
     role: locale === "en" && m.roleEn ? m.roleEn : m.roleTr,
     specialty: locale === "en" && m.specialtyEn ? m.specialtyEn : m.specialtyTr,
     image: m.image,
   }));
+
+  // Tüm ekip (modal için)
+  const allNames = dbMembers.map((m) =>
+    locale === "en" && m.nameEn ? m.nameEn : m.nameTr
+  );
 
   const quote = isTr
     ? "Deneyimli ve koordineli ekibimiz, müvekkillerimizin ihtiyaç duyduğu en karmaşık hukuki süreçleri çözüm odaklı bir anlayışla yönetir."
@@ -40,7 +47,7 @@ export default async function TeamPage({ params }: TeamPageProps) {
 
       {/* ── Fixed Floating Search Button — sol alt ── */}
       <div className="fixed z-40" style={{ bottom: "clamp(1.5rem, 3vw, 2.5rem)", left: "clamp(1.5rem, 3vw, 2.5rem)" }}>
-        <TeamSearch locale={locale} />
+        <TeamSearch locale={locale} members={allNames} />
       </div>
 
       {/* ── Scatter Layout ── */}
@@ -115,7 +122,7 @@ export default async function TeamPage({ params }: TeamPageProps) {
                 )}
               </div>
               <div style={{ marginTop: "0.75rem" }}>
-                <p className="font-serif font-light text-white/80 italic" style={{ fontSize: "var(--fs-base)" }}>
+                <p className="font-serif font-light text-white/80 italic" style={{ fontSize: "var(--fs-lg)" }}>
                   Av. {members[2].name}
                 </p>
               </div>

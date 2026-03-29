@@ -79,7 +79,8 @@ function buildSidebarItems(
         { href: "/admin/sayfalar/degerlerimiz", label: "Değerlerimiz", icon: Heart },
         { href: "/admin/sayfalar/iletisim", label: "İletişim", icon: Phone },
         { href: "/admin/sayfalar/istatistikler", label: "İstatistikler", icon: BarChart3 },
-        { href: "/admin/sayfalar/referanslar", label: "Referanslar", icon: Quote },
+        // Referanslar gizlendi — public sitede kullanılmıyor
+        // { href: "/admin/sayfalar/referanslar", label: "Referanslar", icon: Quote },
         { href: "/admin/sayfalar/cta", label: "CTA Bloğu", icon: Megaphone },
         { href: "/admin/sayfalar/popup", label: "Popup Bildirimi", icon: Bell },
       ],

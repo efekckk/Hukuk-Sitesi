@@ -27,6 +27,11 @@ export async function POST(request: NextRequest) {
 
     const { name, email, phone, subject, message, kvkkConsent } = validationResult.data;
 
+    // KVKK onay detayları
+    const kvkkPage = kvkkConsent
+      ? await prisma.pageContent.findUnique({ where: { slug: "kvkk" }, select: { updatedAt: true } })
+      : null;
+
     const submission = await prisma.contactSubmission.create({
       data: {
         name,
@@ -35,6 +40,10 @@ export async function POST(request: NextRequest) {
         subject,
         message,
         kvkkConsent: Boolean(kvkkConsent),
+        kvkkConsentAt: kvkkConsent ? new Date() : null,
+        kvkkVersion: kvkkPage ? kvkkPage.updatedAt.toISOString() : null,
+        kvkkIp: ip,
+        kvkkUserAgent: request.headers.get("user-agent") || null,
       },
     });
 

@@ -61,30 +61,35 @@ export function Faq({ items, maxItems, showMoreLink }: FaqProps) {
               <div
                 key={index}
                 className={cn(
-                  "border-t border-black/10 last:border-b",
-                  isOpen && "bg-white"
+                  "border-t border-black/10 last:border-b transition-colors duration-300",
+                  isOpen ? "bg-white border-l-2 border-l-[#b8975a]" : "border-l-2 border-l-transparent hover:bg-white/60"
                 )}
               >
                 <button
                   onClick={() => toggle(index)}
-                  className="w-full flex items-start justify-between text-left group"
-                  style={{ padding: "var(--space-lg) 0" }}
+                  className="w-full flex items-start justify-between text-left group cursor-pointer"
+                  style={{ padding: "var(--space-lg) var(--space-md)" }}
                 >
                   <div className="flex items-start" style={{ gap: "var(--space-md)", paddingRight: "var(--space-lg)" }}>
-                    <span className="font-serif text-black/20 mt-0.5 w-6 shrink-0 tabular-nums" style={{ fontSize: "var(--fs-sm)" }}>
+                    <span className={cn(
+                      "font-mono tabular-nums mt-0.5 w-6 shrink-0 transition-colors duration-300",
+                      isOpen ? "text-[#b8975a]" : "text-black/20 group-hover:text-[#b8975a]"
+                    )} style={{ fontSize: "var(--fs-micro)" }}>
                       {String(index + 1).padStart(2, "0")}
                     </span>
                     <span className={cn(
-                      "font-serif font-light leading-snug transition-colors",
+                      "font-serif font-light leading-snug transition-colors duration-300",
                       isOpen ? "text-[#1a1a1a]" : "text-[#444] group-hover:text-[#1a1a1a]"
                     )} style={{ fontSize: "var(--fs-lg)" }}>
                       {item.question}
                     </span>
                   </div>
                   <span className={cn(
-                    "font-serif font-light text-black/30 shrink-0 leading-none transition-all duration-300 mt-0.5",
-                    isOpen && "text-black/60"
-                  )} style={{ fontSize: "var(--fs-2xl)" }}>
+                    "shrink-0 leading-none transition-all duration-300 mt-1 w-6 h-6 flex items-center justify-center border rounded-sm",
+                    isOpen
+                      ? "bg-[#b8975a] border-[#b8975a] text-white rotate-0"
+                      : "border-black/15 text-black/30 group-hover:border-[#b8975a] group-hover:text-[#b8975a]"
+                  )} style={{ fontSize: "var(--fs-sm)" }}>
                     {isOpen ? "−" : "+"}
                   </span>
                 </button>
@@ -93,7 +98,7 @@ export function Faq({ items, maxItems, showMoreLink }: FaqProps) {
                   "overflow-hidden transition-all duration-400",
                   isOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
                 )}>
-                  <div style={{ paddingLeft: "calc(var(--space-md) + 1.5rem)", paddingRight: "var(--space-lg)", paddingBottom: "var(--space-lg)" }}>
+                  <div style={{ paddingLeft: "calc(var(--space-md) * 2 + 1.5rem)", paddingRight: "var(--space-lg)", paddingBottom: "var(--space-lg)" }}>
                     <p className="leading-[1.9] text-[#555]" style={{ fontSize: "var(--fs-base)" }}>
                       {item.answer}
                     </p>

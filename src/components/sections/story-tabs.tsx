@@ -24,10 +24,10 @@ export function StoryTabs() {
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={cn(
-                "font-serif font-light -mb-px border-b transition-all duration-300",
+                "font-serif font-light -mb-px border-b-2 transition-all duration-300 cursor-pointer",
                 activeTab === tab
-                  ? "border-black text-[#1a1a1a]"
-                  : "border-transparent text-black/30 hover:text-black/60"
+                  ? "border-[#b8975a] text-[#1a1a1a]"
+                  : "border-transparent text-black/30 hover:text-black/60 hover:border-black/20"
               )}
               style={{ fontSize: "var(--fs-lg)", padding: "var(--space-sm) var(--space-xl)" }}
             >
@@ -62,8 +62,8 @@ export function StoryTabs() {
                 className="inline-flex items-center gap-3 tracking-[0.15em] uppercase text-[#1a1a1a] group"
                 style={{ fontSize: "var(--fs-xs)", marginTop: "var(--space-xl)" }}
               >
-                <span className="h-px w-8 bg-black/40 transition-all duration-300 group-hover:w-14 group-hover:bg-black" />
-                {t("about.cta")}
+                <span className="h-px w-8 bg-[#b8975a]/50 transition-all duration-300 group-hover:w-14 group-hover:bg-[#b8975a]" />
+                <span className="transition-colors duration-300 group-hover:text-[#b8975a]">{t("about.cta")}</span>
               </Link>
             </div>
             <div className="relative aspect-[4/3] overflow-hidden">
@@ -101,8 +101,8 @@ export function StoryTabs() {
                 className="inline-flex items-center gap-3 tracking-[0.15em] uppercase text-[#1a1a1a] group"
                 style={{ fontSize: "var(--fs-xs)", marginTop: "var(--space-xl)" }}
               >
-                <span className="h-px w-8 bg-black/40 transition-all duration-300 group-hover:w-14 group-hover:bg-black" />
-                {t("contact.cta")}
+                <span className="h-px w-8 bg-[#b8975a]/50 transition-all duration-300 group-hover:w-14 group-hover:bg-[#b8975a]" />
+                <span className="transition-colors duration-300 group-hover:text-[#b8975a]">{t("contact.cta")}</span>
               </Link>
             </div>
             <div className="relative aspect-[4/3] overflow-hidden">

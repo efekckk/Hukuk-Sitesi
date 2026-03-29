@@ -32,11 +32,11 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { nameTr, nameEn, roleTr, roleEn, specialtyTr, specialtyEn, image, order } = body;
+    const { nameTr, nameEn, roleTr, roleEn, specialtyTr, specialtyEn, image, order, isPartner } = body;
 
-    if (!nameTr || !roleTr || !specialtyTr) {
+    if (!nameTr || !roleTr) {
       return NextResponse.json(
-        { error: "İsim, unvan ve uzmanlık alanı (TR) zorunludur" },
+        { error: "İsim ve unvan (TR) zorunludur" },
         { status: 400 }
       );
     }
@@ -47,10 +47,11 @@ export async function POST(request: NextRequest) {
         nameEn: nameEn || null,
         roleTr,
         roleEn: roleEn || null,
-        specialtyTr,
+        specialtyTr: specialtyTr || "",
         specialtyEn: specialtyEn || null,
         image: image || null,
         order: order ?? 0,
+        isPartner: Boolean(isPartner),
       },
     });
 
@@ -76,15 +77,15 @@ export async function PUT(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { id, nameTr, nameEn, roleTr, roleEn, specialtyTr, specialtyEn, image, order } = body;
+    const { id, nameTr, nameEn, roleTr, roleEn, specialtyTr, specialtyEn, image, order, isPartner } = body;
 
     if (!id) {
       return NextResponse.json({ error: "ID gerekli" }, { status: 400 });
     }
 
-    if (!nameTr || !roleTr || !specialtyTr) {
+    if (!nameTr || !roleTr) {
       return NextResponse.json(
-        { error: "İsim, unvan ve uzmanlık alanı (TR) zorunludur" },
+        { error: "İsim ve unvan (TR) zorunludur" },
         { status: 400 }
       );
     }
@@ -96,10 +97,11 @@ export async function PUT(request: NextRequest) {
         nameEn: nameEn || null,
         roleTr,
         roleEn: roleEn || null,
-        specialtyTr,
+        specialtyTr: specialtyTr || "",
         specialtyEn: specialtyEn || null,
         image: image || null,
         order: order ?? 0,
+        isPartner: isPartner !== undefined ? Boolean(isPartner) : undefined,
       },
     });
 

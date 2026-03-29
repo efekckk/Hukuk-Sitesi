@@ -15,6 +15,10 @@ interface SerializedMessage {
   status: string;
   createdAt: string;
   formattedDate: string;
+  kvkkConsent?: boolean;
+  kvkkConsentAt?: string | null;
+  kvkkVersion?: string | null;
+  kvkkIp?: string | null;
 }
 
 interface MessageRowProps {
@@ -241,6 +245,37 @@ export function MessageRow({ message }: MessageRowProps) {
                 <p className="whitespace-pre-wrap text-sm text-gray-500 dark:text-gray-400 leading-relaxed bg-white dark:bg-gray-900 rounded-lg p-3 border border-gray-200 dark:border-gray-700">
                   {message.message}
                 </p>
+              </div>
+
+              {/* KVKK Onay Bilgileri */}
+              <div className="rounded-lg bg-amber-50/50 dark:bg-amber-900/10 border border-amber-200/50 dark:border-amber-800/30 p-3">
+                <p className="text-xs font-medium text-amber-800 dark:text-amber-400 mb-1.5">KVKK Onay Bilgileri</p>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs text-gray-500 dark:text-gray-400">
+                  <div>
+                    <span className="text-gray-400 dark:text-gray-500">Onay: </span>
+                    <span className={message.kvkkConsent ? "text-green-600 dark:text-green-400" : "text-red-500"}>
+                      {message.kvkkConsent ? "Verildi" : "Verilmedi"}
+                    </span>
+                  </div>
+                  {message.kvkkConsentAt && (
+                    <div>
+                      <span className="text-gray-400 dark:text-gray-500">Tarih: </span>
+                      {new Date(message.kvkkConsentAt).toLocaleString("tr-TR")}
+                    </div>
+                  )}
+                  {message.kvkkIp && (
+                    <div>
+                      <span className="text-gray-400 dark:text-gray-500">IP: </span>
+                      {message.kvkkIp}
+                    </div>
+                  )}
+                  {message.kvkkVersion && (
+                    <div>
+                      <span className="text-gray-400 dark:text-gray-500">Metin ver.: </span>
+                      {new Date(message.kvkkVersion).toLocaleDateString("tr-TR")}
+                    </div>
+                  )}
+                </div>
               </div>
 
               {/* Başarı mesajı */}

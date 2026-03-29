@@ -110,16 +110,20 @@ model TagsOnPosts {
 }
 
 model ContactSubmission {
-  id          String        @id @default(cuid())
-  name        String
-  email       String
-  phone       String?
-  subject     String
-  message     String        @db.Text
-  status      ContactStatus @default(UNREAD)
-  kvkkConsent Boolean       @default(false) @map("kvkk_consent")
-  createdAt   DateTime      @default(now()) @map("created_at")
-  updatedAt   DateTime      @updatedAt @map("updated_at")
+  id               String        @id @default(cuid())
+  name             String
+  email            String
+  phone            String?
+  subject          String
+  message          String        @db.Text
+  status           ContactStatus @default(UNREAD)
+  kvkkConsent      Boolean       @default(false) @map("kvkk_consent")
+  kvkkConsentAt    DateTime?     @map("kvkk_consent_at")
+  kvkkVersion      String?       @map("kvkk_version")
+  kvkkIp           String?       @map("kvkk_ip")
+  kvkkUserAgent    String?       @map("kvkk_user_agent") @db.Text
+  createdAt        DateTime      @default(now()) @map("created_at")
+  updatedAt        DateTime      @updatedAt @map("updated_at")
 
   @@map("contact_submissions")
 }
@@ -143,6 +147,7 @@ model TeamMember {
   specialtyTr String   @map("specialty_tr")
   specialtyEn String?  @map("specialty_en")
   image       String?
+  isPartner   Boolean  @default(false) @map("is_partner")
   order       Int      @default(0)
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")

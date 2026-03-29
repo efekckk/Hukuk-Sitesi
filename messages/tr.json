@@ -109,24 +109,37 @@
   "about": {
     "title": "Hakkımızda",
     "subtitle": "Deneyim ve güvenle hukuki çözümler",
+    "tagline": "BİZİ TANIYIN",
+    "heroTitle": "Hakkımızda",
+    "storyTitle": "20 Yılı Aşkın Deneyim",
     "description": "20 yılı aşkın tecrübemizle, müvekkillerimize en yüksek kalitede hukuki danışmanlık ve avukatlık hizmeti sunuyoruz. Etik değerlere bağlılığımız ve müvekkil memnuniyeti odaklı yaklaşımımızla, hukuki süreçlerinizde güvenilir çözüm ortağınızız.",
     "experience": "20+ Yıl Tecrübe",
     "cases": "5000+ Başarılı Dava",
     "clients": "3000+ Mutlu Müvekkil",
     "team": "Ekibimiz",
+    "teamSubtitle": "Deneyimli ve koordineli ekibimiz, müvekkillerimizin ihtiyaç duyduğu en karmaşık hukuki süreçleri çözüm odaklı bir anlayışla yönetir.",
+    "teamCta": "Tüm Ekibi Gör",
+    "vision": {
+      "title": "Vizyonumuz",
+      "description": "Türkiye'nin önde gelen bağımsız hukuk bürolarından biri olarak, uluslararası standartlarda hukuki hizmet sunmak ve müvekkillerimizin güvenilir çözüm ortağı olmaya devam etmek."
+    },
+    "mission": {
+      "title": "Misyonumuz",
+      "description": "Hukuki süreçlerin her aşamasında müvekkillerimizin haklarını en etkin şekilde korumak, şeffaf ve etik değerlere bağlı kalarak sürdürülebilir çözümler üretmek."
+    },
     "values": {
       "title": "Değerlerimiz",
       "integrity": {
-        "title": "Dürüstlük",
-        "description": "Her zaman şeffaf ve dürüst bir yaklaşım sergiliyoruz."
+        "title": "Dürüstlük ve Şeffaflık",
+        "description": "Her zaman şeffaf ve dürüst bir yaklaşım sergileyerek müvekkillerimizin güvenini kazanıyoruz."
       },
       "expertise": {
         "title": "Uzmanlık",
         "description": "Sürekli kendimizi geliştirerek en güncel hukuki bilgiyle hizmet veriyoruz."
       },
       "dedication": {
-        "title": "Özveri",
-        "description": "Her davayı kendi davamız gibi sahipleniyoruz."
+        "title": "Müvekkil Odaklılık",
+        "description": "Her davayı kendi davamız gibi sahipleniyor, sonuç odaklı çalışıyoruz."
       }
     }
   },

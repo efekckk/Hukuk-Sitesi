@@ -1,4 +1,5 @@
 import { getTranslations } from "next-intl/server";
+import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { prisma } from "@/lib/prisma";
 import { RevealCard } from "@/components/ui/reveal-card";
@@ -26,11 +27,13 @@ export default async function PracticeAreasPage({ params }: PracticeAreasPagePro
       {/* Hero banner */}
       <div className="relative bg-[#0a0a0a] overflow-hidden flex items-end" style={{ minHeight: "clamp(18rem, 40vh, 28rem)", paddingLeft: "var(--section-px)", paddingRight: "var(--section-px)", paddingBottom: "clamp(2rem, 4vw, 3.5rem)" }}>
         <div className="absolute inset-0" aria-hidden="true">
-          <img
+          <Image
             src="/images/services-hero.webp"
             alt=""
-            className="w-full h-full object-cover object-center"
-            style={{ filter: "grayscale(30%) brightness(0.4)" }}
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-center grayscale-[30%] brightness-[0.4]"
           />
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/80 via-[#0a0a0a]/40 to-transparent" />

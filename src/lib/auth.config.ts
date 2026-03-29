@@ -67,6 +67,18 @@ export const authConfig: NextAuthConfig = {
       return session;
     },
   },
+  cookies: {
+    sessionToken: {
+      name: "authjs.session-token",
+      options: {
+        httpOnly: true,
+        sameSite: "lax" as const,
+        path: "/",
+        secure: process.env.NODE_ENV === "production",
+        domain: process.env.COOKIE_DOMAIN || undefined,
+      },
+    },
+  },
   session: {
     strategy: "jwt",
   },

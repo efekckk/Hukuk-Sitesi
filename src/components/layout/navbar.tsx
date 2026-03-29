@@ -76,18 +76,18 @@ export function Navbar({ practiceAreas }: { practiceAreas?: PracticeAreaNav[] })
             </Link>
 
             {/* Desktop Nav */}
-            <nav className="hidden items-center md:flex" style={{ gap: "2rem" }}>
+            <nav className="hidden items-center lg:flex" style={{ gap: "clamp(1rem, 1.5vw, 2rem)" }}>
               {navItems.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "relative tracking-[0.12em] uppercase transition-colors pb-1",
+                    "relative tracking-[0.12em] uppercase transition-colors pb-1 whitespace-nowrap",
                     isActive(item.href)
                       ? "text-white font-semibold"
                       : "text-white/55 hover:text-white"
                   )}
-                  style={{ fontSize: "var(--fs-sm)" }}
+                  style={{ fontSize: "var(--fs-xs)" }}
                 >
                   {item.label}
                 </Link>
@@ -100,8 +100,8 @@ export function Navbar({ practiceAreas }: { practiceAreas?: PracticeAreaNav[] })
                 href="https://pos.param.com.tr/Tahsilat/Default.aspx?k=2524DFB2-A0F3-4A5A-B9DD-9A2A18B0E1BD"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden md:inline-flex items-center border border-[#b8975a]/60 tracking-[0.15em] uppercase text-[#b8975a] hover:bg-[#b8975a]/10 hover:border-[#b8975a] transition-colors"
-                style={{ fontSize: "var(--fs-sm)", padding: "0.35em 0.8em" }}
+                className="hidden lg:inline-flex items-center border border-[#b8975a]/60 tracking-[0.15em] uppercase text-[#b8975a] hover:bg-[#b8975a]/10 hover:border-[#b8975a] transition-colors whitespace-nowrap shrink-0"
+                style={{ fontSize: "var(--fs-xs)", padding: "0.3em 0.7em" }}
               >
                 E-Tahsilat
               </a>
@@ -122,7 +122,7 @@ export function Navbar({ practiceAreas }: { practiceAreas?: PracticeAreaNav[] })
 
               <button
                 type="button"
-                className="md:hidden text-white/60 hover:text-white transition-colors"
+                className="lg:hidden text-white/60 hover:text-white transition-colors"
                 onClick={() => setMobileMenuOpen(true)}
                 aria-label="Menüyü aç"
               >

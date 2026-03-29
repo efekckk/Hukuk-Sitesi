@@ -1,6 +1,7 @@
 import { Link } from "@/i18n/navigation";
 import { getTranslations } from "next-intl/server";
 import { CountUp } from "@/components/ui/count-up";
+import { ArrowUpRight } from "lucide-react";
 
 interface HomepageBentoProps {
   practiceAreas: { slug: string; title: string; description: string; icon: string }[];
@@ -47,18 +48,22 @@ export async function HomepageBento({ practiceAreas, stats }: HomepageBentoProps
                 <Link
                   key={area.slug}
                   href={`/hizmetlerimiz/${area.slug}`}
-                  className="group bg-[#f5f5f3] flex flex-col transition-all duration-300 hover:bg-white hover:-translate-y-1 hover:shadow-lg hover:shadow-black/5"
+                  className="group relative bg-[#f5f5f3] flex flex-col transition-all duration-300 hover:bg-white hover:-translate-y-1 hover:shadow-lg hover:shadow-black/5"
                   style={{ padding: "var(--space-lg)", gap: "var(--space-sm)" }}
                 >
-                  <h3 className="font-serif font-light text-[#1a1a1a] transition-colors duration-300 group-hover:text-[#b8975a]" style={{ fontSize: "var(--fs-xl)" }}>
-                    {area.title}
-                  </h3>
+                  <div className="absolute top-0 left-0 w-0 h-0.5 bg-[#b8975a] transition-all duration-500 group-hover:w-full" />
+                  <div className="flex items-start justify-between">
+                    <h3 className="font-serif font-light text-[#1a1a1a] transition-colors duration-300 group-hover:text-[#b8975a]" style={{ fontSize: "var(--fs-xl)" }}>
+                      {area.title}
+                    </h3>
+                    <ArrowUpRight className="w-4 h-4 shrink-0 text-black/15 transition-all duration-300 group-hover:text-[#b8975a] group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </div>
                   {area.description && (
                     <p className="leading-relaxed text-[#666] line-clamp-3" style={{ fontSize: "var(--fs-sm)" }}>
                       {area.description}
                     </p>
                   )}
-                  <span className="mt-auto inline-flex items-center gap-1 tracking-widest uppercase text-[#aaa] transition-colors duration-300 group-hover:text-[#1a1a1a]" style={{ fontSize: "var(--fs-micro)" }}>
+                  <span className="mt-auto inline-flex items-center gap-2 tracking-widest uppercase text-[#aaa] transition-colors duration-300 group-hover:text-[#1a1a1a]" style={{ fontSize: "var(--fs-micro)" }}>
                     {t("detail")} <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
                   </span>
                 </Link>

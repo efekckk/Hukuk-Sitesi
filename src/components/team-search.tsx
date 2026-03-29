@@ -4,7 +4,9 @@ import { useState, useMemo, useEffect, useCallback } from "react";
 import { Search, X, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const STAFF: readonly string[] = [
+// Eski hardcoded liste kaldırıldı — artık DB'den prop olarak geliyor
+
+const LEGACY_STAFF: readonly string[] = [
   "Ahmet Can Ünsal",
   "Alara Su Çiçek",
   "Ali Eren Metin",
@@ -83,9 +85,11 @@ function normalize(str: string): string {
 
 interface TeamSearchProps {
   locale?: string;
+  members?: string[];
 }
 
-export function TeamSearch({ locale = "tr" }: TeamSearchProps) {
+export function TeamSearch({ locale = "tr", members }: TeamSearchProps) {
+  const staffList = members && members.length > 0 ? members : [...LEGACY_STAFF];
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const isTr = locale !== "en";
@@ -133,8 +137,8 @@ export function TeamSearch({ locale = "tr" }: TeamSearchProps) {
   // Arama yoksa tüm listeyi göster, varsa filtrele
   const filtered = useMemo(() => {
     const q = query.trim();
-    if (q.length === 0) return STAFF.slice();
-    return STAFF.filter((name) => normalize(name).includes(normalize(q)));
+    if (q.length === 0) return staffList.slice();
+    return staffList.filter((name) => normalize(name).includes(normalize(q)));
   }, [query]);
 
   return (

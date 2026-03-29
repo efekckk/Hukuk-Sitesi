@@ -24,6 +24,10 @@ export default async function AdminMessagesPage() {
     status: msg.status,
     createdAt: msg.createdAt.toISOString(),
     formattedDate: formatDate(msg.createdAt, "tr"),
+    kvkkConsent: msg.kvkkConsent,
+    kvkkConsentAt: msg.kvkkConsentAt?.toISOString() ?? null,
+    kvkkVersion: msg.kvkkVersion ?? null,
+    kvkkIp: msg.kvkkIp ?? null,
   }));
 
   return (

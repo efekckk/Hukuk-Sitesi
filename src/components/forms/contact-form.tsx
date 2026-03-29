@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
-import { Loader2, CheckCircle } from "lucide-react";
+import { Loader2, CheckCircle, X } from "lucide-react";
 
 /* Ortak input className */
 const fieldClass =
@@ -11,11 +11,88 @@ const fieldClass =
 
 const labelClass = "block text-xs tracking-[0.15em] uppercase text-black/40 mb-2";
 
+function KvkkModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const [content, setContent] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!open || content) return;
+    setLoading(true);
+    fetch("/api/page-content?slug=kvkk")
+      .then((r) => r.json())
+      .then((data) => setContent(data.contentTr || data.data?.contentTr || ""))
+      .catch(() => setContent("İçerik yüklenemedi."))
+      .finally(() => setLoading(false));
+  }, [open, content]);
+
+  useEffect(() => {
+    if (!open) return;
+    const scrollY = window.scrollY;
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = "0";
+    document.body.style.right = "0";
+    document.body.style.overflow = "hidden";
+    const lenis = (window as any).__lenis;
+    if (lenis) lenis.stop();
+    document.documentElement.setAttribute("data-lenis-prevent", "");
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      document.body.style.overflow = "";
+      window.scrollTo(0, scrollY);
+      document.documentElement.removeAttribute("data-lenis-prevent");
+      if (lenis) lenis.start();
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  return (
+    <div data-lenis-prevent className="fixed inset-0 z-50 flex items-center justify-center" style={{ padding: "2rem" }}>
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
+      <div className="relative z-10 w-full max-w-3xl max-h-[80vh] bg-white overflow-hidden flex flex-col" style={{ borderRadius: "0.5rem" }}>
+        {/* Header */}
+        <div className="flex items-center justify-between border-b border-black/10" style={{ padding: "1rem 1.5rem" }}>
+          <h2 className="font-serif font-light text-[#1a1a1a]" style={{ fontSize: "var(--fs-lg)" }}>
+            Kişisel Verilerin Korunması
+          </h2>
+          <button onClick={onClose} className="text-black/30 hover:text-black transition-colors cursor-pointer">
+            <X style={{ width: "1.25rem", height: "1.25rem" }} />
+          </button>
+        </div>
+        {/* Content */}
+        <div className="overflow-y-auto" style={{ padding: "1.5rem" }}>
+          {loading ? (
+            <div className="flex items-center justify-center py-12">
+              <Loader2 className="w-6 h-6 animate-spin text-black/20" />
+            </div>
+          ) : content ? (
+            <div
+              className="prose prose-sm max-w-none text-[#444] leading-[1.9]"
+              dangerouslySetInnerHTML={{ __html: content }}
+            />
+          ) : (
+            <p className="text-black/40">İçerik bulunamadı.</p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function ContactForm() {
   const t = useTranslations("contact.form");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState("");
+  const [kvkkOpen, setKvkkOpen] = useState(false);
+  const closeKvkk = useCallback(() => setKvkkOpen(false), []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -118,12 +195,18 @@ export function ContactForm() {
           className="mt-0.5 w-4 h-4 border-black/20 accent-black"
         />
         <label htmlFor="kvkkConsent" className="text-xs leading-relaxed text-[#777]">
-          <Link href="/kvkk" className="underline underline-offset-2 text-[#555] hover:text-black">
+          <button
+            type="button"
+            onClick={() => setKvkkOpen(true)}
+            className="underline underline-offset-2 text-[#555] hover:text-black cursor-pointer"
+          >
             {t("kvkkConsent")}
-          </Link>{" "}
+          </button>{" "}
           *
         </label>
       </div>
+
+      <KvkkModal open={kvkkOpen} onClose={closeKvkk} />
 
       {error && (
         <p className="text-xs text-red-700 border-l-2 border-red-300 pl-3">{error}</p>

@@ -76,7 +76,7 @@ export default async function PracticeAreaDetailPage({ params }: PracticeAreaDet
       <div className="relative bg-[#0a0a0a] overflow-hidden flex items-end" style={{ minHeight: "clamp(18rem, 40vh, 28rem)", paddingLeft: "var(--section-px)", paddingRight: "var(--section-px)", paddingBottom: "clamp(2rem, 4vw, 3.5rem)" }}>
         <div className="absolute inset-0" aria-hidden="true">
           <img
-            src={dbArea.image || "/images/services-hero.webp"}
+            src={`/images/hero-${slug}.webp`}
             alt=""
             className="w-full h-full object-cover object-center"
             style={{ filter: "grayscale(30%) brightness(0.4)" }}
