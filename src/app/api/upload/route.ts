@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
+import { getUserRole, canAccess } from "@/lib/permissions";
 import { writeFile, mkdir } from "fs/promises";
 import path from "path";
 import { fileTypeFromBuffer } from "file-type";
@@ -17,6 +18,11 @@ export async function POST(request: NextRequest) {
     const session = await auth();
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Yetkisiz erişim" }, { status: 401 });
+    }
+
+    const role = await getUserRole(session.user.id);
+    if (!role || !canAccess(role, "upload")) {
+      return NextResponse.json({ error: "Bu işlem için yetkiniz yok" }, { status: 403 });
     }
 
     const formData = await request.formData();

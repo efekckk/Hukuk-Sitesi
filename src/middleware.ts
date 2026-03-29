@@ -14,11 +14,7 @@ const ALLOWED_ADMIN_IPS = new Set([
 ]);
 
 function getClientIp(request: NextRequest): string {
-  return (
-    request.headers.get("x-real-ip") ||
-    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
-    "unknown"
-  );
+  return request.headers.get("x-real-ip") || "unknown";
 }
 
 export default async function middleware(request: NextRequest) {

@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Loader2, CheckCircle, X } from "lucide-react";
+import DOMPurify from "isomorphic-dompurify";
 
 /* Ortak input className */
 const fieldClass =
@@ -75,7 +76,7 @@ function KvkkModal({ open, onClose }: { open: boolean; onClose: () => void }) {
           ) : content ? (
             <div
               className="prose prose-sm max-w-none text-[#444] leading-[1.9]"
-              dangerouslySetInnerHTML={{ __html: content }}
+              dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
             />
           ) : (
             <p className="text-black/40">İçerik bulunamadı.</p>

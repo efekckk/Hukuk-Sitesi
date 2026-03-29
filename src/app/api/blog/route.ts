@@ -10,6 +10,9 @@ export async function GET(request: NextRequest) {
   const rl = rateLimit(`blog-get:${getIp(request)}`, RATE_LIMITS.publicList);
   if (!rl.success) return NextResponse.json({ error: "Çok fazla istek" }, { status: 429 });
   try {
+    const session = await auth();
+    const isAuthenticated = !!session?.user?.id;
+
     const { searchParams } = new URL(request.url);
     const page = Math.max(1, parseInt(searchParams.get("page") || "1"));
     const limit = Math.min(100, Math.max(1, parseInt(searchParams.get("limit") || "10")));
@@ -17,7 +20,12 @@ export async function GET(request: NextRequest) {
     const published = searchParams.get("published");
 
     const where: Record<string, unknown> = {};
-    if (published === "true") where.isPublished = true;
+    // Unauthenticated users can only see published posts
+    if (!isAuthenticated) {
+      where.isPublished = true;
+    } else if (published === "true") {
+      where.isPublished = true;
+    }
     if (category) where.categoryId = category;
 
     const [posts, total] = await Promise.all([

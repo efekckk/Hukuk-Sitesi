@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Check, Loader2, Eye, EyeOff } from "lucide-react";
+import DOMPurify from "isomorphic-dompurify";
 
 interface PageData {
   id: string;
@@ -207,9 +208,10 @@ export function KvkkEditorClient({ initialPage }: KvkkEditorClientProps) {
                 <div
                   className="prose prose-sm dark:prose-invert max-w-none prose-headings:font-bold prose-h2:text-xl prose-h2:mt-6 prose-h2:mb-3 prose-h3:text-lg prose-h3:mt-4 prose-h3:mb-2 prose-p:my-2 prose-p:leading-relaxed prose-ul:my-2 prose-ul:pl-6 prose-li:my-1"
                   dangerouslySetInnerHTML={{
-                    __html:
+                    __html: DOMPurify.sanitize(
                       currentContent ||
-                      "<p class='text-gray-400'>Henüz içerik girilmedi.</p>",
+                      "<p class='text-gray-400'>Henüz içerik girilmedi.</p>"
+                    ),
                   }}
                 />
               </div>
