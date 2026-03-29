@@ -130,28 +130,6 @@ export default async function AboutPage({ params }: AboutPageProps) {
 
       <GlowDivider />
 
-      {/* ── Section 4: Stats Band ── */}
-      {statsData.length > 0 && (
-        <section className="bg-[#0a0a0a]" style={{ padding: "var(--space-2xl) var(--section-px)" }}>
-          <div className="mx-auto max-w-7xl">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-px">
-              {statsData.map((stat) => (
-                <div key={stat.label} className="text-center" style={{ padding: "var(--space-lg)" }}>
-                  <p className="font-serif font-light text-white" style={{ fontSize: "var(--fs-4xl)" }}>
-                    <CountUp target={stat.value} suffix={stat.suffix} />
-                  </p>
-                  <p className="tracking-widest uppercase text-white/30" style={{ fontSize: "var(--fs-micro)", marginTop: "var(--space-xs)" }}>
-                    {stat.label}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      <GlowDivider />
-
       {/* ── Section 5: Vizyon & Misyon ── */}
       <section className="bg-white" style={{ padding: "var(--section-py) var(--section-px)" }}>
         <div className="mx-auto max-w-7xl">
