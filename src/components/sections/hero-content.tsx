@@ -24,7 +24,7 @@ export function HeroContent({ title, subtitle, subtitle2 }: HeroContentProps) {
   };
 
   return (
-    <div className="absolute inset-0 z-20 flex items-center" style={{ paddingLeft: "clamp(2rem, 5vw, 5rem)" }}>
+    <div className="absolute inset-0 z-20 flex items-end md:items-center" style={{ paddingLeft: "clamp(1.5rem, 5vw, 5rem)", paddingRight: "clamp(1.5rem, 3vw, 2rem)", paddingBottom: "clamp(3rem, 8vw, 5rem)" }}>
       <div style={{ maxWidth: "34rem" }}>
         <TextReveal
           text={title}
