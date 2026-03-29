@@ -91,11 +91,7 @@ export function MobileMenu({ isOpen, onClose, practiceAreas, onSearchOpen }: Mob
   const navItems: NavItem[] = [
     { href: "/", translationKey: "home" },
     { href: "/hakkimizda", translationKey: "about" },
-    {
-      translationKey: "practiceAreas",
-      href: "/hizmetlerimiz",
-      children: practiceAreaChildren,
-    },
+    { href: "/hizmetlerimiz", translationKey: "practiceAreas" },
     { href: "/ekibimiz", translationKey: "team" },
     { href: "/sss", translationKey: "faq" },
   ];

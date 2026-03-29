@@ -35,17 +35,24 @@ export async function Hero({ locale = "tr" }: HeroProps) {
     <div style={{ height: "200vh" }}>
       <div className="sticky top-0 h-screen bg-[#0a0a0a] overflow-hidden">
 
-        {/* Fallback: JS yüklenmeden önce ilk frame */}
-        <div
-          className="absolute inset-0 bg-cover"
-          style={{
-            backgroundImage: "url('/frames/themis/0150.jpg')",
-            backgroundPosition: "center right",
-          }}
+        {/* Mobil: dikey format Themis (portrait crop) */}
+        <img
+          src="/images/hero-mobile.jpg"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover md:hidden"
         />
 
-        {/* Canvas image sequence */}
-        <HeroScrollVideo />
+        {/* Desktop: fallback + canvas animation */}
+        <div
+          className="absolute inset-0 bg-cover hidden md:block"
+          style={{
+            backgroundImage: "url('/frames/themis/0150.jpg')",
+            backgroundPosition: "center center",
+          }}
+        />
+        <div className="hidden md:block">
+          <HeroScrollVideo />
+        </div>
 
         {/* Sol gradient — hafif, görseli korur */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a0a]/80 via-[#0a0a0a]/30 to-transparent z-10" />

@@ -9,6 +9,7 @@ function frameSrc(index: number): string {
   return `${FRAME_BASE}${String(index + 1).padStart(4, "0")}.jpg`;
 }
 
+
 // Scroll 0'da hangi frame'de başlanmalı: yakın açı = son frame
 const INITIAL_FRAME = FRAME_COUNT - 1;
 
@@ -119,7 +120,6 @@ export function HeroScrollVideo() {
         ctx.globalAlpha = 1;
         ctx.drawImage(imgA, 0, 0, canvas.width, canvas.height);
 
-        // Blend in next frame if available and there's meaningful alpha
         if (alpha > 0.001 && imgB?.complete && imgB.naturalWidth > 0) {
           ctx.globalAlpha = alpha;
           ctx.drawImage(imgB, 0, 0, canvas.width, canvas.height);
@@ -160,8 +160,8 @@ export function HeroScrollVideo() {
     <div className="absolute inset-0">
       <canvas
         ref={canvasRef}
-        className="h-full w-full"
-        style={{ objectFit: "cover", display: "block" }}
+        className="h-full w-full object-cover"
+        style={{ display: "block" }}
       />
     </div>
   );
