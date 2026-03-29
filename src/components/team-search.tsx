@@ -89,7 +89,14 @@ interface TeamSearchProps {
 }
 
 export function TeamSearch({ locale = "tr", members }: TeamSearchProps) {
-  const staffList = members && members.length > 0 ? members : [...LEGACY_STAFF];
+  // DB üyeleri + LEGACY_STAFF birleştir, tekrarları kaldır
+  const staffList = useMemo(() => {
+    const set = new Set<string>(LEGACY_STAFF);
+    if (members) {
+      for (const name of members) set.add(name);
+    }
+    return [...set].sort((a, b) => a.localeCompare(b, "tr"));
+  }, [members]);
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const isTr = locale !== "en";
@@ -139,7 +146,7 @@ export function TeamSearch({ locale = "tr", members }: TeamSearchProps) {
     const q = query.trim();
     if (q.length === 0) return staffList.slice();
     return staffList.filter((name) => normalize(name).includes(normalize(q)));
-  }, [query]);
+  }, [query, staffList]);
 
   return (
     <>
