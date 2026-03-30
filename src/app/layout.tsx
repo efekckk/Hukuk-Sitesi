@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     template: "%s | AEB Avukatlık Ortaklığı",
   },
   description:
-    "Aşçı Etçi Benglian Avukatlık Ortaklığı — ticaret hukuku, uyuşmazlık çözümü ve kurumsal danışmanlık alanlarında uzmanlaşmış bağımsız hukuk bürosu.",
+    "Aşcı Etci Benglian Avukatlık Ortaklığı — ticaret hukuku, uyuşmazlık çözümü ve kurumsal danışmanlık alanlarında uzmanlaşmış bağımsız hukuk bürosu.",
 };
 
 export default function RootLayout({

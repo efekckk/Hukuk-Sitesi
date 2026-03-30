@@ -9,7 +9,7 @@ export function FirmIntro({ locale = "tr" }: FirmIntroProps) {
 
   const p1 = isTr
     ? "Aşcı Etci Benglian Avukatlık Ortaklığı, bütün hukuki alanlarda, uzmanlık ve deneyimi bir araya getiren bağımsız bir avukatlık bürosudur."
-    : "Aşçı Etci Benglian Law Partnership is an independent law firm that brings together expertise and experience in all areas of law.";
+    : "Aşcı Etci Benglian Law Partnership is an independent law firm that brings together expertise and experience in all areas of law.";
 
   const p2 = isTr
     ? "AEB Avukatlık Bürosu olarak özel kişilerden, orta ve büyük ölçekli şirketlere, devlet kuruluşlarından uluslararası ve küresel holdinglere kadar herkesin hukuki ihtiyaçlarına yönelik hizmet vermekteyiz."

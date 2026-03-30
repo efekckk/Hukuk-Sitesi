@@ -105,6 +105,7 @@ async function main() {
       specialtyTr: "Avukatlık Ortaklığı",
       specialtyEn: "Law Partnership",
       image: "/images/turgay-asci.webp",
+      isPartner: true,
       order: 1,
     },
     {
@@ -115,6 +116,7 @@ async function main() {
       specialtyTr: "Avukatlık Ortaklığı",
       specialtyEn: "Law Partnership",
       image: "/images/baris-etci.webp",
+      isPartner: true,
       order: 2,
     },
     {
@@ -125,6 +127,7 @@ async function main() {
       specialtyTr: "Avukatlık Ortaklığı",
       specialtyEn: "Law Partnership",
       image: "/images/saro-benglian.webp",
+      isPartner: true,
       order: 3,
     },
   ];
@@ -852,7 +855,7 @@ async function main() {
         linkTextEn: "Make an Appointment",
         startDate: new Date("2026-01-01"),
         endDate: new Date("2026-12-31"),
-        isActive: true,
+        isActive: false,
         order: 1,
       },
     });

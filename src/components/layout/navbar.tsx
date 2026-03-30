@@ -67,12 +67,12 @@ export function Navbar({ practiceAreas }: { practiceAreas?: PracticeAreaNav[] })
         "transition-all duration-500",
         scrolled ? "bg-[#0a0a0a]/95 backdrop-blur-xl shadow-[0_1px_0_rgba(255,255,255,0.06)]" : "bg-transparent"
       )}>
-        <div style={{ padding: "0 3rem" }}>
+        <div style={{ padding: "0 clamp(1rem, 3vw, 3rem)" }}>
           <div className="flex items-center justify-between" style={{ height: "5rem" }}>
 
             {/* Logo */}
             <Link href="/" className="shrink-0">
-              <img src="/images/LOGO.webp" alt="AEB Avukatlık Ortaklığı" style={{ height: "4rem", width: "auto" }} />
+              <img src="/images/LOGO.webp" alt="AEB Avukatlık Ortaklığı" style={{ height: "clamp(3rem, 5vw, 4rem)", width: "auto" }} />
             </Link>
 
             {/* Desktop Nav */}
