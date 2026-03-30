@@ -46,6 +46,9 @@ COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
 
+# Copy bcryptjs (needed for seed at runtime)
+COPY --from=builder /app/node_modules/bcryptjs ./node_modules/bcryptjs
+
 # Uploads klasörü
 RUN mkdir -p ./public/uploads && chown -R nextjs:nodejs ./public/uploads
 
