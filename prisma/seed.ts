@@ -62,7 +62,7 @@ async function main() {
     { key: "site_description", valueTr: "Profesyonel Hukuki Danışmanlık", valueEn: "Professional Legal Consulting", group: "general" },
     { key: "phone", valueTr: "+90 (212) 266 00 76", group: "contact" },
     { key: "phone_raw", valueTr: "+902122660076", group: "contact" },
-    { key: "whatsapp", valueTr: "+905307704139", group: "contact" },
+    { key: "whatsapp", valueTr: "+905550297121", group: "contact" },
     { key: "email", valueTr: "info@aebhukuk.com", group: "contact" },
     { key: "address", valueTr: "AEB Hukuk\nKEY Plaza, Merkez, İstiklal Sokağı\nNo:11 K:3-4, 34384\nŞişli / İstanbul", valueEn: "AEB Hukuk\nKEY Plaza, Merkez, İstiklal Sokağı\nNo:11 K:3-4, 34384\nŞişli / Istanbul", group: "contact" },
     { key: "maps_embed_url", valueTr: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1264.8024832187223!2d28.987225782511512!3d41.06409113978253!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab7232a06a9c7%3A0x17f8412d21270583!2sAEB%20Hukuk!5e0!3m2!1str!2str!4v1773399491463!5m2!1str!2str", group: "contact" },
