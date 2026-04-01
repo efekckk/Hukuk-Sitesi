@@ -1,6 +1,6 @@
 {
   "topBar": {
-    "phone": "+90 212 123 45 67",
+    "phone": "+90 (212) 266 00 76",
     "email": "info@hukukburosu.com",
     "address": "Levent, Besiktas/Istanbul"
   },
@@ -62,7 +62,7 @@
       "phone": "Phone",
       "email": "Email",
       "hoursValue": "Monday - Friday: 09:00 - 18:00",
-      "saturday": "Saturday: By Appointment",
+      "saturday": "Saturday - Sunday: Closed",
       "hours": "Working Hours"
     },
     "title": "Contact",
@@ -82,9 +82,9 @@
   "storyTabs": {
     "contact": {
       "address": "Levent Mah. Büyükdere Cad. No:123, Beşiktaş/İstanbul",
-      "phone": "+90 212 123 45 67",
+      "phone": "+90 (212) 266 00 76",
       "email": "info@hukukburosu.com",
-      "saturday": "Saturday: By Appointment",
+      "saturday": "Saturday - Sunday: Closed",
       "title": "Contact us",
       "hours": "Monday - Friday: 09:00 - 18:00",
       "cta": "Contact Page"
@@ -220,8 +220,8 @@
     "storyTitle": "Over 20 Years of Experience",
     "description": "With over 20 years of experience, we provide our clients with the highest quality legal advice and advocacy services. With our commitment to ethical values and client satisfaction-oriented approach, we are your reliable solution partner in your legal processes.",
     "experience": "20+ Years Experience",
-    "cases": "5000+ Successful Cases",
-    "clients": "3000+ Happy Clients",
+    "cases": "1200+ Successful Cases",
+    "clients": "950+ Happy Clients",
     "team": "Our Team",
     "teamSubtitle": "Our experienced and coordinated team manages the most complex legal processes with a solution-oriented approach for our clients.",
     "teamCta": "See Full Team",
@@ -337,24 +337,36 @@
     "viewAll": "View All Questions",
     "items": [
       {
-        "question": "Is the first call free?",
-        "answer": "Yes, our first legal consultation is free of charge. During this consultation, we will assess your case and determine the most appropriate solution for you."
+        "question": "Is the initial legal consultation free of charge?",
+        "answer": "Yes, our first consultation is completely free. During this meeting, we comprehensively evaluate your legal situation, inform you about potential processes and strategies, and determine the most suitable course of action together. The consultation takes approximately 30-45 minutes and can be conducted in person or online."
       },
       {
-        "question": "How long does the court process take?",
-        "answer": "The duration of the case depends on the type and complexity of the case. We will inform you about an estimated duration at the first consultation."
+        "question": "How long does a typical court case take?",
+        "answer": "Case durations vary depending on the type of case, the court's workload, and the complexity of the file. For instance, uncontested divorce cases may be resolved within a few weeks, while commercial disputes or serious criminal cases may take several years. We share the estimated timeline of your case in detail during the initial consultation."
       },
       {
-        "question": "How are attorneys' fees determined?",
-        "answer": "Attorney fees are determined according to the nature of the case. Based on the minimum fee tariff of the Istanbul Bar Association, a fee proposal is presented in accordance with the characteristics of your case."
-      },
-      {
-        "question": "Do you provide online counseling services?",
-        "answer": "Yes, we provide online legal advice to our domestic and international clients via video conferencing."
+        "question": "How are attorney fees determined?",
+        "answer": "Our fees are determined based on the Istanbul Bar Association's minimum fee tariff, taking into account the nature, scope, and estimated duration of the case. We provide a transparent fee proposal during the initial consultation and inform you about payment plan options. We do not apply surprise costs or hidden fees."
       },
       {
         "question": "In which areas of law do you provide services?",
-        "answer": "We provide a wide range of legal services including criminal law, family law, labor law, commercial law, administrative law and real estate law."
+        "answer": "We offer comprehensive legal services in corporate and commercial law, mergers and acquisitions, competition law, real estate, capital markets, banking and finance, energy and infrastructure, project finance, tax disputes, labor law, criminal law, family law, and commercial and administrative arbitration."
+      },
+      {
+        "question": "Do you offer online legal consultation services?",
+        "answer": "Yes, we provide online legal consultation services to our domestic and international clients through secure video conferencing platforms. Regardless of your geographic location, it is possible to receive the same quality of service as an in-person meeting. Please contact us to schedule an online consultation."
+      },
+      {
+        "question": "How do you keep me informed during the case process?",
+        "answer": "We proactively inform our clients at every stage of the process. We provide regular updates on hearing dates, petition processes, and court decisions. Additionally, we offer a direct communication channel through a dedicated attorney assigned to each client, ensuring quick responses to your questions."
+      },
+      {
+        "question": "Do you provide corporate legal advisory services for companies?",
+        "answer": "Yes, we offer corporate advisory services to a wide range of businesses, from SMEs to holding companies. We proactively manage your company's legal needs in areas such as company formation, contract preparation and negotiation, compliance processes, labor law advisory, and commercial dispute management."
+      },
+      {
+        "question": "What should I do in urgent legal situations?",
+        "answer": "In cases of detention, arrest, or situations requiring urgent legal intervention, you can reach us by phone. We also provide support for emergency situations outside of business hours. Our experienced criminal law team takes immediate action to protect your rights as quickly as possible."
       }
     ]
   },

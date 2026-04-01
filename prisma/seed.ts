@@ -67,9 +67,9 @@ async function main() {
     { key: "address", valueTr: "AEB Hukuk\nKEY Plaza, Merkez, İstiklal Sokağı\nNo:11 K:3-4, 34384\nŞişli / İstanbul", valueEn: "AEB Hukuk\nKEY Plaza, Merkez, İstiklal Sokağı\nNo:11 K:3-4, 34384\nŞişli / Istanbul", group: "contact" },
     { key: "maps_embed_url", valueTr: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1264.8024832187223!2d28.987225782511512!3d41.06409113978253!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cab7232a06a9c7%3A0x17f8412d21270583!2sAEB%20Hukuk!5e0!3m2!1str!2str!4v1773399491463!5m2!1str!2str", group: "contact" },
     { key: "working_hours", valueTr: "Pazartesi - Cuma: 09:00 - 18:00", valueEn: "Monday - Friday: 09:00 - 18:00", group: "contact" },
-    { key: "working_hours_saturday", valueTr: "Cumartesi: Randevu ile", valueEn: "Saturday: By Appointment", group: "contact" },
+    { key: "working_hours_saturday", valueTr: "Cumartesi - Pazar: Kapalı", valueEn: "Saturday - Sunday: Closed", group: "contact" },
     // Stats
-    { key: "stat_experience_value", valueTr: "15", group: "stats" },
+    { key: "stat_experience_value", valueTr: "20", group: "stats" },
     { key: "stat_experience_suffix", valueTr: "+", group: "stats" },
     { key: "stat_experience_label", valueTr: "Yıllık Tecrübe", valueEn: "Years of Experience", group: "stats" },
     { key: "stat_cases_value", valueTr: "1200", group: "stats" },

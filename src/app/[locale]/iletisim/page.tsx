@@ -19,8 +19,8 @@ export default async function ContactPage({ params }: ContactPageProps) {
   const address = (locale === "en" && settingsMap.address?.valueEn)
     ? settingsMap.address.valueEn
     : settingsMap.address?.valueTr || "AEB Hukuk\nKEY Plaza, Merkez, İstiklal Sokağı No:11 K:3-4, 34384 Şişli / İstanbul";
-  const phone = settingsMap.phone?.valueTr || "+90 212 123 45 67";
-  const phoneRaw = settingsMap.phone_raw?.valueTr || "+902121234567";
+  const phone = settingsMap.phone?.valueTr || "+90 (212) 266 00 76";
+  const phoneRaw = settingsMap.phone_raw?.valueTr || "+902122660076";
   const email = settingsMap.email?.valueTr || "info@aebhukuk.com";
   const workingHours = (locale === "en" && settingsMap.working_hours?.valueEn)
     ? settingsMap.working_hours.valueEn

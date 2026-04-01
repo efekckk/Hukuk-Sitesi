@@ -4,7 +4,7 @@
     "description": "Uzman avukat kadromuzla ceza hukuku, aile hukuku, iş hukuku ve daha birçok alanda profesyonel hukuki danışmanlık hizmeti sunuyoruz."
   },
   "topBar": {
-    "phone": "+90 212 123 45 67",
+    "phone": "+90 (212) 266 00 76",
     "email": "info@hukukburosu.com",
     "address": "Levent, Besiktas/Istanbul"
   },
@@ -114,8 +114,8 @@
     "storyTitle": "20 Yılı Aşkın Deneyim",
     "description": "20 yılı aşkın tecrübemizle, müvekkillerimize en yüksek kalitede hukuki danışmanlık ve avukatlık hizmeti sunuyoruz. Etik değerlere bağlılığımız ve müvekkil memnuniyeti odaklı yaklaşımımızla, hukuki süreçlerinizde güvenilir çözüm ortağınızız.",
     "experience": "20+ Yıl Tecrübe",
-    "cases": "5000+ Başarılı Dava",
-    "clients": "3000+ Mutlu Müvekkil",
+    "cases": "1200+ Başarılı Dava",
+    "clients": "950+ Mutlu Müvekkil",
     "team": "Ekibimiz",
     "teamSubtitle": "Deneyimli ve koordineli ekibimiz, müvekkillerimizin ihtiyaç duyduğu en karmaşık hukuki süreçleri çözüm odaklı bir anlayışla yönetir.",
     "teamCta": "Tüm Ekibi Gör",
@@ -178,7 +178,7 @@
       "email": "E-posta",
       "hours": "Çalışma Saatleri",
       "hoursValue": "Pazartesi - Cuma: 09:00 - 18:00",
-      "saturday": "Cumartesi: Randevu ile"
+      "saturday": "Cumartesi - Pazar: Kapalı"
     }
   },
   "blog": {
@@ -265,10 +265,10 @@
     "contact": {
       "title": "Bize Ulaşın",
       "address": "Levent Mah. Büyükdere Cad. No:123, Beşiktaş/İstanbul",
-      "phone": "+90 212 123 45 67",
+      "phone": "+90 (212) 266 00 76",
       "email": "info@hukukburosu.com",
       "hours": "Pazartesi - Cuma: 09:00 - 18:00",
-      "saturday": "Cumartesi: Randevu ile",
+      "saturday": "Cumartesi - Pazar: Kapalı",
       "cta": "İletişim Sayfası"
     }
   },
@@ -337,24 +337,36 @@
     "viewAll": "Tüm Sorular",
     "items": [
       {
-        "question": "İlk görüşme ücretsiz mi?",
-        "answer": "Evet, ilk hukuki danışmanlık görüşmemiz ücretsizdir. Bu görüşmede davanızı değerlendirir ve size en uygun çözüm yolunu belirleriz."
+        "question": "İlk hukuki danışmanlık görüşmesi ücretsiz mi?",
+        "answer": "Evet, ilk görüşmemiz ücretsizdir. Bu görüşmede hukuki durumunuzu kapsamlı bir şekilde değerlendiriyor, olası süreçler ve stratejiler hakkında sizi bilgilendiriyor ve size en uygun çözüm yolunu birlikte belirliyoruz. Görüşme yaklaşık 30-45 dakika sürmekte olup yüz yüze veya online olarak gerçekleştirilebilir."
       },
       {
-        "question": "Dava süreci ne kadar sürer?",
-        "answer": "Dava süresi, davanın türüne ve karmaşıklığına göre değişir. İlk görüşmede tahmini bir süre hakkında sizi bilgilendiririz."
+        "question": "Bir dava süreci ortalama ne kadar sürer?",
+        "answer": "Dava süreleri, davanın türüne, mahkemenin iş yoğunluğuna ve dosyanın karmaşıklığına göre değişiklik gösterir. Örneğin, anlaşmalı boşanma davaları birkaç hafta içinde sonuçlanabilirken; ticari uyuşmazlıklar veya ağır ceza davaları birkaç yılı bulabilir. İlk görüşmede davanızın öngörülen süresini detaylı olarak paylaşıyoruz."
       },
       {
         "question": "Avukatlık ücretleri nasıl belirlenir?",
-        "answer": "Avukatlık ücretleri, davanın niteliğine göre belirlenir. İstanbul Barosu asgari ücret tarifesi temel alınarak, davanızın özelliklerine uygun bir ücret teklifi sunulur."
-      },
-      {
-        "question": "Online danışmanlık hizmeti veriyor musunuz?",
-        "answer": "Evet, yurt içi ve yurt dışındaki müvekkillerimize video konferans aracılığıyla online hukuki danışmanlık hizmeti sunmaktayız."
+        "answer": "Ücretlerimiz, İstanbul Barosu asgari ücret tarifesi esas alınarak davanın niteliğine, kapsamına ve tahmini süresine göre belirlenir. İlk görüşmede şeffaf bir ücret teklifi sunuyor ve ödeme planı seçenekleri hakkında sizi bilgilendiriyoruz. Sürpriz maliyet veya gizli ücret uygulamıyoruz."
       },
       {
         "question": "Hangi hukuk alanlarında hizmet veriyorsunuz?",
-        "answer": "Ceza hukuku, aile hukuku, iş hukuku, ticaret hukuku, idare hukuku ve gayrimenkul hukuku başta olmak üzere geniş bir yelpazede hukuki hizmet sunmaktayız."
+        "answer": "Ticaret ve şirketler hukuku, birleşme ve devralmalar, rekabet hukuku, gayrimenkul, sermaye piyasaları, bankacılık ve finans, enerji ve altyapı, proje finansmanı, vergi uyuşmazlıkları, iş hukuku, ceza hukuku, aile hukuku ile ticari ve idari tahkim alanlarında kapsamlı hukuki hizmet sunmaktayız."
+      },
+      {
+        "question": "Online hukuki danışmanlık hizmeti sunuyor musunuz?",
+        "answer": "Evet, yurt içi ve yurt dışındaki müvekkillerimize güvenli video konferans platformları üzerinden online hukuki danışmanlık hizmeti veriyoruz. Coğrafi konumunuz fark etmeksizin, yüz yüze görüşmeyle aynı kalitede hizmet almak mümkündür. Online görüşme için randevu almak üzere bizimle iletişime geçebilirsiniz."
+      },
+      {
+        "question": "Dava sürecinde beni nasıl bilgilendiriyorsunuz?",
+        "answer": "Müvekkillerimizi sürecin her aşamasında proaktif olarak bilgilendiriyoruz. Duruşma tarihleri, dilekçe süreçleri ve mahkeme kararları hakkında düzenli güncellemeler sağlıyoruz. Ayrıca her müvekkilimize atanmış bir avukat üzerinden doğrudan iletişim kanalı sunarak sorularınıza hızlı yanıt veriyoruz."
+      },
+      {
+        "question": "Şirketlere özel kurumsal hukuk danışmanlığı veriyor musunuz?",
+        "answer": "Evet, KOBİ'lerden holdinglere kadar geniş bir yelpazede kurumsal danışmanlık hizmeti sunuyoruz. Şirket kuruluşu, sözleşme hazırlığı ve müzakeresi, uyum süreçleri, iş hukuku danışmanlığı ve ticari uyuşmazlık yönetimi gibi konularda şirketinizin hukuki ihtiyaçlarını proaktif olarak yönetiyoruz."
+      },
+      {
+        "question": "Acil hukuki durumlarda ne yapmalıyım?",
+        "answer": "Gözaltı, tutuklama veya acil bir hukuki müdahale gerektiren durumlarda bizi telefon aracılığıyla ulaşabilirsiniz. Mesai saatleri dışında da acil durumlar için destek sağlıyoruz. Ceza hukuku alanındaki deneyimli ekibimiz, haklarınızı en hızlı şekilde korumak için derhal harekete geçer."
       }
     ]
   },
