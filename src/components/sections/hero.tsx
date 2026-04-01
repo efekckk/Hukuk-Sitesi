@@ -8,9 +8,14 @@ interface HeroProps {
 
 export async function Hero({ locale = "tr" }: HeroProps) {
   // Hero metinlerini DB'den çek, yoksa sabit fallback
-  let title = "Hukuki Süreçlerde\nStratejik Güç Ortağınız";
+  let title =
+    locale === "en"
+      ? "Your Strategic Partner\nin Legal Processes"
+      : "Hukuki Süreçlerde\nStratejik Güç Ortağınız";
   let subtitle =
-    "Karmaşık hukuki süreçleri güçlü analiz ve stratejik temsil anlayışıyla yönetiyoruz. Müvekkillerimizin haklarını korurken sürdürülebilir ve etkili çözümler üretmeyi hedefliyoruz.";
+    locale === "en"
+      ? "We manage complex legal processes with strong analysis and a strategic representation approach. We aim to produce sustainable and effective solutions while protecting our clients' rights."
+      : "Karmaşık hukuki süreçleri güçlü analiz ve stratejik temsil anlayışıyla yönetiyoruz. Müvekkillerimizin haklarını korurken sürdürülebilir ve etkili çözümler üretmeyi hedefliyoruz.";
   let subtitle2 = "";
 
   try {

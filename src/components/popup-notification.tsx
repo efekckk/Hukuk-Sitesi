@@ -98,7 +98,7 @@ export function PopupNotification({ popups, locale }: PopupNotificationProps) {
             <button
               onClick={dismiss}
               className="shrink-0 ml-3 p-1 rounded-full hover:bg-white/10 transition-colors"
-              aria-label="Kapat"
+              aria-label={locale === "en" ? "Close" : "Kapat"}
             >
               <X className="h-4 w-4" />
             </button>

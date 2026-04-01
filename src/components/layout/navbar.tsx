@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { usePathname } from "next/navigation";
 import { Link } from "@/i18n/navigation";
 import { Menu, Search } from "lucide-react";
@@ -24,6 +24,8 @@ interface NavItem {
 
 export function Navbar({ practiceAreas }: { practiceAreas?: PracticeAreaNav[] }) {
   const t = useTranslations("nav");
+  const locale = useLocale();
+  const isTr = locale !== "en";
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -110,7 +112,7 @@ export function Navbar({ practiceAreas }: { practiceAreas?: PracticeAreaNav[] })
                 type="button"
                 onClick={() => setSearchOpen(true)}
                 className="flex items-center gap-2 text-white/40 hover:text-white/80 transition-colors"
-                aria-label="Ara"
+                aria-label={isTr ? "Ara" : "Search"}
               >
                 <Search style={{ width: "var(--fs-base)", height: "var(--fs-base)" }} />
                 <span className="hidden lg:inline-flex items-center tracking-widest text-white/20 border border-white/10"                   style={{ fontSize: "var(--fs-xs)", padding: "0.2em 0.4em" }}>
@@ -124,7 +126,7 @@ export function Navbar({ practiceAreas }: { practiceAreas?: PracticeAreaNav[] })
                 type="button"
                 className="lg:hidden text-white/60 hover:text-white transition-colors"
                 onClick={() => setMobileMenuOpen(true)}
-                aria-label="Menüyü aç"
+                aria-label={isTr ? "Menüyü aç" : "Open menu"}
               >
                 <Menu style={{ width: "var(--fs-xl)", height: "var(--fs-xl)" }} />
               </button>

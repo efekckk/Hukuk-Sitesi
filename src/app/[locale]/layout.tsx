@@ -51,7 +51,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
           <main className="min-h-screen" style={{ paddingTop: "clamp(3.5rem, 4.5vw, 5rem)" }}>{children}</main>
           <Footer locale={locale} />
         </div>
-        <WhatsAppButton />
+        <WhatsAppButton locale={locale} />
         <CookieConsent />
         <PopupNotification popups={dbPopups} locale={locale} />
       </SmoothScroll>

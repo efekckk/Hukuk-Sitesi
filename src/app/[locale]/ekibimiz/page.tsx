@@ -69,7 +69,7 @@ export default async function TeamPage({ params }: TeamPageProps) {
                   )}
                 </div>
                 <p className="font-serif font-light text-white/80 italic" style={{ fontSize: "clamp(0.7rem, 2.8vw, 0.95rem)", marginTop: "0.4rem" }}>
-                  Av. {m.name}
+                  {isTr ? "Av." : "Atty."} {m.name}
                 </p>
               </div>
             ))}
@@ -97,7 +97,7 @@ export default async function TeamPage({ params }: TeamPageProps) {
               </div>
               <div style={{ marginTop: "0.75rem" }}>
                 <p className="font-serif font-light text-white/80 italic" style={{ fontSize: "var(--fs-lg)" }}>
-                  Av. {members[0].name}
+                  {isTr ? "Av." : "Atty."} {members[0].name}
                 </p>
               </div>
             </div>
@@ -117,7 +117,7 @@ export default async function TeamPage({ params }: TeamPageProps) {
               </div>
               <div style={{ marginTop: "0.75rem" }}>
                 <p className="font-serif font-light text-white/80 italic" style={{ fontSize: "var(--fs-lg)" }}>
-                  Av. {members[1].name}
+                  {isTr ? "Av." : "Atty."} {members[1].name}
                 </p>
               </div>
             </div>
@@ -150,7 +150,7 @@ export default async function TeamPage({ params }: TeamPageProps) {
               </div>
               <div style={{ marginTop: "0.75rem" }}>
                 <p className="font-serif font-light text-white/80 italic" style={{ fontSize: "var(--fs-lg)" }}>
-                  Av. {members[2].name}
+                  {isTr ? "Av." : "Atty."} {members[2].name}
                 </p>
               </div>
             </div>
@@ -167,7 +167,7 @@ export default async function TeamPage({ params }: TeamPageProps) {
               AŞCI{" "}<span className="hidden sm:inline">&nbsp;&nbsp;</span>ETCİ{" "}<span className="hidden sm:inline">&nbsp;&nbsp;</span>BENGLİAN
             </p>
             <p className="tracking-[0.4em] uppercase text-black/40" style={{ fontSize: "var(--fs-md)", marginTop: "var(--space-xs)" }}>
-              Avukatlık Ortaklığı
+              {isTr ? "Avukatlık Ortaklığı" : "Law Partnership"}
             </p>
           </div>
 

@@ -90,7 +90,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
             <div className="relative aspect-[4/3] overflow-hidden bg-[#111]">
               <img
                 src="/images/about-building.webp"
-                alt="AEB Hukuk Ofisi"
+                alt={isTr ? "AEB Hukuk Ofisi" : "AEB Law Office"}
                 className="h-full w-full object-cover"
                 style={{ filter: "grayscale(15%) brightness(0.7)" }}
               />

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Loader2, CheckCircle, X } from "lucide-react";
 import DOMPurify from "isomorphic-dompurify";
@@ -12,19 +12,24 @@ const fieldClass =
 
 const labelClass = "block text-xs tracking-[0.15em] uppercase text-black/40 mb-2";
 
-function KvkkModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+function KvkkModal({ open, onClose, locale }: { open: boolean; onClose: () => void; locale: string }) {
   const [content, setContent] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const isTr = locale !== "en";
 
   useEffect(() => {
     if (!open || content) return;
     setLoading(true);
     fetch("/api/page-content?slug=kvkk")
       .then((r) => r.json())
-      .then((data) => setContent(data.contentTr || data.data?.contentTr || ""))
-      .catch(() => setContent("İçerik yüklenemedi."))
+      .then((data) => {
+        const raw = data.data || data;
+        const text = (!isTr && raw.contentEn) ? raw.contentEn : raw.contentTr || "";
+        setContent(text);
+      })
+      .catch(() => setContent(isTr ? "İçerik yüklenemedi." : "Content could not be loaded."))
       .finally(() => setLoading(false));
-  }, [open, content]);
+  }, [open, content, isTr]);
 
   useEffect(() => {
     if (!open) return;
@@ -61,7 +66,7 @@ function KvkkModal({ open, onClose }: { open: boolean; onClose: () => void }) {
         {/* Header */}
         <div className="flex items-center justify-between border-b border-black/10" style={{ padding: "1rem 1.5rem" }}>
           <h2 className="font-serif font-light text-[#1a1a1a]" style={{ fontSize: "var(--fs-lg)" }}>
-            Kişisel Verilerin Korunması
+            {isTr ? "Kişisel Verilerin Korunması" : "Personal Data Protection"}
           </h2>
           <button onClick={onClose} className="text-black/30 hover:text-black transition-colors cursor-pointer">
             <X style={{ width: "1.25rem", height: "1.25rem" }} />
@@ -79,7 +84,7 @@ function KvkkModal({ open, onClose }: { open: boolean; onClose: () => void }) {
               dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(content) }}
             />
           ) : (
-            <p className="text-black/40">İçerik bulunamadı.</p>
+            <p className="text-black/40">{isTr ? "İçerik bulunamadı." : "Content not found."}</p>
           )}
         </div>
       </div>
@@ -89,6 +94,7 @@ function KvkkModal({ open, onClose }: { open: boolean; onClose: () => void }) {
 
 export function ContactForm() {
   const t = useTranslations("contact.form");
+  const locale = useLocale();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState("");
@@ -207,7 +213,7 @@ export function ContactForm() {
         </label>
       </div>
 
-      <KvkkModal open={kvkkOpen} onClose={closeKvkk} />
+      <KvkkModal open={kvkkOpen} onClose={closeKvkk} locale={locale} />
 
       {error && (
         <p className="text-xs text-red-700 border-l-2 border-red-300 pl-3">{error}</p>

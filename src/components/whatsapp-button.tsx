@@ -8,7 +8,7 @@ function WhatsAppIcon({ className }: { className?: string }) {
   );
 }
 
-export function WhatsAppButton() {
+export function WhatsAppButton({ locale }: { locale?: string }) {
   const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "+905551234567";
   const cleanNumber = whatsappNumber.replace(/[^0-9]/g, "");
 
@@ -18,7 +18,7 @@ export function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       className="fixed bottom-6 right-6 z-40 bg-[#25D366] hover:bg-[#1da851] text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
-      aria-label="WhatsApp ile iletişime geçin"
+      aria-label={locale === "en" ? "Contact us via WhatsApp" : "WhatsApp ile iletişime geçin"}
     >
       <WhatsAppIcon className="w-6 h-6" />
     </a>

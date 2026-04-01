@@ -215,24 +215,37 @@
   "about": {
     "title": "About Us",
     "subtitle": "Legal solutions with experience and confidence",
+    "heroTitle": "About Us",
+    "tagline": "GET TO KNOW US",
+    "storyTitle": "Over 20 Years of Experience",
     "description": "With over 20 years of experience, we provide our clients with the highest quality legal advice and advocacy services. With our commitment to ethical values and client satisfaction-oriented approach, we are your reliable solution partner in your legal processes.",
     "experience": "20+ Years Experience",
     "cases": "5000+ Successful Cases",
     "clients": "3000+ Happy Clients",
     "team": "Our Team",
+    "teamSubtitle": "Our experienced and coordinated team manages the most complex legal processes with a solution-oriented approach for our clients.",
+    "teamCta": "See Full Team",
+    "vision": {
+      "title": "Our Vision",
+      "description": "As one of Turkey's leading independent law firms, to provide legal services at international standards and to continue being our clients' trusted solution partner."
+    },
+    "mission": {
+      "title": "Our Mission",
+      "description": "To protect our clients' rights in the most effective way at every stage of legal processes, and to produce sustainable solutions while adhering to transparent and ethical values."
+    },
     "values": {
       "title": "Our Values",
       "integrity": {
-        "title": "Honesty",
-        "description": "We always take a transparent and honest approach."
+        "title": "Honesty and Transparency",
+        "description": "We always take a transparent and honest approach to earn our clients' trust."
       },
       "expertise": {
         "title": "Specialization",
         "description": "We continuously improve ourselves and provide services with the most up-to-date legal information."
       },
       "dedication": {
-        "title": "Dedication",
-        "description": "We embrace every case as our own."
+        "title": "Client Focus",
+        "description": "We embrace every case as our own and work with a results-oriented approach."
       }
     }
   },

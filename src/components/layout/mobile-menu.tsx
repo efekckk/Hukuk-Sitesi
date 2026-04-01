@@ -126,7 +126,7 @@ export function MobileMenu({ isOpen, onClose, practiceAreas, onSearchOpen }: Mob
             type="button"
             className="p-1 text-white/40 hover:text-white transition-colors"
             onClick={onClose}
-            aria-label="Kapat"
+            aria-label={isTr ? "Kapat" : "Close"}
           >
             <X className="h-5 w-5" />
           </button>

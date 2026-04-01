@@ -133,7 +133,9 @@ export async function Footer({ locale = "tr" }: FooterProps) {
       <div className="border-t border-white/[0.08]">
         <div className="mx-auto max-w-7xl" style={{ padding: "clamp(0.75rem, 1.2vw, 1.25rem) var(--section-px)" }}>
           <p className="text-center italic text-white/25" style={{ fontSize: "var(--fs-micro)" }}>
-            2025 - Bu internet sitesinde yer alan tüm bilgiler ve logoya ilişkin tüm fikir mülkiyet hakları AEB Avukatlık Ortaklığı&apos;na aittir.
+            {isTr
+              ? "2026 - Bu internet sitesinde yer alan tüm bilgiler ve logoya ilişkin tüm fikri mülkiyet hakları AEB Avukatlık Ortaklığı'na aittir."
+              : "2026 - All information and logos on this website are the intellectual property of AEB Law Partnership. All rights reserved."}
           </p>
         </div>
       </div>
